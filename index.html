@@ -12,36 +12,69 @@
       <a href="#contact">Contact</a>
       <a href="#about">About</a>
     </div>
+
+
   </head>
+
   <body style="background-color:#f3f3f3">
   </br>
+  asdfksdlfnosef
+  <div data-src="content.html"></div>
     <div style="padding-left: 10px;">
-      <button id="electrode0">Erase</br>Electrode</br></br></button>
-      <button id="electrode1">Red</br>Electrode</button>
-      <button id="electrode2">Green</br>Electrode</button>
-      <button id="electrode3">Blue</br>Electrode</button>
-      <button id="electrode4">Brown</br>Electrode</button>
-      <button id="brush1">1 x 1</br>Brush</button>
-      <button id="brush2">2 x 2</br>Brush</button>
-      <button id="brush3">3 x 3</br>Brush</button>
-      <button id="update" style="margin-left: 4em">Update</br>Electric</br>Fields</button>
-      <div style="margin-top:10px; vertical-align:middle">
-        <div class="slidecontainer">
-          <button id="clear">Clear</br>Electrodes</button>
-          <button id="reset">Reset</br>Electrodes</button>
-          <input padding=4 type="range" min="-20000" max="20000" value="0" class="slider" id="voltage_slider" step="1">
-          <span class="highlight"></span>
-          <input type="text" id="voltage_input" name="lname" value=0 size="4">
-          <span class="highlight"></span>
-          <output id="voltage_text">Volts</output>
-        </div>
-      </div>
+
+      
     </div>
   </br>
   <div>
-    <div style="padding: 10px;">
-      <canvas id="electrode_map" width="600" height="600" style="padding:0px"></canvas>
-      <canvas id="electric_field_map" width="600" height="600" style="padding:0px"></canvas>
+    <div style="padding: 1px;" class="flex-container">
+      <div class="flex-child">
+        <div>
+          <button id="electrode1">Red</br>Electrode</button>
+        </div>
+        <div>
+          <button id="electrode2">Green</br>Electrode</button>
+        </div>
+        <div>
+          <button id="electrode3">Blue</br>Electrode</button>
+        </div>
+        <div>
+          <button id="electrode4">Brown</br>Electrode</button>
+        </div>
+        <div>
+          <button id="electrode0" style="width:100%;"></br>Erase</br></br></button>
+        </div>
+        <div>
+          <button id="clear" style="width:100%;"></br> Clear </br> &nbsp;</button>
+        </div>
+        <div>
+          <button id="reset", style="width:100%;"></br> Reset </br> &nbsp;</button>
+        </div>
+        <div>
+          <button id="brush1", style="width:100%;">1 x 1</br>Brush</button>
+        </div>
+        <div>
+          <button id="brush2", style="width:100%;">2 x 2</br>Brush</button>
+        </div>
+        <div>
+          <button id="brush3", style="width:100%;">3 x 3</br>Brush</button>
+        </div>
+        <div>
+          <button id="update" style="width:100%;margin-top:20px">Update</br>Electric</br>Fields</button>
+        </div>
+      </div>
+      <div>
+        <canvas id="electrode_map" width="600" height="600" style="padding:0px"></canvas>
+        <canvas id="electric_field_map" width="600" height="600" style="padding:0px"></canvas>
+      </div>
+    </div>
+    <div style="margin-top:10px; vertical-align:middle">
+      <div class="slidecontainer">
+        <input padding=4 type="range" min="-20000" max="20000" value="0" class="slider" id="voltage_slider" step="1">
+        <span class="highlight"></span>
+        <input type="text" id="voltage_input" name="lname" value=0 size="4">
+        <span class="highlight"></span>
+        <output id="voltage_text">Volts</output>
+      </div>
     </div>
   </div>
     <script src="index.js"></script>

@@ -75,3 +75,17 @@ div {
     font-weight: 500;
     vertical-align: middle;
   }
+
+  .flex-container {
+    display: flex;
+}
+
+.flex-child {
+    flex: 0.05;
+    border: 4px;
+
+    margin-right: 5px;
+}  
+
+/* .flex-child:first-child { */
+/* }  */
