@@ -1,80 +1,166 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>The Ion Simulation Site</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <div class="topnav">
-      <a class="active" href="#home">Home</a>
-      <a href="#news">News</a>
-      <a href="#contact">Contact</a>
-      <a href="#about">About</a>
-    </div>
+
+<head>
+  <meta charset="UTF-8">
+  <title>The Ion Simulation Site</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- <div class="topnav">
+    <a class="active" href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+    <a href="#about">About</a>
+  </div> -->
 
 
-  </head>
+</head>
 
-  <body style="background-color:#f3f3f3">
-  </br>
-    <div style="padding-left: 10px;">
-
-      
-    </div>
-  </br>
+<body style="background-color:#f3f3f3">
   <div>
-    <div style="padding: 1px;" class="flex-container">
-      <div class="flex-child">
-        <div>
-          <button id="electrode1">Red</br>Electrode</button>
+    <button type="button" class="collapsible" id="playground">Simulation Playground</button>
+    <div class="tab">
+      <div style="padding: 1px;" class="flex-container">
+        <div style="vertical-align:middle">
+          <input padding=4 type="range" min="-20000" max="20000" value="0" class="slider" id="voltage_slider" step="1"
+            style="width: 120px">
+          <div style="width:100%;text-align: center">
+            <input type="number" style="width:65px;" id="voltage_input" name="lname" value=500 size="4" min="-20000" max="20000">
+            <span class="highlight"></span>
+            <output id="voltage_text">Volts</output>
+          </div>
         </div>
-        <div>
-          <button id="electrode2">Green</br>Electrode</button>
-        </div>
-        <div>
-          <button id="electrode3">Blue</br>Electrode</button>
-        </div>
-        <div>
-          <button id="electrode4">Brown</br>Electrode</button>
-        </div>
-        <div>
-          <button id="electrode0" style="width:100%;"></br>Erase</br></br></button>
-        </div>
-        <div>
-          <button id="clear" style="width:100%;"></br> Clear </br> &nbsp;</button>
-        </div>
-        <div>
-          <button id="reset", style="width:100%;"></br> Reset </br> &nbsp;</button>
-        </div>
-        <div>
-          <button id="brush1", style="width:100%;">1 x 1</br>Brush</button>
-        </div>
-        <div>
-          <button id="brush2", style="width:100%;">2 x 2</br>Brush</button>
-        </div>
-        <div>
-          <button id="brush3", style="width:100%;">3 x 3</br>Brush</button>
-        </div>
-        <div>
-          <button id="update" style="width:100%;margin-top:20px">Update</br>Electric</br>Fields</button>
-        </div>
+
+          <button id="clear" style="margin-left:2px;margin-right:2px">Clear</button>
+          <button id="Einzel lens" style="margin-left:2px;margin-right:2px">Einzel</br>lens</button>
+          <button id="Ion Funnel" style="margin-left:2px;margin-right:2px">Ion</br>funnel</button>
+        <button id="Quadrupole" style="margin-left:2px;margin-right:2px">Quadrupole </button>
+        <button id="Time-of-Flight" style="margin-left:2px;margin-right:2px">Time-of-Flight</button>
+        <button id="Sector" style="margin-left:2px;margin-right:2px">Sector</button>
       </div>
-      <div>
-        <canvas id="electrode_map" width="600" height="600" style="padding:0px"></canvas>
-        <canvas id="electric_field_map" width="600" height="600" style="padding:0px"></canvas>
+      <div style="padding: 1px;" class="flex-container">
+        <div class="flex-child">
+          <div>
+            <button id="electrode1" style="margin-top:2px;width:100%;">Red</br>Electrode</button>
+          </div>
+          <div>
+            <button id="electrode2" style="width:100%;">Green</br>Electrode</button>
+          </div>
+          <div>
+            <button id="electrode3" style="width:100%;">Blue</br>Electrode</button>
+          </div>
+          <div>
+            <button id="electrode4" style="width:100%;">Brown</br>Electrode</button>
+          </div>
+          <div>
+            <button id="electrode0" style="width:100%;padding-top:9px;padding-bottom:9px;">Erase</button>
+          </div>
+          <div>
+            <button id="brush1" , style="width:100%;">1 x 1</br>Brush</button>
+          </div>
+          <div>
+            <button id="brush2" , style="width:100%;">2 x 2</br>Brush</button>
+          </div>
+          <div>
+            <button id="brush3" , style="width:100%;">3 x 3</br>Brush</button>
+          </div>
+          <div>
+            <button class="specialbutton" id="update">Refine</br>Electrical</br>Fields</button>
+          </div>
+        </div>
+        <div>
+          <canvas id="electrode_map" width="600" height="600" style="padding:0px"></canvas>
+          <canvas id="electric_field_map" width="600" height="600" style="padding:0px"></canvas>
+        </div>
+        <!-- <div style="margin-left:5px;height: 100;display: flex;flex-flow: column">
+          <pre><div id="efmouse", style="font-family:monospace;"> </div></pre>
+        </div> -->
       </div>
-    </div>
-    <div style="margin-top:10px; vertical-align:middle">
-      <div class="slidecontainer">
-        <input padding=4 type="range" min="-20000" max="20000" value="0" class="slider" id="voltage_slider" step="1">
-        <span class="highlight"></span>
-        <input type="text" id="voltage_input" name="lname" value=0 size="4">
-        <span class="highlight"></span>
-        <output id="voltage_text">Volts</output>
+      <button type="button" class="collapsible" id="advanced">Advanced</button>
+      <div class="tab">
+        <div style="padding: 1px;align-items:center;" class="flex-container">
+          <div>
+            <button id="SIMION_SAVE" , style="font-family:monospace;">Save to</br>SIMION</button>
+          </div>
+          <div>
+            <button id="field_lines" style="font-family:monospace;">Draw</br>field</button>
+          </div>
+          <div>
+            <button id="apply_high" , style="margin-right:4px;margin-bottom:2px;margin-top:2px;font-family:monospace;">Apply</br>High</button>
+          </div>
+          <div>
+            <button id="apply_low" , style="margin-right:4px;margin-bottom:2px;font-family:monospace;">Apply</br>Low</button>
+          </div>
+          <div>
+            <button id="apply_sine" , style="margin-right:4px;margin-bottom:2px;font-family:monospace;">Apply</br>Sine</button>
+          </div>
+
+
+
+          <div>
+            <div>
+              <input type="number" style="width:60px;font-family:monospace;" id="sin_frequency" value=1600 size="4" min="0" max="10000">
+              <output id="frequency_output" style="margin-right:4px;font-family:monospace;">sine f (khz) </output>
+            </div>
+            <div>
+              <input type="number" style="width:60px;font-family:monospace;" id="offset" value=0 size="4" min="-10000" max="10000">
+              <output id="offset_output" style="margin-right:4px;height:60px;vertical-align:middle;font-family:monospace;">offset (V)</output>
+            </div>
+          </div>
+          
+          <div>
+            <div>
+              <input type="number" style="width:60px;" id="ion_mass" name="lname" value=100 size="2" min="0.01" max="100000.0">
+              <output id="ion_mass_output" style="margin-right:2px">Mass (Da)</output>
+            </div>
+            <div>
+              <input type="number" style="width:60px;" id="ion_charge" name="lname" value=1 size="4" min="-10" max="10">
+              <output id="ion_charge_output" style="margin-right:2px">Charge (e)</output>
+            </div>
+          </div>
+
+          <div>
+            <div>
+              <input type="number" style="width:60px;font-family:monospace;" id="ion_x_velocity" name="lname" value=0 size="4" min="-100", max="100">
+              <output id="ion_x_velocity_output" style="margin-right:2px">x vel m/ms</output>
+            </div>
+            <div>
+              <input type="number" style="width:60px;font-family:monospace;" id="ion_y_velocity" name="lname" value=0 size="4" min="-100" max="100">
+              <output id="ion_y_velocity_output" style="margin-right:2px">y vel m/ms</output>
+            </div>
+          </div>
+
+          <div>
+            <div>
+              <input type="number" style="width:60px;font-family:monospace;" id="number" name="lname" value=1 size="4" min="1" max="50">
+              <output id="ion_x_velocity_output">Count</output>
+            </div>
+            <div>
+              <input type="number" style="width:60px;font-family:monospace;" id="randomness" name="lname" value=0 size="4" min="0" max="100">
+              <output id="ion_x_velocity_output">Random (%)</output>
+            </div>
+          </div>
+
+            <div id="status", style="font-family:monospace;margin-left:30px;margin-top:0px;margin-bottom:0px;">0 μs</div>
+          <div>
+          </div>
+        </div>
+        <div style="padding: 1px;" class="flex-container">
+          <div>
+            <canvas id="time_line" width="900" height="120" style="padding:0px"></canvas>
+          </div>
+          <div>
+            <pre><code id="splatlog", style="padding:0px;margin-top:0px"></code></pre>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-    <script src="index.js"></script>
-  </body>
+  <div>
+    Here is some text
+  </div>
+  <script src="index.js"></script>
+</body>
+
 </html>
