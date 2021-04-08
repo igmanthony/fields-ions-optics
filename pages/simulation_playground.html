@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="header.html"></script>
+</head>
+
+<body>
+  <div class="actual_body">
+    <h1>Getting started</h1>
+    <h2>Painting electrodes and flying ions</h2>
+    <p>
+      This site is built around the Simulation Playground and many of the examples intend that you open the Playground
+      up and try them out. Ion simulations are fun! That said, hopefully this site should be understandable even if you
+      never touch the Playground. The basic playground should be intuitive enough to use that <em>you don’t need to read
+        to this section.</em> However, if something is not clear, or if you’d like to know more about the function of
+      something in the playground, please read on. In particular, see the <a href="#adv">advanced section</a> for
+      information on content below the “Advanced” tab.
+    </p>
+    <aside>
+      As the Playground is not professional software, it may still have a few minor bugs or glitches. If you notice that
+      something strange is happening, consider reloading the page. Your work in the Playground will be erased but any
+      issues should clear up.
+    </aside>
+    <p>
+      Clicking on the Simulation Playground button opens up the playground. Clicking again closes it. The Playground is
+      best interacted with wide-enough screens so that the two canvases (white and rainbow-colored) are side-by-side.
+    </p>
+    <div style="text-align:center;width: 90%;">
+      <button type="button" class="mocklapsible">Simulation Playground</button>
+    </div>
+    <p>
+      The buttons on the left-side of the Playground all deal with creating electrodes. Only four electrodes can be
+      defined and each one has a color: red, green, blue, or brown. Each electrode also has a potential, a voltage,
+      associated with it. By default, these voltages are 500 V, 1000 V, -500 V, and -1000 V, respectively.
+    </p>
+    <div class="flex-child" style="text-align:center;width: 90%;">
+      <button style="background-color:#f44336;">Red</br>Electrode</br>500 V</button>
+      <button style="background-color:#4CAF50;">Green</br>Electrode</br>1000 V</button>
+      <button style="background-color:#2196F3;">Blue</br>Electrode</br>-500 V</button>
+      <button style="background-color:#795548;">Brown</br>Electrode</br>-1000V</button>
+    </div>
+    <p>
+      Each electrode’s voltage can be changed to a value between -20,000 and 20,000 V. To change the value of an
+      electrode, select it (red should be selected by default) and use either the slider or number input in the top-left
+      corner of the Playground to change the voltage value.
+    </p>
+    <div class="flex-child" style="text-align:center;width: 90%;">
+      <div style="vertical-align:middle">
+        <input padding=4 type="range" min="0" max="1000" value="500" class="slider" step="1" style="width: 120px">
+        <div style="width:100%;text-align: center">
+          <input type="number" value=500 size="4" min="500" max="500">
+          <output id="voltage_text">Volts</output>
+        </div>
+      </div>
+    </div>
+    <p>
+      You can paint with the selected electrode by clicking on the electrode canvas and dragging the cursor around.
+    </p>
+    <aside>
+      The electrode canvas for painting electrodes represents a 200×200&nbsp;mm area. There are 100×100 paintable
+      squares, so each square is 2×2&nbsp;mm.
+    </aside>
+    </br></br>
+    <div class="flex-child" style="text-align:center;width: 90%;">
+      <img src="images/electrode_painting.png" alt="Electrode Painting" width="300"
+        style="image-rendering: pixelated;outline-style: solid;outline-width:1px"></img>
+    </div>
+    <p>Erasing an electrode can be done by selecting the <button
+        style="background-color:#FFE082;padding:5px">Erase</button> button and painting with it. </p>
+    </br>
+    <aside>Under the hood, there are actually five electrodes; red, green, blue, brown, and white. White is just a
+      special electrode that has a voltage of 0. It works as an eraser. Different ‘brush’ sizes are available below the
+      erase button.</aside>
+    <p>
+      Pre-built ‘paintings’ of electrodes can be loaded by clicking on one of the top buttons (e.g.,
+      <button style="background-color:#FFE082;padding:5px">Sector</button>, <button
+        style="background-color:#FFE082;padding:5px">Quadrupole</button>, etc.). Some of these these pre-built
+      electrodes load
+      <a href="#adv">advanced</a> features.
+    </p>
+    <p>
+      When you have finished a painting or have loaded a pre-built set of electrodes, click on the blue ‘Refine Electric
+      Fields’ button. The electric fields for the painted electrodes will be calculated and displayed in the
+      rainbow-colored canvas on the right. Clicking the rainbow-colored canvas when no electric fields have been
+      calculated is the same as clicking the blue ‘Refine Electric Fields’ button.
+    </p>
+    <div class="flex-child" style="text-align:center;width: 90%;">
+      <div>
+        <button class="specialbutton"
+          style="width:100px;background-color:#2196F3;">Refine</br>Electrical</br>Fields</button>
+      </div>
+      <div style="font-size:40px;">&#129043;</div>
+      <div>
+        <img src="images/electric_fields.png" alt="Electric fields" width="300"
+          style="image-rendering: pixelated;outline-style: solid;outline-width:1px"></img>
+      </div>
+    </div>
+    <p>
+      The rainbow colors of the electric fields represent different <em>relative</em> voltage values. Red means a high
+      voltage, relative to all the other voltages in the electric field canvas. Blue represents a low voltage, relative
+      to other voltages.</p>
+    <aside>
+      So if all electrodes in an electric field are very near +10,000&nbsp;V, then a voltage of +9,998 V may appear very
+      blue. If all electrodes are near -1,000&nbsp;V, a blue electrode might be one at -1,001&nbsp;V and a red might be
+      one at -999&nbsp;V.
+    </aside>
+    <p>
+      The absolute voltages of any area may be seen in the “status” update in the <a href="#adv">advanced</a> tab.
+    </p>
+    <aside>
+      Note that it is purely coincidental in this case that the red and blue electrodes also correspond to red and blue
+      colored electric fields. If we had set the red-colored electrode to -1000&nbsp;V and kept the blue-colored
+      electrode at -500&nbsp;V, the red and blue colors of the electric field canvas would be reversed.
+    </aside>
+    <p>
+      Clicking on the electric field canvas after the fields have been calculated from the electrodes (also termed
+      “refining” the electrodes) flies an ion. The start location of the ion is the location of the mouse cursor. The
+      default mass of the ion is 100 Daltons (Da). The default charge is +1. The default x and y velocities are 0
+      mm&nbsp;per&nbsp;µs.
+    </p>
+    <div class="flex-child" style="text-align:center;width: 90%;">
+      <img src="images/electrode_painting_with_ions.png" alt="Electric fields" width="300"
+        style="image-rendering: pixelated;outline-style: solid;outline-width:1px"></img>
+    </div>
+    <p>
+      The field above has had three ions flown. Each ion’s trajectory is drawn as a black line on both the electrode and
+      the electric field canvases. As the ions shown above were the default mass and charge (100 Da and +1 e,
+      respectively) the ions are repelled from the positive (red) area and are attracted to the negative (blue) area.
+      The simulation for an ion stops when the ion impacts (or “splats” against) an electrode or one of the four walls
+      of the simulation. If the ion has a stable trajectory or moves very slowly, then the simulation will end after
+      400&nbsp;µs (or 400,000 simulation steps).
+    </p>
+    <aside>
+      Painting an electrode over the electrode canvas after ion(s) have been flown will erase the drawn trajectories.
+      Recalculating the electric fields (even if no electrodes have changed) will similarly clear the drawn
+      trajectories.
+    </aside>
+    <h1 id="adv" style="border-top:1px solid black;">Advanced</h1>
+    <h2>Dynamic electrodes and increased precision</h2>
+    <p>
+      Most of this website can be understood and enjoyed without touching the Advanced tab. If you are reading from the
+      start, I encourage you to skip this section and come back to it later when you get to the “Dynamic simulations”
+      section.
+    </p>
+    <div style="text-align:center;width: 90%;">
+      <button type="button" class="mocklapsible">Advanced</button>
+    </div>
+    <p>
+      Like the Simulation Playground button, the Advanced tab is opened by clicking it and closed by clicking it again.
+      The advanced tab has three purposes:
+    </p>
+    <ol>
+      <li>To provide more information about the state of the simulation, such as exact voltages and ion locations</li>
+      <li>To allow finer control of the flight of an ion or ions</li>
+      <li>To enable basic dynamic behavior of electrodes (similar to “fast electrodes” in SIMION)</li>
+    </ol>
+    <h3>1.</h3>
+    <p>
+      The first of the additional information is the cursor status readback on the right-side that looks like:
+      <code style="font-size:14px;background-color:#eee;padding:3px;padding-left:6px">
+      x:&nbsp;4&nbsp;y:&nbsp;197&nbsp;volts:&nbsp;4000.00</code>. This area displays information related to the canvas the
+      cursor is currently on. For the electrode, electric field, and timeline canvases, this is the current x and y
+      position; the current x, y, and voltage; and the time within an ion’s simulation, respectively.
+    </p>
+    <p>
+      The second is the ion flight log. This is the gray, outlined box in the lower-right corner. When an ion is flown,
+      a short entry indicating some information about its flight will be displayed in this box. This information can be
+      useful for checking the accuracy of a simulation in the Playground versus one in SIMION, for recalling what some
+      ion parameters might have been for a flight, or even for collecting samples of ion flights and performing
+      statistical analyses (by copying and pasting the log into a program such as Microsoft Excel).
+    </p>
+    <p>
+      The ion flight log’s reported numbers are, in order:
+    </p>
+    <ol>
+      <li>The mode of simulation termination – either a “Splat!” or a “Timeout!”</li>
+      <li>The ion flight time in microseconds – 0 to 400 µs</li>
+      <li>The mass-to-charge ratio (<i>m</i>/<i>z</i>) of the ion</li>
+      <li>The ion’s start coordinates – in (x, y) form, where x and y are in mm</li>
+      <li>The ion’s end coordinates – in (x, y) form, here x and y are in mm</li>
+      <li>The ion’s starting velocity – in (x, y) form where x and y are in mm/µs</li>
+    </ol>
+    <p>
+      The third is <button class="advancebutton"
+        style="background-color:#FFE082;padding:3px;position:relative;top:-8px;margin-bottom:-10px;z-index: -1;">Draw</br>field</button>.
+      This button draws electric field lines on the electric field canvas. For visibility reasons, these lines are
+      normalized and so only show the <em>direction</em> of the electric vector, not the magnitude.
+    </p>
+    <h3>2.</h3>
+    <p>
+      In the context of a simulation, ions have relatively few numbers that can define them: mass, charge, position,
+      velocity. The x and y coordinates of an ion are provided by where the electric field is clicked. The simulated
+      ion’s mass, charge, initial x, and initial y velocity can be supplied in the input boxes below.
+    </p>
+    <div style="margin-left:80px">
+      <input type="number" value=100 size="2">
+      <output style="margin-right:15px">Mass (Da)</output>
+    </div>
+    <div style="margin-left:80px">
+      <input type="number" value=1 size="4">
+      <output style="margin-right:15px">Charge (e)</output>
+    </div>
+    <div style="margin-left:80px">
+      <input type="number" value=0 size="4">
+      <output style="margin-right:15px">x vel m/ms</output>
+    </div>
+    <div style="margin-left:80px">
+      <input type="number" value=0 size="4" min="-10000" max="10000">
+      <output style="margin-right:15px">y vel m/ms</output>
+    </div>
+    <p>
+      Sometimes flying many ions with randomly determined parameters can be useful. The input boxes:
+    </p>
+    <div style="margin-left:80px">
+      <input type="number" value=1 size="4">
+      <output style="margin-right:15px">Count</output>
+    </div>
+    <div style="margin-left:80px">
+      <input type="number" value=0 size="4">
+      <output style="margin-right:15px">Random (%)</output>
+    </div>
+    <p>
+      allow a number from 1 (default) to 50 ions to be flown with each “click” on the electric field canvas and provide
+      randomness (from 0% to 100% random) for the position and velocity of ions, respectively. The charge and mass of
+      ions is never randomized. The information about which ions were flown and where can be observed in the ion flight
+      log,
+    </p>
+    <h3>3.</h3>
+    <p>
+      Most instruments that manipulate charged particles make use of dynamic electrodes that have voltages that change
+      with time. The timeline canvas can be used to change the behavior – the voltage – of electrodes over the course of
+      the 400&nbsp;µs simulation. The ‘start’ of each ion’s flight will begin at time<sub>0&nbsp;µs</sub> and end at
+      time<sub>400&nbsp;µs</sub>.
+    </p>
+    <p>
+      <img src="images/timeline_example.png" class="center" alt="Electric fields" width="600"
+        style="outline-style:solid;outline-width:1px;"></img>
+    </p>
+    <p>
+      Clicking on the timeline canvas will cause one of the two range cursors – the vertical lines – to jump to the
+      clicked location. Clicking somewhere else will cause the second range cursor to jump to that location. Each click
+      will alternate one of the range cursors. In this way, a range can be easily defined between two time points.
+    </p>
+    <aside>
+      Remember the cursor status readback provides time information when the cursor is over the timeline canvas. This
+      can be used to accurately synchronize multiple electrodes.
+    </aside>
+    <p>
+      After defining a suitable time range, click one of the
+      <button class="advancebutton" ,
+        style="background-color:#FFE082;padding:3px;position:relative;top:-8px;margin-bottom:-10px;z-index: -1;">Apply</br>High</button>
+      <button class="advancebutton" ,
+        style="background-color:#FFE082;padding:3px;position:relative;top:-8px;margin-bottom:-10px;z-index: -1;">Apply</br>Low</button>
+      or
+      <button class="advancebutton" ,
+        style="background-color:#FFE082;padding:3px;position:relative;top:-8px;margin-bottom:-10px;z-index: -1;">Apply</br>Sine</button>
+      buttons. The effect will be applied to the timeline. Now, during that time, the electrode will respond
+      differently. By default, all electrodes are in a “high” state. “High” in this instance means that the electrode is
+      activated, not that it has a positive voltage. An electrode in an “low” state normally applies 0 V. The “sine”
+      state causes the electrode to oscillate between its high state and the inverse of its high state (so a -1000 V
+      electrode would oscillate between 1000 V and -1000 V). To alter the timeline of a different electrode, select it.
+      This will load its timeline that can be edited.
+    </p>
+    <aside>
+      The ‘plot’ displayed in the timeline canvas is iconic rather than being an accurate representation of the exact
+      state of the electrode. For instance, the actual frequency, phase, and amplitude of the sine wave are likely
+      highly different than what is observed on the timeline.
+    </aside>
+    <p>
+      The “sine f” and “offset” fields can be used to to adjust the frequency of the sine wave or apply a constant
+      offset to all the voltages of an electrode, respectively. With an offset of 1,000&nbspV, an electrode normally set
+      at -500&nbspV would oscillate (with a sine applied) between 500 and 1,500&nbsp;V. The electrode’s low state would
+      be at 1,000&nbsp;V and its high state would be at 1,500&nbsp;V.
+    </p>
+    <div style="margin-left:80px">
+      <input type="number" value=1600 size="4" min="0" max="10000">
+      <output style="margin-right:15px">sine f (khz)</output>
+    </div>
+    <div style="margin-left:80px">
+      <input type="number" value=0 size="4" min="-10000" max="10000">
+      <output style="margin-right:15px">offset (V)</output>
+    </div>
+    <p>
+      The finest level of control over your ion simulations comes from abandoning the Simulation Playground altogether
+      and using another, production-quality program. To this end, the <button class="advancebutton" ,
+        style="background-color:#FFE082;padding:3px;position:relative;top:-5px;margin-bottom:-10px;z-index: -1;">Save
+        to</br>SIMION</button> button saves and downloads your current electrode array to a SIMION “electrodes.pa” array
+      of 200×200 points. This array can be imported into SIMION – SIMION will then need refine the electrodes to fly
+      ions.
+    </p>
+    <figure style="text-align:center;width: 90%;">
+      <img src="images/simion_load_electrodes.png" alt="SIMION load electrodes" width="400"
+        style="outline-style: solid;outline-color: #9b9b9b;outline-width:1px;text-align:center;box-shadow: 0 2px 3px 0 #00000033, 0 2px 4px 0 #00000030;"></img>
+      <figcaption><a href="https://simion.com/">SIMION</a> screenshot with loaded “electrodes.pa” file</figcaption>
+    </figure>
+    <p>
+      Importing your electrodes into SIMION is intended to help bridge the transition to using SIMION full-time! Another
+      possible purpose for importing your electrodes is to verify that a simulation is accurate. The Simulation
+      Playground is not intended to provide accurate simulations, and so its results might deviate from those of SIMION.
+    </p>
+  </div>
+  </br>
+  <script src="index.js"></script>
+</body>
+
+</html>
