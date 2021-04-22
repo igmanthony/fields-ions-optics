@@ -16,9 +16,12 @@ html {
   }
   p {
     page-break-inside: avoid;
+    hyphens: auto;
+    -ms-hyphenate-limit-lines: 2;
+    -webkit-hyphenate-limit-lines: 2; 
   }
   body {
-    margin-top: -1cm;
+    margin-top: 0cm;
   }
   @page {
     margin-left: 1cm;
@@ -65,6 +68,7 @@ p {
   line-height: 1.4;
   font-family: "Crimson Pro", serif;
   font-size: 18px;
+  font-kerning: normal;
 }
 
 a {

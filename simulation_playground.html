@@ -155,7 +155,7 @@
       <li>To allow finer control of the flight of an ion or ions</li>
       <li>To enable basic dynamic behavior of electrodes (similar to “fast electrodes” in SIMION)</li>
     </ol>
-    <h3>1.</h3>
+    <h3>1. Extra information</h3>
     <p>
       The first of the additional information is the cursor status readback on the right-side that looks like:
       <code style="font-size:14px;background-color:#eee;padding:3px;padding-left:6px">
@@ -187,7 +187,7 @@
       This button draws electric field lines on the electric field canvas. For visibility reasons, these lines are
       normalized and so only show the <em>direction</em> of the electric vector, not the magnitude.
     </p>
-    <h3>2.</h3>
+    <h3>2. Finer control</h3>
     <p>
       In the context of a simulation, ions have relatively few numbers that can define them: mass, charge, position,
       velocity. The x and y coordinates of an ion are provided by where the electric field is clicked. The simulated
@@ -226,7 +226,16 @@
       ions is never randomized. The information about which ions were flown and where can be observed in the ion flight
       log,
     </p>
-    <h3>3.</h3>
+    <p>
+      Sometimes it is desirable to specify an exact, constant field at some location (for instance, the Playground assumes a field of 0 V everywhere). Constant fields can be simulated by electrodes that are transparent to ions, or are not “splattable”. To disable collisions with an electrode, untick the “splattable” checkbox in the Playground.
+    </p>
+    <div>
+      <div style="margin-left:80px">
+        <input type="checkbox" id="splattable" name="splattable" style="margin-left:-25px;margin-right:2px;padding:0;" checked>
+        <output for="splattable" style="margin-left:-20px;margin-right:8px;padding:0;">Splattable</label>
+      </div>
+    </div>
+    <h3>3. Dynamic electrodes</h3>
     <p>
       Most instruments that manipulate charged particles make use of dynamic electrodes that have voltages that change
       with time. The timeline canvas can be used to change the behavior – the voltage – of electrodes over the course of
