@@ -238,14 +238,14 @@ output {
 }
 
 .sub-header {
-  letter-spacing: 0px;
+  letter-spacing: 0.5px;
   padding-left: 0px;
-  padding-right: 10px;
+  padding-right: 15px;
   padding-bottom: 0px;
-  font-weight: 600;
+  font-weight: 500;
   /* border: 100px; */
   font-size: 10px;
-  color: #90A4AE;
+  color: #FFE082;
 }
 
 .linky {
@@ -330,6 +330,8 @@ code {
   margin-top:0px;
   margin-bottom:0px
 }
+
+
 
 pre code {
   position:relative;
@@ -430,6 +432,26 @@ mark.g {
 
 mark.p {
   color: #ff79c6;
+  background: none;
+}
+
+mark.c {
+  color: #6272a4;
+  background: none;
+}
+
+mark.y {
+  color: #8be9fd;
+  background: none;
+}
+
+mark.w {
+  color: #f1fa8c;
+  background: none;
+}
+
+mark.l {
+  color: #bd93f9;
   background: none;
 }
 

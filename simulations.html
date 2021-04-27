@@ -6,29 +6,65 @@
 </head>
 
 <body>
-    <div class="actual_body">
-      <div style="align-items:center;text-align:center;" class="flex-container">
-        <button style="margin:auto;width:120px;height:36px;background-color:#00897B;">Define</br>electrodes</button><div style="font-size:40px;">&#129042;</div>
-        <button style="margin:auto;width:120px;height:36px;background-color:#26A69A;">Refine</br>electric fields</button><div style="font-size:40px;">&#129042;</div>
-        <button style="margin:auto;width:120px;height:36px;background-color:#80CBC4;">Fly ions</button><div style="font-size:40px;">&#129042;</div>
-        <button style="margin:auto;width:120px;height:36px;background-color:#E0F2F1;">Process flight</br>information</button>
-      </div>
-      <div></div>
-      <div class="flex-child" style="text-align:center;width: 100%;">
-        <div>
-          <img src="images/electrodes_ions_rolling.png" alt="Electrodes ions rolling" width="600"
-            style="image-rendering: pixelated"></img>
-        </div>
-        <div>
-            <img src="images/electric_fields_ions_rolling.png" alt="Electric fields ions rolling" width="600"
-              style="image-rendering: pixelated"></img>
-        </div>
-        <div>
-            <img src="images/simion_ion_rolling.png" alt="SIMION Ions rolling" width="600"
-              style="outline-style: solid;outline-width:1px"></img>
-        </div>
-        
+  <div class="actual_body">
+
+    <h1>Steps of a simulation</h1>
+    <h2>A brief overview</h2>
+    <p>The four major steps of simulating ions are:</p>
+    <div style="align-items:center;text-align:center;" class="flex-container">
+      <button style="margin:auto;width:120px;height:36px;background-color:#00897B;">Define</br>electrodes</button><div style="font-size:40px;">&#129042;</div>
+      <button style="margin:auto;width:120px;height:36px;background-color:#26A69A;">Refine</br>electric fields</button><div style="font-size:40px;">&#129042;</div>
+      <button style="margin:auto;width:120px;height:36px;background-color:#80CBC4;">Fly ions</button><div style="font-size:40px;">&#129042;</div>
+      <button style="margin:auto;width:120px;height:36px;background-color:#E0F2F1;">Process flight</br>information</button>
     </div>
+    <p>
+      Both SIMION as well as the Simulation Playground follow these steps, although the specifics might be a bit different. For instance, there are only two ways of defining electrodes in the Playground: using a built-in simulation like the <button style="background-color:#FFE082;padding:5px">Sector</button> simulation or by painting your own. SIMION has a few ways of defining electrodes, including importing them from another program, programmatic generation, GEM file creation, or using the builtin editor.
+    </p>
+    <h1>Pixels, Voxels, and Electrodes</h1>
+    <h2>1’s and 0’s pretending to be charged metal</h2>
+    <p>
+      We generate electrodes in the real world by shaping and then charging bits of metal. Mathematically representing these bits of metal and calculating the electric fields from them is routinely performed in the first year of physics. These calculations assume easy-to-define shapes such as perfect spheres, cubes, or planes. The solutions to these problems generally involve lots of equations and they provide exact, mathematically beautiful solutions. These type of problems are often solved with a pencil and paper. In mathematical language, this is called an analytical solution. Calculating electric fields and forces on ions analytically works well in rather simple cases but attempting to find an electrical field with more than a few electrodes or even a single electrode that is an irregular, asymmetrical shape can become very tedious or even impossible in practice.
+    </p>
+    <aside>Although analytical solutions to problems can quickly become difficult or impossible for a person to solve with a pencil and paper, there are techniques that use computers to help solve these equations <a href="https://en.wikipedia.org/wiki/Computer_algebra">symbolically</a>.</aside>
+      <p>
+        Instead of perfect mathematical solutions, the way electric fields are generated in SIMION and the Simulation Playground is by approximation. Shapes are approximated as collections of pixels (in 2D) or voxels (in 3D). By approximating shapes as collections of rectangles or their 3D equivalents (called rectangular cuboids), electric fields can be estimated by repeated refinement steps that get closer to the solution with each step. This way of solving equations is known as a <a href="https://en.wikipedia.org/wiki/Numerical_analysis">numerical solution</a>. <a href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton’s method</a> is one particularly well-known method of finding solutions of roots numerically.
+      </p>
+      <p>
+        In the Simulation Playground, all pixels that you draw to the screen are exactly square and represent fixed 2×2 mm blocks. The downside of this is that it limits the precision of an electrode. For instance, the <button style="background-color:#FFE082;padding:5px">Quadrupole</button> simulation approximates 16 mm circles four circles by pixelating them:
+      </p>
+      <div style="align-items:center;text-align:center;margin-bottom:1em;" class="flex-container">
+        <img src="images/blue_quadrupole_circle.svg" alt="SVG Blue quadrupole circle" width=60
+        style="margin-right:2em;margin-left:auto;">
+        <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px;">&#129042;</div>
+        <img src="images/blue_quadrupole_circle.png" alt="PNG Blue quadrupole circle" width=60 
+        style = "image-rendering: pixelated;margin-right:auto;margin-left:2em;">
+      </div>
+      <p>
+        The builtin example for simulating a quadrupole in SIMION is a bit more accurate — it uses 23 pixels to simulate half of a circle (as the other half is redundant). So the quadrupoles in the SIMION example are better approximations than those in the Playground, but even these still have corners or roughness caused by the square pixels. Real quadrupoles don’t have any roughness — they are smooth rods that are precision machined to be circular. More accurate approximations of these smooth edges could be made by making the pixels smaller and smaller. However, a smaller pixel size means that the number of calculations grows and the speed of simulating would decrease.
+      </p>
+      <p>
+        Although rough approximations of smooth shapes is inaccurate, it is fast both to simulate as well as to make with a simple pixel editor like the one included in the Simulation Playground. Internally, the pixel editor stores an array of pixels, not unlike a spreadsheet where each pixel is defined as an electrode. For instance, the pixelated circular quadrupole above is represented as an array of pixels where each pixel indicates which electrode it belongs to:
+      </p>
+      <div style="text-align:center;border-width:1px;border-style:solid;padding-left:px;padding-top:5px;padding-bottom:5px;background-color: #282a36;font-size:15px;line-height:17px">
+      <code style="color:#f8f8f2ab;">
+        0 0 0 0 0 0 0 0 0 0 </br>
+        0 0 0 <mark class='b'>3</mark> <mark class='b'>3</mark> <mark class='b'>3</mark> <mark class='b'>3</mark> 0 0 0 </br>
+        0 0 <mark class='b'>3</mark> 0 0 0 0 <mark class='b'>3</mark> 0 0 </br>
+        0 <mark class='b'>3</mark> 0 0 0 0 0 0 <mark class='b'>3</mark> 0 </br>
+        0 <mark class='b'>3</mark> 0 0 0 0 0 0 <mark class='b'>3</mark> 0 </br>
+        0 <mark class='b'>3</mark> 0 0 0 0 0 0 <mark class='b'>3</mark> 0 </br>
+        0 <mark class='b'>3</mark> 0 0 0 0 0 0 <mark class='b'>3</mark> 0 </br>
+        0 0 <mark class='b'>3</mark> 0 0 0 0 <mark class='b'>3</mark> 0 0 </br>
+        0 0 0 <mark class='b'>3</mark> <mark class='b'>3</mark> <mark class='b'>3</mark> <mark class=b>3</mark> 0 0 0 </br>
+        0 0 0 0 0 0 0 0 0 0 </br>
+      </code>
+      </div>
+      <p>
+        In this case, the “0” pixels belong to the white background and the blue “3” pixels indicate that this is the third, blue, electrode. If they were a “1” then they would be the first (red) electrode. 
+      </p>
+      <aside>
+        I mean this representation literally — they way I generated all the predefined electrode geometries was by opening up Microsoft Excel and making a 100×100 cells and then putting 0’s, 1’s, 2’s, 3’s, and 4’s where they should go to represent the different electrodes. For the quadrupole example that only uses the white background, red, and blue electrodes, I only used 0’s, 1’s, and 3’s. I then saved this Excel File as a text file and pasted it into the <a href="https://github.com/igmanthony/fields-ions-optics/blob/main/index.js">Javascript source code</a>. Unfortunately for readability, the source file is compressed by the toolchain I’m using — which puts everything onto a single line — so it’s difficult to see the array, but if you scroll along the file on GitHub, you can find it.
+      </aside>
 
     </div>
     </br>

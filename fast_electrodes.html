@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="header.html"></script>
+</head>
+
+<body>
+    <div class="actual_body">
+      <h1>Dynamic electrodes</h1>
+      <h2>That one weird trick to make ion simulations not suck</h2>
+
+      <div style="align-items:center;text-align:center;margin-bottom:1em;" class="flex-container">
+        <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px;margin-left:auto;">
+          <code style="color:#f8f8f2ab;">
+            <table>
+              <tr><td>-61</td> <td style="color: #bb91e2">-70</td> <td>-53</td> <td>-43</td> <td>-39</td></tr>
+              <tr><td>-51</td> <td>-51</td> <td>-44</td> <td>-38</td> <td>-35</td></tr>
+              <tr><td>-42</td> <td>-40</td> <td>-35</td> <td>-30</td> <td>-28</td></tr>
+              <tr><td>-35</td> <td>-32</td> <td>-26</td> <td>-19</td> <td>-19</td></tr>
+              <tr><td>-31</td> <td>-27</td> <td>-18</td> <td style="color:greenyellow">0</td> <td>-9</td></tr>
+            </table>
+          </code>
+        </div>
+        <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px;padding:10px">+</div>
+        <div style="
+        text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px;">
+          <code style="color:#f8f8f2ab;">
+            <table>
+              <tr><td>13</td> <td style="color: #bb91e2">0</td> <td>25</td> <td>38</td> <td>44</td></tr>
+              <tr><td>26</td> <td>26</td> <td>37</td> <td>45</td> <td>50</td></tr>
+              <tr><td>40</td> <td>43</td> <td>50</td> <td>57</td> <td>60</td></tr>
+              <tr><td>50</td> <td>54</td> <td>63</td> <td>74</td> <td>74</td></tr>
+              <tr><td>56</td> <td>61</td> <td>75</td> <td style="color:greenyellow">100</td> <td>87</td></tr>
+            </table>
+          </code>
+        </div>
+        <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px;padding:10px">=</div>
+        <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px">
+          <code style="color:#f8f8f2ab;">
+            <table>
+              <tr><td>-48</td> <td style="color: #bb91e2">-70</td> <td>-28</td> <td>-5</td> <td>5</td></tr>
+              <tr><td>-25</td> <td>-25</td> <td>-8</td> <td>8</td> <td>15</td></tr>
+              <tr><td>-3</td> <td>3</td> <td>15</td> <td>28</td> <td>33</td></tr>
+              <tr><td>15</td> <td>23</td> <td>38</td> <td>55</td> <td>55</td></tr>
+              <tr><td>25</td> <td>35</td> <td>58</td> <td style="color:greenyellow">100</td> <td>78</td></tr>
+            </table>
+          </code>
+        </div>
+      </div>
+
+
+[[-60.73529412 -70.         -52.5        -43.23529412 -39.11764706]
+ [-51.47058824 -51.47058824 -44.26470588 -38.08823529 -35.        ]
+ [-42.20588235 -40.14705882 -35.         -29.85294118 -27.79411765]
+ [-35.         -31.91176471 -25.73529412 -18.52941176 -18.52941176]
+ [-30.88235294 -26.76470588 -17.5          0.          -9.26470588]]
+
+[[ 13.23529412   0.          25.          38.23529412  44.11764706]
+ [ 26.47058824  26.47058824  36.76470588  45.58823529  50.        ]
+ [ 39.70588235  42.64705882  50.          57.35294118  60.29411765]
+ [ 50.          54.41176471  63.23529412  73.52941176  73.52941176]
+ [ 55.88235294  61.76470588  75.         100.          86.76470588]]
+
+
+    </div>
+    </br>
+    <script src="index.js"></script>
+</body>
+
+</html>

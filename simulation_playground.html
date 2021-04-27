@@ -155,16 +155,16 @@
       <li>To allow finer control of the flight of an ion or ions</li>
       <li>To enable basic dynamic behavior of electrodes (similar to “fast electrodes” in SIMION)</li>
     </ol>
-    <h3>1. Extra information</h3>
+    <h3 id="extra_info">1. Extra information</h3>
     <p>
-      The first of the additional information is the cursor status readback on the right-side that looks like:
+      The first of the additional information is the <i>cursor status readback</i> on the right-side that looks like:
       <code style="font-size:14px;background-color:#eee;padding:3px;padding-left:6px">
       x:&nbsp;4&nbsp;y:&nbsp;197&nbsp;volts:&nbsp;4000.00</code>. This area displays information related to the canvas the
       cursor is currently on. For the electrode, electric field, and timeline canvases, this is the current x and y
       position; the current x, y, and voltage; and the time within an ion’s simulation, respectively.
     </p>
     <p>
-      The second is the ion flight log. This is the gray, outlined box in the lower-right corner. When an ion is flown,
+      The second is the <i>ion flight log</i>. This is the gray, outlined box in the lower-right corner. When an ion is flown,
       a short entry indicating some information about its flight will be displayed in this box. This information can be
       useful for checking the accuracy of a simulation in the Playground versus one in SIMION, for recalling what some
       ion parameters might have been for a flight, or even for collecting samples of ion flights and performing
@@ -286,7 +286,7 @@
       <input type="number" value=1600 size="4" min="0" max="10000">
       <output style="margin-right:15px">sine f (khz)</output>
     </div>
-    <div style="margin-left:80px">
+    <div style="margin-left:80px" id="load_and_refine">
       <input type="number" value=0 size="4" min="-10000" max="10000">
       <output style="margin-right:15px">offset (V)</output>
     </div>
