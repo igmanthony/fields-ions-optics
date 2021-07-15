@@ -10,99 +10,52 @@
     <h1>Simulating Fields, Ions, and Optics</h1>
     <h2>A guide for learning about ion simulations</h2>
     <p>
-      This website is intended to serve as an introduction to many
-      of the concepts that you will encounter with more professional ion simulation programs – specifically <a
-        href="https://simion.com/">SIMION</a>, a program to perform complex ion simulations. As SIMION is mostly
-      intended to simulate <a href="https://en.wikipedia.org/wiki/Mass_spectrometry">mass spectrometry</a> (MS)-related
-      components, this text is biased towards concepts and examples relevant for MS. Although this text is intended as
-      an introduction, it assumes familiarity with terms such as:
-      <a href="https://en.wikipedia.org/wiki/Ion">ion</a>,
-      <a href="https://en.wikipedia.org/wiki/Electron">electron</a>,
-      <a href="https://en.wikipedia.org/wiki/Electrode">electrode</a>,
-      <a href="https://en.wikipedia.org/wiki/Electric_field">electric field</a>,
-      <a href="https://en.wikipedia.org/wiki/Voltage">voltage</a>, and
-      <a href="https://en.wikipedia.org/wiki/Mass">mass</a>.
+      This website is intended to serve as an introduction to many of the concepts that you will encounter with more professional ion simulation programs – specifically <a href="https://simion.com/">SIMION</a>, a program to perform complex ion simulations. As SIMION is mostlyintended to simulate <a href="https://en.wikipedia.org/wiki/Mass_spectrometry">mass spectrometry</a> (MS)-related components, this text is biased towards concepts and examples relevant for MS. Although this text is intended as an introduction, it assumes familiarity with terms such as: <a href="https://en.wikipedia.org/wiki/Ion">ion</a>, <a href="https://en.wikipedia.org/wiki/Electron">electron</a>, <a href="https://en.wikipedia.org/wiki/Electrode">electrode</a>, <a href="https://en.wikipedia.org/wiki/Electric_field">electric field</a>, <a href="https://en.wikipedia.org/wiki/Voltage">voltage</a>, and <a href="https://en.wikipedia.org/wiki/Mass">mass</a>.
     </p>
     <p>
-      This website deals with the concepts for simulating <em>gas phase</em> ions in <em>high vacuum</em> environments,
-      such as those that might be found in outer space. It does not deal with simulating liquid-phase ions, such as
-      those
-      that might be found in a battery. It simulates the translational motion of ions, not their internal states, so
-      inter and intra-molecular forces and interactions are largely ignored, except for the pages on <a
-        href="ion_mobility.html">Ion mobility</a> and <a href="other_behavior.html">Other behavior</a>.
+      The simulations discussed are for <em>gas phase</em> ions in <em>high vacuum</em> environments, such as those that might be found in outer space. This website does not discuss simulating liquid-phase ions, such as those that might be found in a battery. It simulates the translational motion of ions, not their internal states, so inter and intra-molecular forces and interactions are largely ignored, except for the pages on <a href="ion_mobility.html">Ion mobility</a> and <a href="reactions.html">Reactions</a>.
+    </p>
+    <p>
+      Almost all the pages in this website are accessible directly from the top menu. Each section is similar to a short chapter and contains six web pages, grouped by topic. Although you do not need to read the pages in order (and in the case of The Playground and Bonus details pages, you are encouraged to only read on if you are particularly interested in the topic), in general the concepts build on one another. 
     </p>
     <h1>Forward</h1>
     <h2>Motivation, history, & influences</h2>
     <p>
-      When I first started studying MS instrumentation I was exposed to SIMION. Entire literature articles, or even PhD
-      dissertations, could be written with little or no experimental data – with only the data collected from rigorous
-      simulations performed with SIMION. We had a copy of SIMION in the research lab where I worked. Loading SIMION for
-      the first time, I was greeted by its rather unfriendly user interface. After clicking around a bit and becoming
-      frustrated with not understanding what I was doing, or how to do what I’d have liked, I closed the program and
-      didn’t reopen it for years. In fact, when I did reopen it, it was because I was attempting to develop course
-      material that related to ion simulations. (Those who can, do; those who cannot…)
+      When I first started studying MS instrumentation I was exposed to SIMION. Entire literature articles, or even PhD dissertations, could be written with little or no experimental data – with only the data collected from rigorous simulations performed with SIMION. We had a copy of SIMION in the research lab where I worked. Loading SIMION for the first time, I was greeted by its rather unfriendly user interface. After clicking around a bit and becoming frustrated with not understanding what I was doing, or how to do what I’d have liked, I closed the program and didn’t reopen it for years. In fact, when I did reopen it, it was because I was attempting to develop course material that related to ion simulations. (Those who can, do; those who cannot…)
     </p>
     <p>
-      My fresh attempts to learn SIMION to make some course materials were also a bit of a non-starter. I persisted
-      through flying ions in the SIMION time-of-flight tutorial the second time, but felt my motivation waning as my
-      understanding did not improve. Luckily, there was an ex-colleague of mine that I remembered had developed a MATLAB
-      script for performing rudimentary, 2D-based ion simulations. I contacted him and he happily provided me the
-      script. It loaded a little 200×200 bitmap – that could be made and edited with Microsoft Paint – and flew a single
-      ion from some x and y coordinate (from 0 to 200 units). I read through the code, translated the it into Python,
-      and suddenly I was able to understand those high-level papers on SIMION-based ion simulations that had eluded me
+      My fresh attempts to learn SIMION to make some course materials were also a bit of a non-starter. I persisted through flying ions in the SIMION time-of-flight tutorial the second time, but felt my motivation waning as my understanding did not improve. Luckily, there was an ex-colleague of mine that I remembered had developed a MATLAB script for performing rudimentary, 2D-based ion simulations. I contacted him and he happily provided me the script. It loaded a little 200×200 bitmap – that could be made and edited with Microsoft Paint – and flew a single ion from some x and y coordinate (from 0 to 200 units). I read through the code, translated the it into Python, and suddenly I was able to understand those high-level papers on SIMION-based ion simulations that had eluded me
       for so long.
     </p>
     <p>
-      Excited by my newfound learning crutch, I proceeded to simplify the <a href="code.html#python_script">Python
-        script</a>, heavily comment it, and write a
-      thorough <a href="python_simulation_readme.html">tutorial</a> on how to use it. I presented it to the students I
-      was teaching, hoping that they would find it useful. Even if they didn’t know Python, the comments should allow
-      them to get it working…
+      Excited by my newfound learning crutch, I proceeded to simplify the <a href="code.html#python_script">Python script</a>, heavily comment it, and write a thorough <a href="python_simulation_readme.html">tutorial</a> on how to use it. I presented it to the students I was teaching, hoping that they would find it useful. Even if they didn’t know Python, the comments should allow them to get it working…
     </p>
     <p>
-      And it turns out not understanding Python isn’t the biggest hurdle to running and manipulating a Python script.
-      There are a lot more little stumbling blocks – installing the Python toolchain, downloading libraries, working
-      with the command line, and small differences between operating systems lead to a lot of cognitive overhead, like
-      the overhead I’d experienced with SIMION originally. Those that understood Python already, or who were more
-      persistent at learning than I, really learned a lot. The rest, well they found some point where they became
-      frustrated and, understandably, gave up.
+      And it turns out not understanding Python isn’t the biggest hurdle to running and tweaking a Python script. There are a lot of little stumbling blocks – installing the Python toolchain, downloading libraries, working with the command line, and small differences between operating systems lead to a lot of cognitive overhead, like the overhead I’d experienced with SIMION originally. Those that understood Python already, or who were more persistent at learning than I, really learned a lot. The rest, well they found some point where they became frustrated and, understandably, gave up.
     </p>
     <p>
-      That brings us back to this site and specifically the <em>Simulation Playground</em>. The Simulation Playground is
-      yet another translation and expansion of the code that was so helpful to me. The Simulation Playground is the crux
-      of this site and the text serves to provide context and meaning behind it.
+      That brings us back to this site and specifically the <em>Simulation Playground</em>. The Simulation Playground is yet another translation and expansion of the code that was so helpful to me. The Simulation Playground is the crux of this site and the text serves to provide context and meaning behind it.
     </p>
     <h1>References</h1>
     <h2>Praise and stealing</h2>
     <p>
-      The layout and idea behind this site is stolen directly from Jack Schaelder’s <a
-        href="https://jackschaedler.github.io/circles-sines-signals/index.html">SEEING&nbsp;CIRCLES,&nbsp;SINES,&nbsp;AND&nbsp;SIGNALS</a>.
-      Everything from the title of this site to the header for this section has been shamelessly pilfered. Jack
-      Schaedler’s site helped me tremendously as a graduate student and I continually refer people and students
-      interested in signal processing there. I think the world could use a few more visual “compact primers” on
-      different topics and SEEING&nbsp;CIRCLES,&nbsp;SINES,&nbsp;AND&nbsp;SIGNALS is perfect.
+      Most, and possibly all, of the information in this site can be found in the SIMION User Manual.<cite><a href="#simion_manual">1</a></cite> Although my own failures to initially learn SIMION might seem to indicate that it doesn’t have enough learning materials, nothing could be further from the truth. The SIMION User Manual and SIMION itself are full of tutorials, helpful explanations, and information about where to find out more. These just didn’t click with me until I’d already learned a bit about ion simulations. These tutorials are immensely helpful and go into much more depth than this site.
     </p>
     <p>
-      Most, and possibly all, of the information in this site can be found in the SIMION User Manual.<cite><a
-          href="#simion_manual">1</a></cite> Although my own failures to initially learn SIMION might seem to indicate
-      that it doesn’t have enough learning materials, nothing could be further from the truth. The SIMION User Manual
-      and SIMION itself are full of tutorials, helpful explanations, and information about where to find out more. These
-      just didn’t click with me until I’d already learned a bit about ion simulations. These tutorials are immensely
-      helpful and go into much more depth than this site.
+      Similarly, most of the Implementation section is information regurgitated from David A. Dahl’s <a href="https://doi.org/10.1016/S1387-3806(00)00305-5">paper discussing the development of SIMION</a>.<cite><a href="#simion_reflection">2</a></cite> Much of the implementation of the Simulation Playground relies on information discussed in this paper, as well as through observations of the SIMION program and the added functionality it gains from its many Lua scripts.
     </p>
     <p>
-      Although the layout and visual design of the website is stolen, the underlying code is entirely bespoke and mostly
-      hand-rolled without the use of libraries. The underlying code for the playground is almost entirely written in <a
-        href="https://www.rust-lang.org">Rust</a> and then compiled to <a
-        href="https://webassembly.org/">Webassembly</a>. If SEEING&nbsp;CIRCLES,&nbsp;SINES,&nbsp;AND&nbsp;SIGNALS is an
-      exploration of the <a href="https://d3js.org/">D3.js</a> library, this site is an exploration of Rust and
-      Webassembly. More information about the creation of this site can be found in the <a href="code.html">Code</a>
-      page.
+      The layout and idea behind this site is stolen directly from Jack Schaelder’s <a href="https://jackschaedler.github.io/circles-sines-signals/index.html">SEEING&nbsp;CIRCLES,&nbsp;SINES,&nbsp;AND&nbsp;SIGNALS</a>. Everything from the title of this site to the header for this section has been shamelessly pilfered. Jack Schaedler’s site helped me tremendously as a graduate student and I continually refer people and students interested in signal processing there. I think the world could use a few more visual “compact primers” on different topics.
+    </p>
+    <p>
+      Although the layout and visual design of the website is stolen, the underlying code is entirely bespoke and mostly hand-rolled without the use of more than a few mathematical libraries. The underlying code for the playground is almost entirely written in <a href="https://www.rust-lang.org">Rust</a> and then compiled to <a href="https://webassembly.org/">WebAssembly</a>. If SEEING&nbsp;CIRCLES,&nbsp;SINES,&nbsp;AND&nbsp;SIGNALS is an exploration of the <a href="https://d3js.org/">D3.js</a> library, this site is an exploration of WebAssembly. More information about the creation of this site can be found in the <a href="code.html">Code</a> page.
     </p>
     <div class=bibliography>
       <div class=ref id="simion_manual">
-        Dahl, D.; Manura, D. “SIMION (R) Version 8.0/8.1 User Manual”, <i>Scientific Instrument Services.</i>, Ringoes,
-        NJ. <b>2011</b>.
+        [1] Dahl, D.; Manura, D. “SIMION (R) Version 8.0/8.1 User Manual”, <i>Scientific Instrument Services.</i>, Ringoes, NJ. <b>2011</b>.
+      </div>
+      <div class=ref id="simion_reflection">
+        [2] Dahl, D. “SIMION for the personal computer in reflection”, <i>International Journal of Mass Spectrometry.</i> 200 (1-3) <b>2000</b>. 3–25.
       </div>
     </div>
   </div>

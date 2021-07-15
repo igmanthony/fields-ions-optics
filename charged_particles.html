@@ -62,7 +62,7 @@
       Where  “charge”, “mass”, and “dt” are single numbers; “electric_vector”, “force”, “acceleration”, “velocity”, and “position” are each two, paired numbers (corresponding to the x and y components – these are internally NumPy ndarrays); and “electric_field_map” which is an array of the electric fields that is the output of the process of refining and scaling the electrical fields (i.e., it’s the numbers represented by the rainbow-colored electric field canvas).
     </p>
     <p>
-      The only real differences between the code and the math are the “get_electric_vector” function and the “+=” operator. In the Simulation Playground the get_electric_vector function performs a lookup of the electric values immediately around the position of the particle (thus, it needs to be passed the particle's position and the electric_field_map; which is the table to do the lookup). In SIMION, there is an equivalent function to “get_electric_vector” that is a bit more accurate. The “+=” operator adds the left-hand-side to the right-hand-side and updates the left-hand-side with the resulting value (so a short-hand notation for the <i>s<sub>old</sub></i> and <i>v<sub>old</sub></i> addition).
+      The only real differences between the code and the math are the “get_electric_vector” function and the “+=” operator. In the Simulation Playground the get_electric_vector function performs a lookup of the electric values immediately around the position of the particle (thus, it needs to be passed the particle’s position and the electric_field_map; which is the table to do the lookup). In SIMION, there is an equivalent function to “get_electric_vector” that is a bit more accurate. The “+=” operator adds the left-hand-side to the right-hand-side and updates the left-hand-side with the resulting value (so a short-hand notation for the <i>s<sub>old</sub></i> and <i>v<sub>old</sub></i> addition).
     </p>
     <p>
       Obviously the analogy of charged particles as golf balls has a few inaccuracies:
@@ -71,8 +71,8 @@
       <li>golf balls experience a rather large amount of friction – ions experience little</li>
       <li>golf balls all have very similar masses – charged particles can have masses ranging from electrons, with around 0.005 Da, to intact viruses with many million Da</li>
       <li>golf balls rarely travel faster than 300 kph – electrons frequently travel near the speed of light</li>
-      <li>black golf balls don‘t roll up hills spontaneously but negative ions are attracted to positive electrodes (that repel positive ions)</li>
-      <li>hills don‘t usually become valleys on the timescales of golf ball flight, but electrodes can invert on the timescales of ion flight</li>
+      <li>black golf balls don’t roll up hills spontaneously but negative ions are attracted to positive electrodes (that repel positive ions)</li>
+      <li>hills don’t usually become valleys on the timescales of golf ball flight, but electrodes can invert on the timescales of ion flight</li>
       <li>golf courses can have steep slopes and even cliffs – electric fields are “smooth” or contiguous.</li>
       <li>this mental model applies to 2D simulations of ions – such as those presented in the Simulation Playground. However, ions often move in three dimensions in response to 3D electric fields. There is no correspondingly-higher dimensional analog for hill topologies.</li>
     </ul>
