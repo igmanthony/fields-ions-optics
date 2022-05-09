@@ -14,6 +14,7 @@ document.write(`
     rel="stylesheet">
 <link rel="preload" href="style.css" as="style">
 <link rel="stylesheet" href="style.css">
+<script src="https://kit.fontawesome.com/e01b68e685.js" crossorigin="anonymous"></script>
 <!--
     The "playground" and "header" files are Javascript files that write HTML into all documents.
     Forgive me for this abomination of a hack. I can't include HTML but I don't want
@@ -106,28 +107,36 @@ document.write(`
                     <output id="voltage_text">Volts</output>
                 </div>
             </div>
-            <button id="clear">Clear</button>
-            <button id="einzel_lens">Einzel</br>lens</button>
-            <button id="ion_funnel">Ion</br>funnel</button>
-            <button id="quadrupole">Quadrupole </button>
-            <button id="tof">Time-of-Flight</button>
+            <button id="clear">Blank</button>
+            <button id="einzel_lens">Lens</button>
             <button id="sector">Sector</button>
+            <button id="tof">Time-of-Flight</button>
+            <button id="quadrupole">Quadrupole </button>
+            <button id="ion_funnel">Funnel</button>
         </div>
         <!-- ELECTRODES AND CANVASES -->
         <div class="flex-container">
             <div class="flex-child">
-                <div><button class="sidebutton" id="electrode1">Red</br>Electrode</button></div>
-                <div><button class="sidebutton" id="electrode2">Green</br>Electrode</button></div>
-                <div><button class="sidebutton" id="electrode3">Blue</br>Electrode</button></div>
-                <div><button class="sidebutton" id="electrode4">Brown</br>Electrode</button></div>
+                <div><br></div>
+                <div><button class="sidebutton" id="electrode1">Electrode 1</button></div>
+                <div><button class="sidebutton" id="electrode2">Electrode 2</button></div>
+                <div><button class="sidebutton" id="electrode3">Electrode 3</button></div>
+                <div><button class="sidebutton" id="electrode4">Electrode 4</button></div>
                 <div>
                     <button id="electrode0" class="sidebutton"
-                        style="padding-top:9px;padding-bottom:9px;">Erase</button>
+                    style="padding-top:9px;padding-bottom:9px;">Erase</button>
                 </div>
-                <div><button id="brush1" class="sidebutton">1 x 1</br>Brush</button></div>
-                <div><button id="brush2" class="sidebutton">2 x 2</br>Brush</button></div>
-                <div><button id="brush3" class="sidebutton">3 x 3</br>Brush</button></div>
-                <div><button class="specialbutton" id="update">Refine</br>Electrical</br>Fields</button></div>
+                <div><br></div>
+                <div>
+                    <button id="brush1" class="iconbutton" style="height:3em;"><i class="fa-solid fa-square" style="font-size: x-small;vertical-align: 0.1em"></i></button>
+                    <button id="brush2" class="iconbutton" style="height:3em;vertical-align: -0.15em;"><i class="fa-solid fa-window-minimize" style="vertical-align: 0.5em;"></i></button>
+                </div>
+                <div>
+                    <button id="brush3" class="iconbutton" style="height:3em"><i class="fa-regular fa-circle"></i></button>
+                    <button id="brush4" class="iconbutton" style="height:3em"><i class="fa-regular fa-square"></i></button>
+                </div>
+                <div><br></div>
+                <div><button class="specialbutton" id="update">Update</br>Fields</button></div>
             </div>
             <div>
                 <canvas id="electrode_map" width="600" height="600"></canvas>
