@@ -154,6 +154,9 @@ button:focus {
   width: 100%;
 }
 
+.iconbutton {
+  width: 44%;
+}
 
 ul, li {
   font-family: "Crimson Pro", serif;
