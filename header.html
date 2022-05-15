@@ -95,7 +95,7 @@ document.write(`
 
 <!-- PLAYGROUND -->
 <div id="playgrounddiv" class="playgrounddiv  no-print">
-    <button type="button" class="collapsible  no-print" id="playground">Simulation Playground</button>
+    <button type="button" class="collapsible  no-print" id="playground" >Simulation Playground</button>
     <div class="tab">
         <!-- BAR -->
         <div class="flex-container">
@@ -109,10 +109,12 @@ document.write(`
             </div>
             <button id="clear">Blank</button>
             <button id="einzel_lens">Lens</button>
-            <button id="sector">Sector</button>
             <button id="tof">Time-of-Flight</button>
-            <button id="quadrupole">Quadrupole </button>
+            <button id="quadrupole">Quadrupole</button>
+            <button id="cyclotron">Cyclotron</button>
             <button id="ion_funnel">Funnel</button>
+            <div></div>
+            <div id="status" class="status" style="text-align:right;margin-left:120px;padding:0;margin-bottom:0px;">0 μs</div>
         </div>
         <!-- ELECTRODES AND CANVASES -->
         <div class="flex-container">
@@ -135,6 +137,29 @@ document.write(`
                     <button id="brush3" class="iconbutton" style="height:3em"><i class="fa-regular fa-circle"></i></button>
                     <button id="brush4" class="iconbutton" style="height:3em"><i class="fa-regular fa-square"></i></button>
                 </div>
+
+                <div style="margin-top:10px;">
+                    <div class="toggle-button-cover">
+                    <div class="button-cover">
+                        <div class="button r" id="button-2">
+                        <input type="checkbox" class="checkbox" id="splattable">
+                        <div class="knobs"></div>
+                        <div class="layer"></div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="toggle-button-cover">
+                    <div class="button-cover">
+                        <div class="button r" id="button-1">
+                        <input type="checkbox" class="checkbox" id="dc_mode">
+                        <div class="knobs"></div>
+                        <div class="layer"></div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
                 <div><br></div>
                 <div><button class="specialbutton" id="update">Update</br>Fields</button></div>
             </div>
@@ -147,16 +172,14 @@ document.write(`
         <button type="button" class="collapsible" id="advanced">Advanced</button>
         <div class="tab">
             <div style="align-items:center;" class="flex-container">
-                <div>
+                <div style="margin-right:10px">
                     <button id="SIMION_SAVE" class="advancebutton">Save to</br>SIMION</button>
                     <button id="field_lines" class="advancebutton">Draw</br>field</button>
-                    <button id="apply_high" class="advancebutton">Apply</br>High</button>
+                <!-- </div>
+                <div> -->
+                    <!-- <button id="apply_high" class="advancebutton">Apply</br>High</button>
                     <button id="apply_low" class="advancebutton">Apply</br>Low</button>
-                    <button id="apply_sine" class="advancebutton" style="margin-right:8px">Apply</br>Sine</button>
-                </div>
-                <div>
-                    <input type="checkbox" id="splattable" name="splattable" style="margin-left:-25px;margin-right:2px;padding:0;" checked>
-                    <output for="splattable" style="margin-left:-20px;margin-right:8px;padding:0;">Splattable</label>
+                    <button id="apply_sine" class="advancebutton" style="margin-right:8px">Apply</br>Sine</button> -->
                 </div>
                 <div>
                     <div>
@@ -164,23 +187,44 @@ document.write(`
                         <output style="margin-right:15px">sine f (khz)</output>
                     </div>
                     <div>
+                        <select name="bg_gas" id="bg_gas">
+                            <option value="28.0">Air</option>
+                            <option value="4.0">Helium</option>
+                            <option value="40.0">Argon</option>
+                            <option value="132.0">Xenon</option>
+                        </select>
+                        <output style="margin-right:15px">gas</output>
+                    </div>
+                    <div>
+                        <select name="magnetic_field" id="magnetic_field", style='width:69px;'>
+                            <option value="none">None</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                        </select>
+                        <output style="margin-right:15px">magnet</output>
+                    </div>
+                </div>
+                
+                <div>
+                    <div>
                         <input type="number" id="offset" value=0 size="4" min="-10000" max="10000">
-                        <output style="margin-right:15px">offset (V)</output>
+                        <output style="margin-right:15px">offset V</output>
+                    </div>
+                    <div>
+                        <input type="number" id="pressure" value=0 size="4" min="-10000" , max="10000">
+                        <output style="margin-right:15px">pressure Pa</output>
+                    </div>
+                    <div>
+                        <input type="number" id="magnet_field_strength" value=0 size="4" min="-10000" , max="10000">
+                        <output style="margin-right:15px">strength T</output>
                     </div>
                 </div>
 
                 <div>
                     <div>
-                        <input type="number" id="ion_mass" value=100 size="2" min="0.01" max="100000.0">
-                        <output style="margin-right:15px">Mass (Da)</output>
+                        <input type="number" id="mz_ratio" value=100 size="2" min="0.01" max="100000.0">
+                        <output style="margin-right:15px">m/z</output>
                     </div>
-                    <div>
-                        <input type="number" id="ion_charge" value=1 size="4" min="-10" max="10">
-                        <output style="margin-right:15px">Charge (e)</output>
-                    </div>
-                </div>
-
-                <div>
                     <div>
                         <input type="number" id="ion_x_velocity" value=0 size="4" min="-10000" , max="10000">
                         <output style="margin-right:15px">x vel m/ms</output>
@@ -190,23 +234,9 @@ document.write(`
                         <output style="margin-right:15px">y vel m/ms</output>
                     </div>
                 </div>
-
+                
                 <div>
-                    <div>
-                        <input type="number" id="number" value=1 size="4" min="1" max="50">
-                        <output style="margin-right:15px">Count</output>
-                    </div>
-                    <div>
-                        <input type="number" id="randomness" value=0 size="4" min="0" max="100">
-                        <output style="margin-right:15px">Random (%)</output>
-                    </div>
-                </div>
-                <div id="status" class="status">0 μs</div>
-            </div>
-            <div class="flex-container" style="padding-bottom:0px;margin-bottom:0px">
-                <div><canvas id="time_line" width="900" height="120"></canvas></div>
-                <div>
-                    <pre style="margin-bottom:-20px"><code id="splatlog"></code></pre>
+                    <pre style="margin-bottom:0px"><code id="splatlog"></code></pre>
                 </div>
             </div>
         </div>
