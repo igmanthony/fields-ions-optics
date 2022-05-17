@@ -1,10 +1,12 @@
-import { turbo } from './constants.js';
+import { turbo, max_time } from './constants.js';
 
 export default {
     electrode_volts: [0, 500, 1000, -500, -1000],
     splattable: [-1, 0, 0, 0, 0], // -1 = background; 1 = splattable; 0 = not splattable
     electrode_frequencies: [0, 1.6e3, 1.6e3, 1.6e3, 1.6e3],
     electrode_offsets: [0, 0, 0, 0, 0],
+    pulse_starts: [0, 0, 0, 0, 0],
+    pulse_ends: [0, max_time, max_time, max_time, max_time],
     active_electrode: 1,
     emap_altered: false,
     dragging: false,
@@ -17,6 +19,8 @@ export default {
     latest_ion: [],
     
     current_mz: 100,
+    current_x_position: 0.00,
+    current_y_position: 0.00,
     current_x_velocity: 0.00,
     current_y_velocity: 0.00,
 

@@ -225,11 +225,17 @@ function makeTimeline(length) {
         let dc_mode = glob.dc_only[i];
         console.log("dc_mode", dc_mode );
         let frequency = (glob.electrode_frequencies[i] * 1000) * 3.14159 * 2;
+        let pulse_start = glob.pulse_starts[i];
+        let pulse_end = glob.pulse_ends[i];
         for (let j = 0; j < length; j++) {
-            if (dc_mode) {
-                timeline.push(1.0);
+            if ((j <= pulse_end) && (j >= pulse_start)) {
+                if (dc_mode) {
+                    timeline.push(1.0);
+                } else {
+                    timeline.push( Math.sin( frequency * j * 1e-9) ); // 1 nm per step
+                }
             } else {
-                timeline.push( Math.sin( frequency * j * 1e-9) ); // 1 nm per step
+                timeline.push(0.0);
             }
         }
     }

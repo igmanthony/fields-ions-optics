@@ -37,6 +37,7 @@ pub struct Environment {
     pressure: f64, // in Pa
     gas_mass: f64, // in amu / Da
     ccs: f64,
+    fdm_threshold: f64,
 }
 
 #[wasm_bindgen]
@@ -58,6 +59,7 @@ impl Environment {
         let timeline = Array2::<f64>::ones((volts.len(), max_time));
         let offsets = vec![0.0; volts.len()];
         let ccs = 0.0;
+        let fdm_threshold = 10.0;
         Environment {
             width,
             height,
@@ -73,6 +75,7 @@ impl Environment {
             pressure,
             gas_mass,
             ccs,
+            fdm_threshold,
         }
     }
 
@@ -108,6 +111,8 @@ impl Environment {
     pub fn update_pressure(&mut self, pressure: f64) { self.pressure = pressure; }
 
     pub fn update_gas_mass(&mut self, gas_mass: f64) { self.gas_mass = gas_mass; }
+
+    pub fn update_fdm_threshold(&mut self, threshold: f64) { self.fdm_threshold = threshold; }
 
     pub fn timeline_length(&self) -> usize { return self.timeline.ncols(); }
 
@@ -201,7 +206,7 @@ impl Environment {
             let all = self.collidables.mapv(|elec| if elec == 0 || elec == 1 { 1.0 } else { 0.0 });
             for &step in &[32, 16, 8, 4, 2, 1] {
                 // "volts" is now 10_0000 volts for refining.
-                e_field = fdm_step(&e_field, &this, &all, step, refine_volts);
+                e_field = fdm_step(&e_field, &this, &all, step, refine_volts, self.fdm_threshold);
                 e_field = resize(&e_field, self.width, self.height);
             }
             let mut field = self.efmap.slice_mut(s![.., .., i]);
@@ -297,6 +302,7 @@ impl Environment {
 
 fn fdm_step(
     e_field: &Array2<f64>, this: &Array2<f64>, all: &Array2<f64>, step: usize, volts: f64,
+    threshold: f64
 ) -> Array2<f64> {
     let (width, height) = (e_field.ncols(), e_field.nrows());
     let (edge_divisor, corner_compensator) = (3.0, 4.5); // (3.04)
@@ -318,7 +324,8 @@ fn fdm_step(
         }
     }
     let mut err = f64::INFINITY;
-    while err > (10.0 / (step as f64 * step as f64)) {
+    log!("fdm threshold: {}", threshold);
+    while err > (threshold / (step as f64 * step as f64)) {
         let e_prev = e_now.clone();
         // perform the finite difference method
         let mut fdm: Array2<f64> = Array2::zeros((row + 2, col + 2));

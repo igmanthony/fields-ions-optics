@@ -49,44 +49,10 @@ function draw_electric_field(image) {
 
 function setupElectricFieldMap(image) {
     electric_field_map.addEventListener('click', (event) => {
-        if (glob.electric_fields_calculated) {
-            glob.no_lines = false;
-            const rect = electric_field_map.getBoundingClientRect();
-            let x = (event.clientX - rect.left) / cellSize;
-            let y = (event.clientY - rect.top) / cellSize;
-            let ix = x + 0.001;
-            let iy = y + 0.001;
-            let ivx = glob.current_x_velocity + 0.001;
-            let ivy = -(glob.current_y_velocity + 0.001);
-            let mz = glob.current_mz;
-            glob.latest_ion = [ix, iy, ivx, ivy, mz, Math.random()];
-            glob.latest_ion_path = image.fly_ion(glob.latest_ion);
-            let l = glob.latest_ion_path.length;
-            plotLatestIonPath(electric_field_map);
-            plotLatestIonPath(electrode_map);
-            ix = ix.toFixed(0);
-            iy = iy.toFixed(0);
-            ivy = ivy.toFixed(1);
-            ivx = ivx.toFixed(1);
-            let head = "Splat!"
-            if ((l / 3) >= max_time) {
-                head = "Time!!";
-            }
-            // let ft = (glob.latest_ion_path[l - 3] * 1000).toFixed(1);
-            let fx = glob.latest_ion_path[l - 2].toFixed(0);
-            let fy = image.height() - glob.latest_ion_path[l - 1].toFixed(0) - 1;
-            let splat = `${head} ${l / 3 - 1} ns ${mz}mz (${ix},${iy})->(${fx},${fy})`;
-            glob.splatlog.push(splat);
-            document.getElementById("splatlog").innerHTML = glob.splatlog.join('\n');
-
-        } else {
-            image.update_voltages(glob.electrode_volts);
-            console.log(`Updated voltages ${glob.electrode_volts}`);
-            image.generate_electric_fields();
-            console.log("Updated electrodes & generated electric fields");
-            glob.electric_fields_calculated = true;
-            draw_electric_field(image);
-        }
+        const rect = electric_field_map.getBoundingClientRect();
+        glob.current_x_position = (event.clientX - rect.left) / cellSize;
+        glob.current_y_position = (event.clientY - rect.top) / cellSize;        
+        fly_ion(image, glob.current_x_position, glob.current_y_position);
     });
     electric_field_map.addEventListener('mousemove', (event) => {
         const rect = electric_field_map.getBoundingClientRect();
@@ -102,6 +68,44 @@ function setupElectricFieldMap(image) {
             document.getElementById("status").innerHTML = `x: ${x} y: ${y}\nvolts: ${ef}`;
         }
     })
+}
+
+
+function fly_ion(image, x, y) {
+    if (glob.electric_fields_calculated) {
+        glob.no_lines = false;
+        let ix = x + 0.001;
+        let iy = y + 0.001;
+        let ivx = glob.current_x_velocity + 0.001;
+        let ivy = -(glob.current_y_velocity + 0.001);
+        let mz = glob.current_mz;
+        glob.latest_ion = [ix, iy, ivx, ivy, mz, Math.random()];
+        glob.latest_ion_path = image.fly_ion(glob.latest_ion);
+        let l = glob.latest_ion_path.length;
+        plotLatestIonPath(electric_field_map);
+        plotLatestIonPath(electrode_map);
+        ix = ix.toFixed(0);
+        iy = iy.toFixed(0);
+        ivy = ivy.toFixed(1);
+        ivx = ivx.toFixed(1);
+        let head = "Splat!"
+        if ((l / 3) >= max_time) {
+            head = "Time!!";
+        }
+        // let ft = (glob.latest_ion_path[l - 3] * 1000).toFixed(1);
+        let fx = glob.latest_ion_path[l - 2].toFixed(0);
+        let fy = image.height() - glob.latest_ion_path[l - 1].toFixed(0) - 1;
+        let splat = `${head} ${l / 3 - 1} ns ${mz}mz (${ix},${iy})->(${fx},${fy})`;
+        glob.splatlog.push(splat);
+        document.getElementById("splatlog").innerHTML = glob.splatlog.join('\n');
+    } else {
+        image.update_voltages(glob.electrode_volts);
+        console.log(`Updated voltages ${glob.electrode_volts}`);
+        image.generate_electric_fields();
+        console.log("Updated electrodes & generated electric fields");
+        glob.electric_fields_calculated = true;
+        draw_electric_field(image);
+    }
 }
 
 
@@ -124,4 +128,4 @@ function plotLatestIonPath(canvas) {
     context.stroke();
 }
 
-export { setupElectricFieldMap, drawFieldLines, draw_electric_field };
+export { setupElectricFieldMap, drawFieldLines, draw_electric_field, fly_ion };

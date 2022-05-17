@@ -1,6 +1,6 @@
 import glob from './globals.js';
 import { draw_electrodes, draw_over_electrodes, makeTimeline } from './electrodes.js';
-import { drawFieldLines, draw_electric_field } from './electric_fields.js';
+import { drawFieldLines, draw_electric_field, fly_ion } from './electric_fields.js';
 
 import {
     electrode_colors,
@@ -33,24 +33,33 @@ function refreshToggles() {
     document.getElementById("dc_mode").checked = !glob.dc_only[glob.active_electrode];
     document.getElementById("sin_frequency").value = glob.electrode_frequencies[glob.active_electrode];
     document.getElementById("offset").value = glob.electrode_offsets[glob.active_electrode];
+    if (!document.getElementById("dc_mode").checked) {
+        console.log("disabling freqoffset");
+        document.getElementById("sin_frequency").disabled = true;
+        document.getElementById("offset").disabled = true;
+    } else {
+        console.log("enabling freqoffset");
+        document.getElementById("sin_frequency").disabled = false;
+        document.getElementById("offset").disabled = false;
+    }
 }
 
 function setupButtons(image) {
     // voltage slider and input
-    const voltageSlider = document.getElementById("voltage_slider");
+    // const voltageSlider = document.getElementById("voltage_slider");
     const voltageInput = document.getElementById("voltage_input");
-    voltageSlider.oninput = () => {
-        if (glob.active_electrode != 0) {
-            glob.electrode_volts[glob.active_electrode] = voltageSlider.value;
-            voltageInput.value = voltageSlider.value;
-        }
-    };
+    // voltageSlider.oninput = () => {
+    //     if (glob.active_electrode != 0) {
+    //         glob.electrode_volts[glob.active_electrode] = voltageSlider.value;
+    //         voltageInput.value = voltageSlider.value;
+    //     }
+    // };
     voltageInput.oninput = () => {
         if (glob.active_electrode != 0) {
             const v = voltageInput.value;
             if (v <= 20000 && v >= -20000) {
                 glob.electrode_volts[glob.active_electrode] = v;
-                voltageSlider.value = v;
+                // voltageSlider.value = v;
             }
         }
     };
@@ -70,8 +79,8 @@ function setupButtons(image) {
                 document.getElementById(`electrode${j}`)
                     .style.boxShadow = ((j == glob.active_electrode) ? "0px 0px 3px 1px black" : "");
             }
-            voltageSlider.value = ((i == 0) ? 0 : glob.electrode_volts[glob.active_electrode]);
-            voltageInput.value = voltageSlider.value;
+            // voltageSlider.value = ((i == 0) ? 0 : glob.electrode_volts[glob.active_electrode]);
+            voltageInput.value = ((i == 0) ? 0 : glob.electrode_volts[glob.active_electrode]);
         });
     }
 
@@ -96,8 +105,12 @@ function setupButtons(image) {
     document.getElementById("dc_mode").addEventListener("change", (event) => { 
         if (event.target.checked && glob.active_electrode != 0) {
             glob.dc_only[glob.active_electrode] = 0; // can't pass bools so this suffices
+            document.getElementById("sin_frequency").disabled = false;
+            document.getElementById("offset").disabled = false;
         } else {
             glob.dc_only[glob.active_electrode] = 1; // can't pass bools so this suffices
+            document.getElementById("sin_frequency").disabled = true;
+            document.getElementById("offset").disabled = true;
         }
     });
 
@@ -113,6 +126,10 @@ function setupButtons(image) {
         console.log("Updated electrodes & generated electric fields");
         glob.electric_fields_calculated = true;
         draw_electric_field(image);
+    })
+
+    document.getElementById("fly'm").addEventListener("click", (_) => {
+        fly_ion(image, glob.current_x_position, glob.current_y_position);
     })
 
     // TOP
@@ -161,6 +178,13 @@ function setupButtons(image) {
     document.getElementById("mz_ratio").addEventListener("input", (_) => { glob.current_mz = parseFloat(document.getElementById("mz_ratio").value); });
     document.getElementById("ion_x_velocity").addEventListener("input", (_) => { glob.current_x_velocity = parseFloat(document.getElementById("ion_x_velocity").value); });
     document.getElementById("ion_y_velocity").addEventListener("input", (_) => { glob.current_y_velocity = parseFloat(document.getElementById("ion_y_velocity").value); });
+    
+    
+    document.getElementById("fdm_threshold").addEventListener("change", (_) => {
+        image.update_fdm_threshold(parseFloat(document.getElementById("fdm_threshold").value));
+    });
+    
+    
     document.getElementById("pressure").addEventListener("input", (_) => {
         glob.pressure = parseFloat(document.getElementById("pressure").value);
         image.update_pressure(glob.pressure);
@@ -173,10 +197,15 @@ function setupButtons(image) {
     document.getElementById("sin_frequency").addEventListener("input", (a) => {
         glob.electrode_frequencies[glob.active_electrode] = parseFloat(document.getElementById("sin_frequency").value);
     });
-
     document.getElementById("offset").addEventListener("input", (a) => {
         glob.electrode_offsets[glob.active_electrode] = parseFloat(document.getElementById("offset").value);
         image.update_offsets(glob.electrode_offsets);
+    });
+    document.getElementById("pulse_start").addEventListener("input", (_) => {
+        glob.pulse_starts[glob.active_electrode] = parseFloat(document.getElementById("pulse_start").value);
+    });
+    document.getElementById("pulse_end").addEventListener("input", (_) => {
+        glob.pulse_ends[glob.active_electrode] = parseFloat(document.getElementById("pulse_end").value);
     });
     
 }

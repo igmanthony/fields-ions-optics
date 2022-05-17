@@ -16,10 +16,10 @@ export {
 
 
 function onTimerTick(image) {
-    document.getElementById("electrode1").innerHTML = `Electrode&nbsp1</br>${glob.electrode_volts[1]} V`;
-    document.getElementById("electrode2").innerHTML = `Electrode&nbsp2</br>${glob.electrode_volts[2]} V`;
-    document.getElementById("electrode3").innerHTML = `Electrode&nbsp3</br>${glob.electrode_volts[3]} V`;
-    document.getElementById("electrode4").innerHTML = `Electrode&nbsp4</br>${glob.electrode_volts[4]} V`;
+    document.getElementById("electrode1").innerHTML = `${glob.electrode_volts[1]} V`;
+    document.getElementById("electrode2").innerHTML = `${glob.electrode_volts[2]} V`;
+    document.getElementById("electrode3").innerHTML = `${glob.electrode_volts[3]} V`;
+    document.getElementById("electrode4").innerHTML = `${glob.electrode_volts[4]} V`;
 
     if (glob.mouse_on_electrode_map) {
         draw_over_electrodes(image);
@@ -88,6 +88,8 @@ function setupStuff() {
     })
     document.getElementById("advanced").click();
     document.getElementById("advanced").click();
+    document.getElementById("sin_frequency").disabled = true;
+    document.getElementById("offset").disabled = true;
 }
 
 async function main() {
