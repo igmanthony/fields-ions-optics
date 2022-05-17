@@ -32,7 +32,7 @@ html {
 }
 
 * {
-  user-select: none;
+  user-select: text;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -89,9 +89,13 @@ a:hover {
   color: #37474F
 }
 
+.hovericon:hover {
+  color: #000000;
+}
+
 .actual_body {
   line-height: 1.4;
-  max-width: 42em;
+  max-width: 47em;
   margin: 5px;
   margin-left: 38px;
   font-size: 16px;
@@ -99,7 +103,8 @@ a:hover {
 }
 
 .topnav {
-  margin:-0.67em;
+  margin-top:-0.67em;
+  margin-left:-0.67em;
   margin-bottom: 0.67em;
   letter-spacing: 1.5px;
   background-color: #424242;
@@ -162,8 +167,14 @@ button:focus {
   width: 100%;
 }
 
+.tabbutton {
+  /* padding: 10px; */
+  vertical-align: bottom;
+}
+
 .iconbutton {
-  width: 44%;
+  width: 42px;
+  /* padding: 8px; */
 }
 
 ul, li {
@@ -176,11 +187,12 @@ ul {
   margin-bottom: 5px;
 }
 .advancebutton {
-  margin-right: auto;
-  margin-left: auto;
-  margin-bottom:2px;
-  margin-top:2px;
-  font-family: 'Inconsolata', monospace;
+  margin-right: 2px;
+  margin-left: 2px;
+  /* margin-bottom:2px; */
+  /* margin-top:2px; */
+  /* font-family: 'Inconsolata', monospace; */
+  font-size:13px;
   align-items: center;
   display: block;
 }
@@ -213,6 +225,10 @@ input {
   vertical-align: middle;
 }
 
+.vinput {
+  font-family: 'Montserrat', sans-serif
+}
+
 output {
   margin-right:4px;
   font-family: 'Inconsolata', monospace;
@@ -240,7 +256,7 @@ output {
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: 15px;
   color: #F5F5F5;
   font-weight: 500;
   width: 100%;
@@ -248,8 +264,11 @@ output {
 }
 
 .header {
-  display: flex;
-  width: 52em;
+  display: grid;
+  row-gap: 5px;
+  grid-template-columns: auto auto auto auto auto;
+  width: 55em;
+  /* height: 15em; */
 }
 
 .sub-header {
@@ -274,9 +293,9 @@ output {
 }
 
 .spacer {
-  margin-top:5px;
-  padding-bottom: 20px;
-  margin-right: 10px;
+  /* margin-top:5px; */
+  /* padding-bottom: 20px; */
+  /* margin-right: 10px; */
 }
 
 .collapsible {
@@ -665,3 +684,69 @@ Yellow	#f1fa8c	 */
   transition: 0.3s ease all;
 }
 
+
+.colory {
+  background-color: #4DB6AC;
+  margin-bottom: 10px;
+  color: #B2DFDB;
+  width: 96px;
+}
+
+.voltinput {
+  font-weight:500;
+  padding-top: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  margin-right: 4px;
+  /* border: none; */
+  border-radius: 25px;
+  border-width:0px;
+  width: 74px;
+  margin-left:6px;
+  text-align:center;
+  margin-bottom:4px;
+  /* border-width:2px;
+  border-color:#FFF;
+  border-left: 2px solid #FFFFFF;
+  border-top: 2px solid #FFFFFF; */
+  /* outline: none; */
+  font-family: 'Montserrat', sans-serif;
+  /* justify-content: center; */
+  box-shadow: none;
+  background-color: #80CBC4;
+  font-size:16px;
+  color:#FFFFFF;
+  /* width: ; */
+}
+
+
+
+.voltage {
+  margin-top: 15px;
+  font-weight:500;
+  color: #E0F2F1;
+  padding-left:6px;
+  padding-top: 2px;
+  padding-bottom:2px;
+}
+
+.voltinput:hover {
+  outline: none;
+  background-color: #B2DFDB;
+}
+
+.voltinput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+
+.voltinput:focus {
+  background-color: #ffffff;
+  color: #26A69A;
+  /* border-color:rgb(79, 79, 79);
+  border-left: 2px solid rgb(79, 79, 79);
+  border-top: 2px solid rgb(79, 79, 79); */
+}

@@ -21,70 +21,65 @@ document.write(`
     to copy-paste the full playground in to each file. I considered loading all HTML and
     serving it via a single script, rather than the other way around. I think this is less sinful.
 -->
-<div class="topnav no-print" id="topnav" style="width:100%">
-    <div class='flex-child no-print' style="width:100%">
-        <div class='title no-print' style="width:100%">SIMULATING FIELDS, IONS, and OPTICS</div>
-        <div class='subtitle no-print' style="width:100%">A COMPACT PRIMER ON ION SIMULATION</div>
+<div class="topnav no-print" id="topnav">
+    <div class='flex-child no-print'>
+        <div class='title no-print'>SIMULATING FIELDS, IONS, and OPTICS</div>
+        <div class='subtitle no-print'>A COMPACT PRIMER ON ION SIMULATION&nbsp;
+            <span class="hovericon" style="cursor: pointer;" onclick=window.open('https://igmanthony.com/')>
+                <i class="fa-solid fa-user hovericon"></i>
+            </span>
+            <span class="hovericon" style="cursor: pointer;" onclick=window.open("https://github.com/igmanthony/fields-ions-optics")>
+                <i class="fa-brands fa-github"></i>
+            </span>
+        </div>
         <div class="header  no-print">
-            <div style="width:100%">
-                <div class='sub-header no-print' style="width:100%">Introduction</div>
-                <div class="linky" style="width:100%">
-                    <div class=spacer><a href="index.html">Forward</a></div>
-                    <div class=spacer><a href="simulation_playground.html">The Playground</a></div>
-                    <div class=spacer><a href="simulations.html">Simulations</a></div>
-                    <div class=spacer><a href="electric_fields.html">Electric fields</a></div>
-                    <div class=spacer><a href="charged_particles.html">Charged particles</a></div>
-                    <div class=spacer><a href="visualization.html">Visualization</a></div>
-                </div>
-            </div>
-            <div style="width:100%">
-                <div class='sub-header no-print' style="width:100%">Implementation</br> </div>
-                <div class="linky" style="width:100%">
-                    <div class=spacer><a href="laplace_equation.html">Laplace’s equation</a></div>
-                    <div class=spacer><a href="electrodynamics.html">Electrodynamics</a></div>
-                    <div class=spacer><a href="particle_flight.html">Particle flight*</a></div>
-                    <div class=spacer><a href="magnetism.html">Magnetism*</a></div>
-                    <div class=spacer><a href="pressure.html">Pressure regimes*</a></div>
-                    <div class=spacer><a href="bonus_details.html">Bonus details*</a></div>
-                </div>
-            </div>
-            <div style="width:100%">
-                <div class='sub-header no-print' style="width:100%">Building blocks</br></div>
-                <div class="linky" style="width:100%">
-                    <div class=spacer><a href="focusing.html">Focusing</a></div>
-                    <div class=spacer><a href="beams.html">Beams*</a></div>
-                    <div class=spacer><a href="guides.html">Guides*</a></div>
-                    <div class=spacer><a href="traps.html">Traps*</a></div>
-                    <div class=spacer><a href="cooling.html">Cooling*</a></div>
-                    <div class=spacer><a href="field_correction.html">Field correction*</a></div><!-- field free regions, thin wire electrodes -->
-                    <!-- <div class=spacer><a href="mass_filters.html">Mass filters</a></div> -->
-                </div>
-            </div>
-            <div style="width:100%">
-                <div class='sub-header no-print' style="width:100%">Fun with simulations</br></div>
-                <div class="linky" style="width:100%">
-                    <div class=spacer><a href="filters.html">Filters*</a></div> <!-- sector and quads-->
-                    <div class=spacer><a href="tof.html">Time-of-flight*</a></div> <!-- TOF -->
-                    <div class=spacer><a href="energy_correction.html">Energy correction*</a></div> <!-- reflectrons and electrostatic correction-->
-                    <div class=spacer><a href="resonance.html">Resonance*</a></div> <!-- ICR and orbitraps -->
-                    <div class=spacer><a href="funnels.html">Funnels*</a></div> 
-                    <div class=spacer><a href="ion_mobility.html">Ion mobility*</a></div>
-                </div>
-            </div>
-            <div style="width:100%">
-                <div class='sub-header no-print' style="width:100%">Advanced topics</br></div>
-                <div class="linky" style="width:100%">
-                    <div class=spacer><a href="accuracy.html">Accuracy*</a></div> <!-- proper simulation setup, design, randomization-->
-                    <div class=spacer><a href="data_collection.html">Data collection*</a></div>
-                    <div class=spacer><a href="reactions.html">Reactions*</a></div>
-                    <!-- Ion-neutral, rrkm, metastable decay, ergodic -->
-                    <div class=spacer><a href="3d_simulations.html">3D Simulations*</a></div>
-                    <!-- Webassembly, the python script, lua -->
-                    <div class=spacer><a href="simion_tips.html">SIMION Tips*</a></div>
-                    <!-- <div class=spacer><a href="conclusion.html">Conclusion*</a></div> -->
-                    <div class=spacer><a href="code.html">About & code</a></div> <!-- Webassembly, the python script, lua -->
-                </div>
-            </div>
+                <div class='sub-header no-print'>Introduction</div>
+                <div class='sub-header no-print'>Implementation</br> </div>
+                <div class='sub-header no-print'>Building blocks</br></div>
+                <div class='sub-header no-print'>Fun with simulations</br></div>
+                <div class='sub-header no-print'>Advanced topics</br></div>
+
+                <div class='spacer linky'><a href="index.html">Forward</a></div>
+                <div class='spacer linky'><a href="laplace_equation.html">Laplace’s equation</a></div>
+                <div class='spacer linky'><a href="focusing.html">Focusing</a></div>
+                <div class='spacer linky'><a href="filters.html">Filters*</a></div> <!-- sector and quads-->
+                <div class='spacer linky'><a href="accuracy.html">Accuracy*</a></div> <!-- proper simulation setup, design, randomization-->
+                
+                <div class='spacer linky'><a href="visualization.html">Visualization</a></div>
+                <div class='spacer linky'><a href="electrodynamics.html">Electrodynamics</a></div>
+                <div class='spacer linky'><a href="beams.html">Beams*</a></div>
+                <div class='spacer linky'><a href="tof.html">Time-of-flight*</a></div> <!-- TOF -->
+                <div class='spacer linky'><a href="data_collection.html">Data collection*</a></div>
+                
+                <div class='spacer linky'><a href="simulation_playground.html">The Playground</a></div>
+                <div class='spacer linky'><a href="pressure.html">Pressure regimes*</a></div>
+                <div class='spacer linky'><a href="guides.html">Guides*</a></div>
+                <div class='spacer linky'><a href="energy_correction.html">Energy correction*</a></div> <!-- reflectrons and electrostatic correction-->
+                <div class='spacer linky'><a href="reactions.html">Reactions*</a></div>
+                
+                <div class='spacer linky'><a href="simulations.html">Simulations</a></div>
+                <div class='spacer linky'><a href="particle_flight.html">Particle flight*</a></div>
+                <div class='spacer linky'><a href="traps.html">Traps*</a></div>
+                <div class='spacer linky'><a href="resonance.html">Resonance*</a></div> <!-- ICR and orbitraps -->
+                <div class='spacer linky'><a href="3d_simulations.html">3D Simulations*</a></div>
+                
+                <div class='spacer linky'><a href="electric_fields.html">Electric fields</a></div>
+                <div class='spacer linky'><a href="magnetism.html">Magnetism*</a></div>
+                <div class='spacer linky'><a href="cooling.html">Cooling*</a></div>
+                <div class='spacer linky'><a href="funnels.html">Funnels*</a></div> 
+                <div class='spacer linky'><a href="simion_tips.html">SIMION Tips*</a></div>
+                
+                <div class='spacer linky'><a href="charged_particles.html">Charged particles</a></div>
+                <div class='spacer linky'><a href="bonus_details.html">Bonus details*</a></div>
+                <div class='spacer linky'><a href="field_correction.html">Field correction*</a></div><!-- field free regions, thin wire electrodes -->
+                <div class='spacer linky'><a href="ion_mobility.html">Ion mobility*</a></div>
+                <div class='spacer linky'><a href="code.html">About & code</a></div> <!-- Webassembly, the python script, lua -->
+
+
+                <!-- <div class='spacer linky'><a href="mass_filters.html">Mass filters</a></div> -->
+                <!-- Ion-neutral, rrkm, metastable decay, ergodic -->
+                <!-- Webassembly, the python script, lua -->
+                <!-- <div class='spacer linky'><a href="conclusion.html">Conclusion*</a></div> -->
         </div>
     </div>
 </div>
@@ -98,37 +93,39 @@ document.write(`
     <button type="button" class="collapsible  no-print" id="playground" >Simulation Playground</button>
     <div class="tab">
         <!-- BAR -->
-        <div class="flex-container">
-            <div style="vertical-align:middle">
-                <input padding=4 type="range" min="-20000" max="20000" value="0" class="slider" id="voltage_slider"
-                    step="1" style="width: 120px">
-                <div style="width:100%;text-align: center">
-                    <input type="number" id="voltage_input" value=500 size="4" min="-20000" max="20000">
-                    <output id="voltage_text">Volts</output>
-                </div>
-            </div>
-            <button id="clear">Blank</button>
-            <button id="einzel_lens">Lens</button>
-            <button id="tof">Time-of-Flight</button>
-            <button id="quadrupole">Quadrupole</button>
-            <button id="cyclotron">Cyclotron</button>
-            <button id="ion_funnel">Funnel</button>
-            <div></div>
-            <div id="status" class="status" style="text-align:right;margin-left:120px;padding:0;margin-bottom:0px;">0 μs</div>
+        <div class="flex-container" style="position:relative;bottom:44px;padding:0;left:380px;margin-top:4px;margin-bottom:-43px;margin-right:0px;width:928px">
+            <button class='tabbutton' id="clear">Blank</button>
+            <button class='tabbutton' id="einzel_lens">Lens</button>
+            <button class='tabbutton' id="tof">Time-of-Flight</button>
+            <button class='tabbutton' id="quadrupole">Quadrupole</button>
+            <button class='tabbutton' id="cyclotron">Cyclotron</button>
+            <button class='tabbutton' id="ion_funnel">Funnel</button>
+            <div style='flex-grow:1;'></div>
+            <div id="status" class="status" style="position:relative;bottom:-652px;right:-20px;padding:0;margin-top:13px;margin-bottom:10px;margin-right:30px;text-align:right">0 μs</div>
         </div>
         <!-- ELECTRODES AND CANVASES -->
         <div class="flex-container">
             <div class="flex-child">
-                <div><br></div>
-                <div><button class="sidebutton" id="electrode1">Electrode 1</button></div>
-                <div><button class="sidebutton" id="electrode2">Electrode 2</button></div>
-                <div><button class="sidebutton" id="electrode3">Electrode 3</button></div>
-                <div><button class="sidebutton" id="electrode4">Electrode 4</button></div>
-                <div>
-                    <button id="electrode0" class="sidebutton"
-                    style="padding-top:9px;padding-bottom:9px;">Erase</button>
+                <!-- <div style="vertical-align:middle"> -->
+                    <!-- <div class="container" style="width:55px;height:18px;position:relative;top:-15px;margin-top:0px;margin-bottom:0px;text-align:center"> -->
+                        <!-- <div class="omrs-input-group">
+                            <label class="omrs-input-filled">
+                                <input class='vinput' type="number" id="voltage_input" value=500 size="4" min="-20000" max="20000" style="width:83px;text-align:center">
+                                <span class="omrs-input-label" style="text-align:center">Voltage</span>
+                            </label>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="colory">
+                    <div class='voltage'>Set voltage</div>
+                    <input class='voltinput' type="number" id="voltage_input" value=500 size="4" min="-20000" max="20000">
                 </div>
-                <div><br></div>
+                <div><button class="sidebutton side1" id="electrode1" style="padding:8px">V</button></div>
+                <div><button class="sidebutton side2" id="electrode2" style="padding:8px">V</button></div>
+                <div><button class="sidebutton side3" id="electrode3" style="padding:8px">V</button></div>
+                <div><button class="sidebutton side4" id="electrode4" style="padding:8px">V</button></div>
+                <div><button class="sidebutton side0" id="electrode0" style="padding:8px;">Erase</button></div>
+                <br>
                 <div>
                     <button id="brush1" class="iconbutton" style="height:3em;"><i class="fa-solid fa-square" style="font-size: x-small;vertical-align: 0.1em"></i></button>
                     <button id="brush2" class="iconbutton" style="height:3em;vertical-align: -0.15em;"><i class="fa-solid fa-window-minimize" style="vertical-align: 0.5em;"></i></button>
@@ -137,93 +134,118 @@ document.write(`
                     <button id="brush3" class="iconbutton" style="height:3em"><i class="fa-regular fa-circle"></i></button>
                     <button id="brush4" class="iconbutton" style="height:3em"><i class="fa-regular fa-square"></i></button>
                 </div>
-
-                <div style="margin-top:10px;">
-                    <div class="toggle-button-cover">
+                <br>
+                <!-- TOGGLES -->
+                <div class="toggle-button-cover">
                     <div class="button-cover">
                         <div class="button r" id="button-2">
-                        <input type="checkbox" class="checkbox" id="splattable">
-                        <div class="knobs"></div>
-                        <div class="layer"></div>
+                            <input type="checkbox" class="checkbox" id="splattable">
+                            <div class="knobs"></div>
+                            <div class="layer"></div>
                         </div>
-                    </div>
                     </div>
                 </div>
                 <div>
                     <div class="toggle-button-cover">
-                    <div class="button-cover">
-                        <div class="button r" id="button-1">
-                        <input type="checkbox" class="checkbox" id="dc_mode">
-                        <div class="knobs"></div>
-                        <div class="layer"></div>
+                        <div class="button-cover">
+                            <div class="button r" id="button-1">
+                                <input type="checkbox" class="checkbox" id="dc_mode">
+                                <div class="knobs"></div>
+                                <div class="layer"></div>
+                            </div>
                         </div>
                     </div>
-                    </div>
                 </div>
-                <div><br></div>
+                <br>
                 <div><button class="specialbutton" id="update">Update</br>Fields</button></div>
             </div>
-            <div>
+            <div class="flex-child">
                 <canvas id="electrode_map" width="600" height="600"></canvas>
-                <canvas id="electric_field_map" width="600" height="600"></canvas>
+            </div>
+            <div>
+                <canvas id="electric_field_map" width="600" height="600" style="position:sticky"></canvas>
             </div>
         </div>
         <!-- ADVANCED -->
         <button type="button" class="collapsible" id="advanced">Advanced</button>
         <div class="tab">
+            <div class="flex-container" style="position:relative;bottom:44px;padding:0;left:380px;margin-top:0px;margin-bottom:-40px;margin-right:0px;width:928px">
+                <button class="specialbutton" id="fly'm" style="padding:10px;margin-right:10px;width:4rem">Fly'm</button>
+                <button id="SIMION_SAVE" class="advancebutton">Save to</br>SIMION</button>
+                <button id="field_lines" class="advancebutton">Draw</br>field</button>
+                <div style='flex-grow:1;'></div>
+            </div>
+            
             <div style="align-items:center;" class="flex-container">
-                <div style="margin-right:10px">
-                    <button id="SIMION_SAVE" class="advancebutton">Save to</br>SIMION</button>
-                    <button id="field_lines" class="advancebutton">Draw</br>field</button>
-                <!-- </div>
-                <div> -->
-                    <!-- <button id="apply_high" class="advancebutton">Apply</br>High</button>
-                    <button id="apply_low" class="advancebutton">Apply</br>Low</button>
-                    <button id="apply_sine" class="advancebutton" style="margin-right:8px">Apply</br>Sine</button> -->
+                <!-- <div style='flex-grow:1;'></div> -->
+                <div style="display:grid;grid-template-columns: auto auto auto;">
+                    <div><output style="margin-right:5px">frequency</output></div>
+                    <div><input type="number" id="sin_frequency" value=1600 size="4" min="0" max="10000"></div>
+                    <div><output style="margin-right:15px"> khz</output></div>
+                    <div><output >offset</output></div>
+                    <div><input type="number" id="offset" value=0 size="4" min="-10000" max="10000"></div>
+                    <div><output style="margin-right:15px"> V</output></div>
+                    <div><output>pulse start</output></div>
+                    <div><input type="number" id="pulse_start" value=0 size="4" min="0" max="1000000"></div>
+                    <div><output style="margin-right:15px">ns</output></div>
+                    <div><output>pulse end</output></div>
+                    <div><input type="number" id="pulse_end" value=400000 size="4" min="0" max="1000000"></div>
+                    <div><output style="margin-right:15px">ns</output></div>
                 </div>
-                <div>
-                    <div>
-                        <input type="number" id="sin_frequency" value=1600 size="4" min="0" max="10000">
-                        <output style="margin-right:15px">sine f (khz)</output>
-                    </div>
-                    <div>
-                        <select name="bg_gas" id="bg_gas">
+                <div style='flex-grow:1;'></div>
+                <div style="display:grid;grid-template-columns: auto auto auto;">                   
+                    <div><output style="margin-right:47px">gas</output></div>
+                    <div>                        
+                        <select name="bg_gas" id="bg_gas", style="font-family: 'Inconsolata'">
                             <option value="28.0">Air</option>
                             <option value="4.0">Helium</option>
                             <option value="40.0">Argon</option>
                             <option value="132.0">Xenon</option>
                         </select>
-                        <output style="margin-right:15px">gas</output>
                     </div>
-                    <div>
-                        <select name="magnetic_field" id="magnetic_field", style='width:69px;'>
+                    <div></div>
+                    <div><output style="margin-right:12px">pressure</output></div>
+                    <div><input type="number" id="pressure" value=0 size="4" min="0" , max="10000"></div>
+                    <div><output style="margin-right:15px">Pa</output></div>
+                    <div><output style="margin-right:25px">magnet</output></div>
+                    <div> 
+                        <select name="magnetic_field" id="magnetic_field", style="width:69px;font-family: 'Inconsolata'">
                             <option value="none">None</option>
                             <option value="left">Left</option>
                             <option value="right">Right</option>
+                        </select></div>
+                    <div></div>
+                    <div><output style="margin-right:12px">strength</output></div>
+                    <div><input type="number" id="magnet_field_strength" value=0 size="4" min="-10000" , max="10000"></div>
+                    <div>
+                        <output style="margin-right:15px"> T</output>
+                    </div>
+                    <div><output style="margin-right:5px">field accuracy</output></div>
+                    <div>
+                        <select id="fdm_threshold", style="font-family: 'Inconsolata'">
+                            <option value='10'>Medium</option>
+                            <option value='0.1'>Highest</option>
+                            <option value='1'>High</option>
+                            <option value='100'>Low</option>
                         </select>
-                        <output style="margin-right:15px">magnet</output>
                     </div>
+                        
+                   
                 </div>
-                
+                <div style='flex-grow:1;'></div>
                 <div>
-                    <div>
-                        <input type="number" id="offset" value=0 size="4" min="-10000" max="10000">
-                        <output style="margin-right:15px">offset V</output>
-                    </div>
-                    <div>
-                        <input type="number" id="pressure" value=0 size="4" min="-10000" , max="10000">
-                        <output style="margin-right:15px">pressure Pa</output>
-                    </div>
-                    <div>
-                        <input type="number" id="magnet_field_strength" value=0 size="4" min="-10000" , max="10000">
-                        <output style="margin-right:15px">strength T</output>
-                    </div>
-                </div>
-
-                <div>
+                    <div style="text-align:left;font-family:'Inconsolata',monospace">ion parameters</div>
                     <div>
                         <input type="number" id="mz_ratio" value=100 size="2" min="0.01" max="100000.0">
                         <output style="margin-right:15px">m/z</output>
+                    </div>
+                    <div style="vertical-align:middle;">
+                        <input type="number" id="x-position" value=0 size="2" min="0" max="200">
+                        <output style="margin-right:15px">x</output>
+                    </div>
+                    <div>
+                        <input type="number" id="y-position" value=0 size="2" min="0" max="200">
+                        <output style="margin-right:15px">y</output>
                     </div>
                     <div>
                         <input type="number" id="ion_x_velocity" value=0 size="4" min="-10000" , max="10000">
@@ -234,7 +256,7 @@ document.write(`
                         <output style="margin-right:15px">y vel m/ms</output>
                     </div>
                 </div>
-                
+                <div style='flex-grow:1;'></div>
                 <div>
                     <pre style="margin-bottom:0px"><code id="splatlog"></code></pre>
                 </div>
