@@ -4,17 +4,10 @@ document.write(`
 <meta name="author", content="Ian Anthony">
 <meta name="keywords", content="ion,simulation,mass,spectrometry,fields,ions,optics">
 <title>Fields, Ions, and Optics</title>
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest"> 
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-    href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,500;1,500&family=Inconsolata&family=Montserrat:wght@300;400;500;600&display=swap"
-    rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,500;1,500&family=Inconsolata&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="preload" href="style.css" as="style">
 <link rel="stylesheet" href="style.css">
-<script src="https://kit.fontawesome.com/e01b68e685.js" crossorigin="anonymous"></script>
 <!--
     The "playground" and "header" files are Javascript files that write HTML into all documents.
     Forgive me for this abomination of a hack. I can't include HTML but I don't want
@@ -25,19 +18,24 @@ document.write(`
     <div class='flex-child no-print'>
         <div class='title no-print'>SIMULATING FIELDS, IONS, and OPTICS</div>
         <div class='subtitle no-print'>A COMPACT PRIMER ON ION SIMULATION&nbsp;
-            <span class="hovericon" style="cursor: pointer;" onclick=window.open('https://igmanthony.com/')>
-                <i class="fa-solid fa-user hovericon"></i>
+            <span class="iconlink" style="cursor: pointer;" onclick=window.open('https://igmanthony.com/')>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="0.75rem">
+                    <circle cx="223" cy="128" r="128"/>
+                    <path d="m122 305c-74.3-0.157-122 67.1-122 122v42.6c0 22.8 18.5 41.3 41.3 41.3h364c22.8 0 41.3-18.5 41.3-41.3v-42.6c0.0113-54.7-47.6-122-122-122z"/>
+                </svg>
             </span>
-            <span class="hovericon" style="cursor: pointer;" onclick=window.open("https://github.com/igmanthony/fields-ions-optics")>
-                <i class="fa-brands fa-github"></i>
+            <span class="iconlink" style="cursor: pointer;" onclick=window.open("https://github.com/igmanthony/fields-ions-optics")>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 500" width="0.90rem">
+                    <path d="m248 0c-137 0-248 104-248 241 0 110 66.9 203 166 236 12.5 2.27 17.1-5.53 17.1-12v-48.8s-69.4 14.7-83.9-29.6c0 0-11.3-28.7-27.4-36.1 0 0-22.6-15.5 1.58-15.2 0 0 24.6 1.98 38.1 25.5 21.6 38.1 57.6 28.2 71.7 21.6-6e-5 -23.2 7.41-38 16.5-45.8-91.4-14-132-97.6-87.9-167 0 0-11-32.8 2.57-67 20.6-6.52 68.1 26.7 68.1 26.7 44.1-10.5 91.1-10.9 132 0 0 0 47.5-33.2 68.1-26.7 13.5 34.3 2.57 67 2.57 67 44.3 69.7 3.54 153-87.9 167 9.08 7.8 16.5 22.6 16.5 45.8v82.5c0 6.42 4.54 14.2 17.1 12 98.7-32.8 166-126 166-236 0-137-111-241-248-241z"/>
+                </svg>
             </span>
         </div>
         <div class="header  no-print">
-                <div class='sub-header no-print'>Introduction</div>
-                <div class='sub-header no-print'>Implementation</br> </div>
-                <div class='sub-header no-print'>Building blocks</br></div>
-                <div class='sub-header no-print'>Fun with simulations</br></div>
-                <div class='sub-header no-print'>Advanced topics</br></div>
+                <div class='sub-header'>Introduction</div>
+                <div class='sub-header'>Implementation</br> </div>
+                <div class='sub-header'>Building blocks</br></div>
+                <div class='sub-header'>Fun with simulations</br></div>
+                <div class='sub-header'>Advanced topics</br></div>
 
                 <div class='spacer linky'><a href="index.html">Forward</a></div>
                 <div class='spacer linky'><a href="laplace_equation.html">Laplace’s equation</a></div>
@@ -75,7 +73,6 @@ document.write(`
                 <div class='spacer linky'><a href="ion_mobility.html">Ion mobility*</a></div>
                 <div class='spacer linky'><a href="code.html">About & code</a></div> <!-- Webassembly, the python script, lua -->
 
-
                 <!-- <div class='spacer linky'><a href="mass_filters.html">Mass filters</a></div> -->
                 <!-- Ion-neutral, rrkm, metastable decay, ergodic -->
                 <!-- Webassembly, the python script, lua -->
@@ -90,10 +87,10 @@ document.write(`
 
 <!-- PLAYGROUND -->
 <div id="playgrounddiv" class="playgrounddiv  no-print">
-    <button type="button" class="collapsible  no-print" id="playground" >Simulation Playground</button>
+    <button type="button" class="collapsible" id="playground" >Simulation Playground</button>
     <div class="tab">
         <!-- BAR -->
-        <div class="flex-container" style="position:relative;bottom:44px;padding:0;left:380px;margin-top:4px;margin-bottom:-43px;margin-right:0px;width:928px">
+        <div class="flex-moved">
             <button class='tabbutton' id="clear">Blank</button>
             <button class='tabbutton' id="einzel_lens">Lens</button>
             <button class='tabbutton' id="tof">Time-of-Flight</button>
@@ -101,58 +98,67 @@ document.write(`
             <button class='tabbutton' id="cyclotron">Cyclotron</button>
             <button class='tabbutton' id="ion_funnel">Funnel</button>
             <div style='flex-grow:1;'></div>
-            <div id="status" class="status" style="position:relative;bottom:-652px;right:-20px;padding:0;margin-top:13px;margin-bottom:10px;margin-right:30px;text-align:right">0 μs</div>
+            <div id="status" class="status">0 μs</div>
         </div>
         <!-- ELECTRODES AND CANVASES -->
         <div class="flex-container">
             <div class="flex-child">
-                <!-- <div style="vertical-align:middle"> -->
-                    <!-- <div class="container" style="width:55px;height:18px;position:relative;top:-15px;margin-top:0px;margin-bottom:0px;text-align:center"> -->
-                        <!-- <div class="omrs-input-group">
-                            <label class="omrs-input-filled">
-                                <input class='vinput' type="number" id="voltage_input" value=500 size="4" min="-20000" max="20000" style="width:83px;text-align:center">
-                                <span class="omrs-input-label" style="text-align:center">Voltage</span>
-                            </label>
-                        </div>
-                    </div>
-                </div> -->
-                <div class="colory">
+                <div>
                     <div class='voltage'>Set voltage</div>
                     <input class='voltinput' type="number" id="voltage_input" value=500 size="4" min="-20000" max="20000">
                 </div>
-                <div><button class="sidebutton side1" id="electrode1" style="padding:8px">V</button></div>
-                <div><button class="sidebutton side2" id="electrode2" style="padding:8px">V</button></div>
-                <div><button class="sidebutton side3" id="electrode3" style="padding:8px">V</button></div>
-                <div><button class="sidebutton side4" id="electrode4" style="padding:8px">V</button></div>
-                <div><button class="sidebutton side0" id="electrode0" style="padding:8px;">Erase</button></div>
+                <div><button class="sidebutton side1" id="electrode1">V</button></div>
+                <div><button class="sidebutton side2" id="electrode2">V</button></div>
+                <div><button class="sidebutton side3" id="electrode3">V</button></div>
+                <div><button class="sidebutton side4" id="electrode4">V</button></div>
+                <div><button class="sidebutton side0" id="electrode0">Erase</button></div>
                 <br>
                 <div>
-                    <button id="brush1" class="iconbutton" style="height:3em;"><i class="fa-solid fa-square" style="font-size: x-small;vertical-align: 0.1em"></i></button>
-                    <button id="brush2" class="iconbutton" style="height:3em;vertical-align: -0.15em;"><i class="fa-solid fa-window-minimize" style="vertical-align: 0.5em;"></i></button>
+                    <button id="brush1" class="iconbutton">
+                        <div >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="8px", style="margin-bottom:-110px">
+                                <rect x="0" y="15" width="8" height="8" fill="black"/>
+                            </svg>
+                        </div>
+                    </button>
+                    <button id="brush2" class="iconbutton">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px", style="margin-bottom:-110px">
+                                <path d="m1 10 18 18" fill="none" stroke="#000" stroke-linecap="round" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </button>
                 </div>
                 <div>
-                    <button id="brush3" class="iconbutton" style="height:3em"><i class="fa-regular fa-circle"></i></button>
-                    <button id="brush4" class="iconbutton" style="height:3em"><i class="fa-regular fa-square"></i></button>
+                    <button id="brush3" class="iconbutton" style="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px", style="margin-bottom:-110px">
+                            <circle cx="10" cy="20" r="8" fill="none" stroke="#000" stroke-width="1.8"/>
+                        </svg>
+                    </button>
+                    <button id="brush4" class="iconbutton" style="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px", style="margin-bottom:-110px">
+                            <rect x="1.8" y="12" width="15" height="15" ry="0.05" fill="none" stroke="#000" stroke-width="1.6"/>
+                        </svg>
+                    </button>
                 </div>
                 <br>
                 <!-- TOGGLES -->
-                <div class="toggle-button-cover">
-                    <div class="button-cover">
-                        <div class="button r" id="button-2">
-                            <input type="checkbox" class="checkbox" id="splattable">
+                <div class="toggle-cover-holder">
+                    <div class="toggle-cover">
+                        <div class="toggle r" id="toggle-2">
+                            <input type="checkbox" class="toggle-checkbox" id="splattable">
                             <div class="knobs"></div>
                             <div class="layer"></div>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <div class="toggle-button-cover">
-                        <div class="button-cover">
-                            <div class="button r" id="button-1">
-                                <input type="checkbox" class="checkbox" id="dc_mode">
-                                <div class="knobs"></div>
-                                <div class="layer"></div>
-                            </div>
+                <div></div>
+                <div class="toggle-cover-holder">
+                    <div class="toggle-cover">
+                        <div class="toggle r" id="toggle-1">
+                            <input type="checkbox" class="toggle-checkbox" id="dc_mode">
+                            <div class="knobs"></div>
+                            <div class="layer"></div>
                         </div>
                     </div>
                 </div>
@@ -169,7 +175,7 @@ document.write(`
         <!-- ADVANCED -->
         <button type="button" class="collapsible" id="advanced">Advanced</button>
         <div class="tab">
-            <div class="flex-container" style="position:relative;bottom:44px;padding:0;left:380px;margin-top:0px;margin-bottom:-40px;margin-right:0px;width:928px">
+            <div class="flex-moved" style="margin-top:1px;margin-bottom:-40px;">
                 <button class="specialbutton" id="fly'm" style="padding:10px;margin-right:10px;width:4rem">Fly'm</button>
                 <button id="SIMION_SAVE" class="advancebutton">Save to</br>SIMION</button>
                 <button id="field_lines" class="advancebutton">Draw</br>field</button>
@@ -177,26 +183,25 @@ document.write(`
             </div>
             
             <div style="align-items:center;" class="flex-container">
-                <!-- <div style='flex-grow:1;'></div> -->
                 <div style="display:grid;grid-template-columns: auto auto auto;">
                     <div><output style="margin-right:5px">frequency</output></div>
                     <div><input type="number" id="sin_frequency" value=1600 size="4" min="0" max="10000"></div>
-                    <div><output style="margin-right:15px"> khz</output></div>
+                    <div><output> khz</output></div>
                     <div><output >offset</output></div>
                     <div><input type="number" id="offset" value=0 size="4" min="-10000" max="10000"></div>
-                    <div><output style="margin-right:15px"> V</output></div>
+                    <div><output> V</output></div>
                     <div><output>pulse start</output></div>
                     <div><input type="number" id="pulse_start" value=0 size="4" min="0" max="1000000"></div>
-                    <div><output style="margin-right:15px">ns</output></div>
+                    <div><output>ns</output></div>
                     <div><output>pulse end</output></div>
                     <div><input type="number" id="pulse_end" value=400000 size="4" min="0" max="1000000"></div>
-                    <div><output style="margin-right:15px">ns</output></div>
+                    <div><output>ns</output></div>
                 </div>
                 <div style='flex-grow:1;'></div>
                 <div style="display:grid;grid-template-columns: auto auto auto;">                   
                     <div><output style="margin-right:47px">gas</output></div>
                     <div>                        
-                        <select name="bg_gas" id="bg_gas", style="font-family: 'Inconsolata'">
+                        <select name="bg_gas" id="bg_gas">
                             <option value="28.0">Air</option>
                             <option value="4.0">Helium</option>
                             <option value="40.0">Argon</option>
@@ -206,10 +211,10 @@ document.write(`
                     <div></div>
                     <div><output style="margin-right:12px">pressure</output></div>
                     <div><input type="number" id="pressure" value=0 size="4" min="0" , max="10000"></div>
-                    <div><output style="margin-right:15px">Pa</output></div>
+                    <div><output>Pa</output></div>
                     <div><output style="margin-right:25px">magnet</output></div>
                     <div> 
-                        <select name="magnetic_field" id="magnetic_field", style="width:69px;font-family: 'Inconsolata'">
+                        <select name="magnetic_field" id="magnetic_field", style="width:69px;">
                             <option value="none">None</option>
                             <option value="left">Left</option>
                             <option value="right">Right</option>
@@ -218,42 +223,40 @@ document.write(`
                     <div><output style="margin-right:12px">strength</output></div>
                     <div><input type="number" id="magnet_field_strength" value=0 size="4" min="-10000" , max="10000"></div>
                     <div>
-                        <output style="margin-right:15px"> T</output>
+                        <output> T</output>
                     </div>
                     <div><output style="margin-right:5px">field accuracy</output></div>
                     <div>
-                        <select id="fdm_threshold", style="font-family: 'Inconsolata'">
+                        <select id="fdm_threshold">
                             <option value='10'>Medium</option>
                             <option value='0.1'>Highest</option>
                             <option value='1'>High</option>
                             <option value='100'>Low</option>
                         </select>
-                    </div>
-                        
-                   
+                    </div>                   
                 </div>
                 <div style='flex-grow:1;'></div>
                 <div>
                     <div style="text-align:left;font-family:'Inconsolata',monospace">ion parameters</div>
                     <div>
                         <input type="number" id="mz_ratio" value=100 size="2" min="0.01" max="100000.0">
-                        <output style="margin-right:15px">m/z</output>
+                        <output>m/z</output>
                     </div>
                     <div style="vertical-align:middle;">
                         <input type="number" id="x-position" value=0 size="2" min="0" max="200">
-                        <output style="margin-right:15px">x</output>
+                        <output>x</output>
                     </div>
                     <div>
                         <input type="number" id="y-position" value=0 size="2" min="0" max="200">
-                        <output style="margin-right:15px">y</output>
+                        <output>y</output>
                     </div>
                     <div>
                         <input type="number" id="ion_x_velocity" value=0 size="4" min="-10000" , max="10000">
-                        <output style="margin-right:15px">x vel m/ms</output>
+                        <output>x vel m/ms</output>
                     </div>
                     <div>
                         <input type="number" id="ion_y_velocity" value=0 size="4" min="-10000" max="10000">
-                        <output style="margin-right:15px">y vel m/ms</output>
+                        <output>y vel m/ms</output>
                     </div>
                 </div>
                 <div style='flex-grow:1;'></div>
