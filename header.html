@@ -50,19 +50,19 @@ document.write(`
                 <div class='spacer linky'><a href="data_collection.html">Data collection*</a></div>
                 
                 <div class='spacer linky'><a href="simulations.html">Simulations</a></div>
-                <div class='spacer linky'><a href="pressure.html">Pressure regimes*</a></div>
+                <div class='spacer linky'><a href="magnetism.html">Magnetism*</a></div>
                 <div class='spacer linky'><a href="guides.html">Guides*</a></div>
                 <div class='spacer linky'><a href="energy_correction.html">Energy correction*</a></div> <!-- reflectrons and electrostatic correction-->
                 <div class='spacer linky'><a href="reactions.html">Reactions*</a></div>
                 
                 <div class='spacer linky'><a href="electric_fields.html">Electric fields</a></div>
-                <div class='spacer linky'><a href="particle_flight.html">Particle flight*</a></div>
+                <div class='spacer linky'><a href="pressure.html">Pressure regimes*</a></div>
                 <div class='spacer linky'><a href="traps.html">Traps*</a></div>
                 <div class='spacer linky'><a href="resonance.html">Resonance*</a></div> <!-- ICR and orbitraps -->
                 <div class='spacer linky'><a href="3d_simulations.html">3D Simulations*</a></div>
                 
                 <div class='spacer linky'><a href="charged_particles.html">Charged particles</a></div>
-                <div class='spacer linky'><a href="magnetism.html">Magnetism*</a></div>
+                <div class='spacer linky'><a href="particle_flight.html">Particle flight*</a></div>
                 <div class='spacer linky'><a href="cooling.html">Cooling*</a></div>
                 <div class='spacer linky'><a href="funnels.html">Funnels*</a></div> 
                 <div class='spacer linky'><a href="simion_tips.html">SIMION Tips*</a></div>
@@ -104,7 +104,7 @@ document.write(`
         <div class="flex-container">
             <div class="flex-child">
                 <div>
-                    <div class='voltage'>Set voltage</div>
+                    <div class='voltage' id="set_voltage">Set voltage</div>
                     <input class='voltinput' type="number" id="voltage_input" value=500 size="4" min="-20000" max="20000">
                 </div>
                 <div><button class="sidebutton side1" id="electrode1">V</button></div>
@@ -112,36 +112,46 @@ document.write(`
                 <div><button class="sidebutton side3" id="electrode3">V</button></div>
                 <div><button class="sidebutton side4" id="electrode4">V</button></div>
                 <div><button class="sidebutton side0" id="electrode0">Erase</button></div>
-                <br>
                 <div>
                     <button id="brush1" class="iconbutton">
-                        <div >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="8px", style="margin-bottom:-110px">
-                                <rect x="0" y="15" width="8" height="8" fill="black"/>
-                            </svg>
-                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="8px" height="20px">
+                            <rect x="0" y="8" width="8" height="8" fill="black"/>
+                        </svg>
                     </button>
                     <button id="brush2" class="iconbutton">
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20px", style="margin-bottom:-110px">
-                                <path d="m1 10 18 18" fill="none" stroke="#000" stroke-linecap="round" stroke-width="2"/>
-                            </svg>
-                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px">
+                            <path d="m1 6 13 13" fill="none" stroke="#000" stroke-linecap="round" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    <button id="brush3" class="iconbutton">
+                        <svg class='svgicon' xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"style="top:2px;left:-3px;">
+                            <circle cx="10" cy="10" r="8" fill="none" stroke="#000" stroke-width="1.8"/>
+                        </svg>
                     </button>
                 </div>
                 <div>
-                    <button id="brush3" class="iconbutton" style="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20px", style="margin-bottom:-110px">
-                            <circle cx="10" cy="20" r="8" fill="none" stroke="#000" stroke-width="1.8"/>
+                    <button id="brush4" class="iconbutton">
+                        <svg class='svgicon' xmlns="http://www.w3.org/2000/svg" width="20px" height="20px">
+                            <rect x="3" y="1" width="15" height="15" ry="0.05" fill="none" stroke="#000" stroke-width="1.6"/>
                         </svg>
                     </button>
-                    <button id="brush4" class="iconbutton" style="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20px", style="margin-bottom:-110px">
-                            <rect x="1.8" y="12" width="15" height="15" ry="0.05" fill="none" stroke="#000" stroke-width="1.6"/>
+                    <button id="brush5" class="iconbutton">
+                        <svg class='svgicon' xmlns="http://www.w3.org/2000/svg" width="20" height="20px">
+                            <path d="m12.7 0-10.8 6.24 7.28 12.6 10.8-6.24zm-8.51 4.4s-2.07 0.267-2.64 0.476c0 0-1.57 0.432-1.57 1.22v5.56c0 0.416 0.334 0.748 0.748 0.748 0.416 0 0.78-0.334 0.78-0.748l-0.0295-5.6z"/>
+                        </svg>
+                    </button>
+                    <button id="brush6" class="iconbutton">
+                        <svg class='svgicon' xmlns="http://www.w3.org/2000/svg" width="20" height="20px">
+                            <defs>
+                                <marker id="arrhead" overflow="visible" orient="auto">
+                                    <path transform="scale(-.28)" d="m5.77 0-8.65 5v-10l8.65 5z" fill-rule="evenodd"/>
+                                </marker>
+                            </defs>
+                            <path d="m5.04 4.22a7.59 7.59 0 0 1 9.16-1.21 7.59 7.59 0 0 1 3.54 8.54 7.59 7.59 0 0 1-7.33 5.62" fill="none" marker-start="url(#arrhead)" stroke="#000" stroke-width="3"/>
                         </svg>
                     </button>
                 </div>
-                <br>
+                <div style="margin-top:7px"></div>
                 <!-- TOGGLES -->
                 <div class="toggle-cover-holder">
                     <div class="toggle-cover">
@@ -162,8 +172,17 @@ document.write(`
                         </div>
                     </div>
                 </div>
-                <br>
-                <div><button class="specialbutton" id="update">Update</br>Fields</button></div>
+                <div></div>
+                <div class="toggle-cover-holder">
+                    <div class="toggle-cover">
+                        <div class="toggle r" id="toggle-3">
+                            <input type="checkbox" class="toggle-checkbox" id="magnet_mode">
+                            <div class="knobs"></div>
+                            <div class="layer"></div>
+                        </div>
+                    </div>
+                </div>
+                <button class="specialbutton" id="update">Update</br>Fields</button>
             </div>
             <div class="flex-child">
                 <canvas id="electrode_map" width="600" height="600"></canvas>
@@ -184,6 +203,7 @@ document.write(`
             
             <div style="align-items:center;" class="flex-container">
                 <div style="display:grid;grid-template-columns: auto auto auto;">
+                    <div style="text-align:center;font-family:'Inconsolata',monospace;border-bottom-style: solid;border-width: thin;padding:2px;grid-column: 1 / span 3;">electrode parameters</div>
                     <div><output style="margin-right:5px">frequency</output></div>
                     <div><input type="number" id="sin_frequency" value=1600 size="4" min="0" max="10000"></div>
                     <div><output> khz</output></div>
@@ -198,36 +218,25 @@ document.write(`
                     <div><output>ns</output></div>
                 </div>
                 <div style='flex-grow:1;'></div>
-                <div style="display:grid;grid-template-columns: auto auto auto;">                   
-                    <div><output style="margin-right:47px">gas</output></div>
-                    <div>                        
-                        <select name="bg_gas" id="bg_gas">
+                <div>
+                    <div style="text-align:center;font-family:'Inconsolata',monospace;border-bottom-style: solid;border-width: thin;padding:2px">environment parameters</div>            
+                    <div style="margin-top:3px;">                        
+                        <output style="margin-right:47px;margin-top:6px;height:23px">gas</output>
+                        <select name="bg_gas" id="bg_gas" style="width:65px;height:20px">
                             <option value="28.0">Air</option>
                             <option value="4.0">Helium</option>
                             <option value="40.0">Argon</option>
                             <option value="132.0">Xenon</option>
                         </select>
                     </div>
-                    <div></div>
-                    <div><output style="margin-right:12px">pressure</output></div>
-                    <div><input type="number" id="pressure" value=0 size="4" min="0" , max="10000"></div>
-                    <div><output>Pa</output></div>
-                    <div><output style="margin-right:25px">magnet</output></div>
-                    <div> 
-                        <select name="magnetic_field" id="magnetic_field", style="width:69px;">
-                            <option value="none">None</option>
-                            <option value="left">Left</option>
-                            <option value="right">Right</option>
-                        </select></div>
-                    <div></div>
-                    <div><output style="margin-right:12px">strength</output></div>
-                    <div><input type="number" id="magnet_field_strength" value=0 size="4" min="-10000" , max="10000"></div>
                     <div>
-                        <output> T</output>
+                        <output style="margin-right:12px">pressure</output>
+                        <input type="number" id="pressure" value=0 size="4" min="0" , max="10000" style="width:57px">
+                        <output>Pa</output>
                     </div>
-                    <div><output style="margin-right:5px">field accuracy</output></div>
                     <div>
-                        <select id="fdm_threshold">
+                        <output style="margin-right:5px;height:23px">field accuracy</output>
+                        <select id="fdm_threshold" style="height:20px">
                             <option value='10'>Medium</option>
                             <option value='0.1'>Highest</option>
                             <option value='1'>High</option>
@@ -237,25 +246,21 @@ document.write(`
                 </div>
                 <div style='flex-grow:1;'></div>
                 <div>
-                    <div style="text-align:left;font-family:'Inconsolata',monospace">ion parameters</div>
-                    <div>
+                    <div style="text-align:center;font-family:'Inconsolata',monospace;border-bottom-style: solid;border-width: thin;padding:2px">ion parameters</div>
+                    <div style="margin-top:3px">
                         <input type="number" id="mz_ratio" value=100 size="2" min="0.01" max="100000.0">
                         <output>m/z</output>
                     </div>
-                    <div style="vertical-align:middle;">
-                        <input type="number" id="x-position" value=0 size="2" min="0" max="200">
+                    <div>
+                        <input type="number" id="x-position" value=0 min="0" max="200" style="width:40px">
                         <output>x</output>
+                        <input type="number" id="y-position" value=0 min="0" max="200" style="width:40px">
+                        <output>y pos mm</output>
                     </div>
                     <div>
-                        <input type="number" id="y-position" value=0 size="2" min="0" max="200">
-                        <output>y</output>
-                    </div>
-                    <div>
-                        <input type="number" id="ion_x_velocity" value=0 size="4" min="-10000" , max="10000">
-                        <output>x vel m/ms</output>
-                    </div>
-                    <div>
-                        <input type="number" id="ion_y_velocity" value=0 size="4" min="-10000" max="10000">
+                        <input type="number" id="ion_x_velocity" value=0 min="-10000" , max="10000" style="width:40px">
+                        <output>x</output>
+                        <input type="number" id="ion_y_velocity" value=0 min="-10000" max="10000" style="width:40px">
                         <output>y vel m/ms</output>
                     </div>
                 </div>
@@ -263,6 +268,13 @@ document.write(`
                 <div>
                     <pre style="margin-bottom:0px"><code id="splatlog"></code></pre>
                 </div>
+                <!--
+                    future settings
+                    Kinetic energy,
+                    ion flight accuracy (add Runge Kutta),
+                    another button to view the fields like SIMION (3D)
+                    Expand flight time from 400,000 ns
+                -->
             </div>
         </div>
     </div>

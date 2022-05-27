@@ -46,7 +46,7 @@ h1 {
 
 h2 {
   text-transform: uppercase;
-  color: gray;
+  color: rgb(76, 76, 76);
   font-size: 14px;
   margin-top: -6px;
   letter-spacing: 0.9px;
@@ -160,7 +160,7 @@ button:focus {
 
 .sidebutton {
   width: 100%;
-  padding: 8px;
+  padding: 6px;
 }
 
 .tabbutton {
@@ -168,9 +168,12 @@ button:focus {
 }
 
 .iconbutton {
-  width: 42px;
-  margin-bottom: -100px;
-  height:3em;
+  width: 26px;
+  height: 26px;
+  /* margin-bottom: -100px; */
+  margin-right:-2px;
+  margin-left:2px;
+  /* margin-top:px; */
 }
 
 ul, li {
@@ -195,6 +198,7 @@ ul {
     color:white;
     background-color: #2196F3;
     box-shadow: 0 2px 3px 0 #00000033, 0 2px 4px 0 #00000030;
+    z-index: 4;
 }
 
 .specialbutton:hover {
@@ -533,18 +537,20 @@ mark.l {
   text-align:center;
   font-weight:500;
   color: #26A69A;
-  padding-top: 5px;
-  padding-bottom:2px;
+  padding-top: 0px;
+  padding-bottom:0px;
 }
 
 .voltinput {
   font-weight:500;
   padding: 5px;
+  /* padding-right:0px; */
   border-radius: 15px;
   border-width:0px;
-  width: 88px;
+  width: 78px;
+  height: 12px;
   text-align:center;
-  margin-bottom: 6px;
+  margin-bottom: 3px;
   font-family: 'Montserrat', sans-serif;
   font-size:16px;
   outline: none;
@@ -570,18 +576,26 @@ mark.l {
 .toggle-cover-holder {
   display: table-cell;
   position: relative;
-  margin: 20px;
-  height: 40px;
+  margin: 0px;
+  /* height: 40px; */
+  width:20px;
 }
 
 .toggle-cover {
-  height: 20px;
-  margin: 10px;
-  border-radius: 4px;
+  margin-top: 15px;
+  margin-bottom:8px;
+  margin-right:0px;
+  margin-left:4px;
 }
-.toggle-cover:before,
-.toggle-cover,
-.knobs,
+.knobs {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  z-index: 2;
+}
 
 .layer {
   position: absolute;
@@ -589,22 +603,23 @@ mark.l {
   right: 0;
   bottom: 0;
   left: 0;
+  width: 30px;
+  transition: 0.3s ease all;
+  z-index: 1;
 }
 
 .toggle {
   position: relative;
   top: 50%;
-  width: 74px;
-  height: 36px;
-  margin: -20px 5px 0 5px;
+  width: 70px;
+  height: 28px;
+  margin: -21px 5px 0 2px;
   overflow: hidden;
 }
 
-.toggle.r,
-.toggle.r .layer {
+.toggle.r {
   border-radius: 100px;
 }
-
 
 .toggle-checkbox {
   position: relative;
@@ -617,69 +632,115 @@ mark.l {
   z-index: 3;
 }
 
-.knobs {
-  z-index: 2;
+.toggle.r .knobs:before {
+  background-color: #03a9f4;
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  width: 16px;
+  height: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 0.5;
+  padding: 9px 4px;
+  border-radius: 50%;
+  transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
 }
 
-.layer {
-  width: 100%;
-  background-color: white;
-  transition: 0.3s ease all;
-  z-index: 1;
+.toggle.r .knobs:after {
+  top: 2px;
+  width: 16px;
+  height: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 0.5;
+  padding: 9px 4px;
+  border-radius: 50%;
 }
+
+
+.toggle.r .knobs:disabled {
+  background-color: #c2c2c2;
+}
+
+.toggle.r:disabled .knobs:before {
+  background-color: #c2c2c2;
+}
+
+.toggle.r:disabled {
+  background-color: #c2c2c2;
+}
+
+.toggle-checkbox:disabled {
+  background-color: #c2c2c2;
+}
+
+.toggle.r .toggle-checkbox:checked ~ .layer {
+  background-color: white;
+}
+
+.toggle.r .toggle-checkbox:disabled {
+  background-color: #c2c2c2;
+}
+
+.toggle.r .toggle-checkbox:disabled .toggle-checkbox:checked  ~ .layer {
+  left: 42px;
+  background-color: #c2c2c2;
+}
+
+.toggle.r .toggle-checkbox:checked + .knobs:before {
+  left: 42px;
+  background-color: #f44336;
+}
+
+.toggle.r .toggle-checkbox:disabled .toggle-checkbox:checked + .knobs:before {
+  left: 42px;
+  background-color: #c2c2c2;
+}
+
+.toggle.r .toggle-checkbox:disabled + .knobs:before {
+  background-color: #c2c2c2;
+}
+
 
 /* Button 1 */
 #toggle-1 .knobs:before {
   content: "DC";
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 20px;
-  height: 10px;
-  font-size: 12px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 0.9;
-  padding: 9px 4px;
-  background-color: #03a9f4;
-  border-radius: 50%;
-  transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
 }
 
 #toggle-1 .toggle-checkbox:checked + .knobs:before {
   content: "RF";
-  left: 42px;
-  background-color: #f44336;
 }
 
-#toggle-1 .toggle-checkbox:checked ~ .layer {
-  background-color: white;
-}
-
-/* Button 1 */
 #toggle-2 .knobs:before {
-  content: "S";
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 20px;
-  height: 10px;
-  font-size: 12px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 0.9;
-  padding: 9px 4px;
-  background-color: #03a9f4;
-  border-radius: 50%;
-  transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+  /* content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='5' r='6' stroke='black' stroke-width='2' fill='none'/%3E%3C/svg%3E ");
+  content-visibility:visible; */
+  content: '⬤';
+  font-size: 14px;
 }
 
 #toggle-2 .toggle-checkbox:checked + .knobs:before {
-  content: "E";
-  left: 42px;
-  background-color: #f44336;
+  content: '◯';
+  font-size: 14px;
 }
 
-#toggle-2 .toggle-checkbox:checked ~ .layer {
-  background-color: white;
+#toggle-3 .knobs:before {
+  content: "E";
+
+}
+
+#toggle-3 .toggle-checkbox:checked + .knobs:before {
+  content: "M";
+}
+
+
+.svgicon {
+  /* margin-bottom: -122px; */
+  /* transform: translate(-3px, 2px);
+  z-index:100; */
+  position:relative;
+  top:3px;
+  left:-3px;
 }
