@@ -1,4 +1,6 @@
-import { turbo, max_time } from './constants.js';
+import { turbo } from './constants.js';
+
+let array1 = Array(10000).fill(0)
 
 export default {
     electrode_volts: [0, 500, 1000, -500, -1000],
@@ -6,7 +8,7 @@ export default {
     electrode_frequencies: [0, 1.6e3, 1.6e3, 1.6e3, 1.6e3],
     electrode_offsets: [0, 0, 0, 0, 0],
     pulse_starts: [0, 0, 0, 0, 0],
-    pulse_ends: [0, max_time, max_time, max_time, max_time],
+    pulse_ends: [0, 400000, 400000, 400000, 400000],
     active_electrode: 1,
     emap_altered: false,
     dragging: false,
@@ -15,6 +17,7 @@ export default {
     brush: 1,
     cmap: turbo,
     electric_fields_calculated: false,
+    voltages_were_updated: false,
     latest_ion_path: [],
     latest_ion: [],
     
@@ -33,10 +36,25 @@ export default {
     mouse_electrode_map_y: 0.0,
     no_lines: true,
     splatlog: [],
-    dc_only: [true, true, true, true, true],
+    dc_only: [1, 1, 1, 1, 1],
+    magnet_mode: [0, 0, 0, 0, 0],
 
-    // pressure
-    pressure: 0.0,
+    to_apply: [],
+    rect: [0, 0],
+    pressure: 0.0, // in Pa
     background_gas_mass: 4.0, // helium
+
+    cellSize: 3,
+    scale: 2,
+    map_width: 200,
+    map_height: 200,
+    max_time: 400000, // steps
+
+    canvas_width: 600,
+    canvas_height: 600,
+
+    history1: 0,
+    history2: 0,
+    history3: array1,
 
 };
