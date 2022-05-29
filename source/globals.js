@@ -34,6 +34,10 @@ export default {
     previous_mouse_electrode_position_y2: -1,
     mouse_electrode_map_x: 0.0,
     mouse_electrode_map_y: 0.0,
+    mouse_ef_map_x: 0.0,
+    mouse_ef_map_y: 0.0,
+    delta_ef_map_x: 0.0,
+    delta_ef_map_y: 0.0,
     no_lines: true,
     splatlog: [],
     dc_only: [1, 1, 1, 1, 1],
@@ -52,9 +56,21 @@ export default {
 
     canvas_width: 600,
     canvas_height: 600,
-
+    // undo
     history1: 0,
     history2: 0,
     history3: array1,
-
+    // advanced randomization
+    random_ke: 0,
+    
+    // for 3d rendering
+    three_dimension_view: 0,
+    gl: null,
+    programInfo: null,
+    bufferInfo: null,
+    efmap_altered: 0,
+    three_d_zoom_level: 0,
+    efmap_pixels: null,
+    fake_canvas: null,
+    refresh_canvas: 1,
 };

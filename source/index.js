@@ -1,18 +1,8 @@
-// We'll just make globals instead of passing a large state object. This keeps the code size a bit
-// smaller and all important logic should be encapsulated in the wasm code.
 import glob from './globals.js';
 import { draw_electrodes, draw_over_electrodes, setupElectrodeMap } from './electrodes.js';
 import { setupElectricFieldMap, draw_electric_field } from './electric_fields.js';
 import { setupButtons } from './buttons.js';
-import { map_width, map_height, max_time, scale, } from './constants.js';
-
-const electrode_map = document.getElementById("electrode_map");
-const electric_field_map = document.getElementById("electric_field_map");
-
-export {
-    electrode_map,
-    electric_field_map,
-};
+import { draw3d } from './render.js';
 
 
 function onTimerTick(image) {
@@ -78,13 +68,11 @@ function setupStuff() {
         });
         coll[i].nextElementSibling.style.display = "none";
     }
-    
-    document.getElementById("playground").click();
-    document.getElementById("playground").click(); // nee
     let playground = document.getElementById("playground");
+    playground.click();
+    playground.click(); // nee
     let playgrounddiv = document.getElementById("playgrounddiv");
     playground.addEventListener("click", (event) => {
-        console.log(playgrounddiv.style.backgroundColor);
         if (playgrounddiv.style.backgroundColor == "rgb(243, 243, 243)") {
             playgrounddiv.style.backgroundColor = "";
             playgrounddiv.style.boxShadow = "";
@@ -112,12 +100,9 @@ async function main() {
         glob.pressure,
         glob.background_gas_mass,
     );
-    const lens = lib.lens();
-    const tof = lib.tof();
-    const quadrupole = lib.quad();
-    const cyclotron = lib.cyclotron();
-    const funnel = lib.funnel();
-    if ((window.screen.height * window.devicePixelRatio < 1070)) {
+    let electrode_map = document.getElementById("electrode_map");
+    let electric_field_map = document.getElementById("electric_field_map");
+    if (!(window.screen.height * window.devicePixelRatio < 1070)) {
         glob.cellSize = 2; // usually 3
         glob.canvas_height = 400; // ususally 600
         glob.canvas_width = 400; // ususally 600
@@ -131,14 +116,12 @@ async function main() {
     };
     setupElectricFieldMap(image);
     setupElectrodeMap(image);
-    setupButtons(image, lens, tof, quadrupole, cyclotron, funnel);
+    setupButtons(image, lib.lens(), lib.tof(), lib.quad(), lib.cyclotron(), lib.funnel());
     setupStuff();
     draw_electrodes(image);
     draw_electric_field(image);
     highlightCurrentTopNavLink();
     addStickyPlayground();
-
-
     document.getElementById("dummyplayground").style.display = "none"
     document.getElementById("playgrounddiv").style.display = "inline-block"; // uncover the "playground" as soon as it's loaded
     setInterval(onTimerTick.bind(null, image, electrode_map), 60);

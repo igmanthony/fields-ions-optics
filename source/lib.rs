@@ -17,7 +17,7 @@ const T: f64 = 298.15; // temperature in Kelvin
 const K: f64 = 1.3806505E-23; // Boltzmann's constant in J/K
 const KG_AMU: f64 = 1.660538921E-27; // kg/amu conversion factor
 const PI: f64 = 3.141_592_653_589_793; // Pi
-const E_CHARGE: f64 = 1.602E-19;
+const E_CHARGE: f64 = 1.60217663E-19;
 const REFINE_VOLTS: f64 = 100.0;
 const SCALE: f64 = 1000.0;
 const LARGE_NUMBER: f64 = 1844674407370955161.0;
@@ -172,6 +172,26 @@ impl Environment {
         if index < self.pixels.len() {
             self.pixels[index] = color;
         }
+    }
+
+    pub fn load_lens(&mut self) {
+        self.pixels = e_maps::lens();
+    }
+
+    pub fn load_quad(&mut self) {
+        self.pixels = e_maps::quad();
+    }
+
+    pub fn load_tof(&mut self) {
+        self.pixels = e_maps::tof();
+    }
+
+    pub fn load_cyclotron(&mut self) {
+        self.pixels = e_maps::cyclotron();
+    }
+
+    pub fn load_funnel(&mut self) {
+        self.pixels = e_maps::funnel();
     }
 
     pub fn generate_electrodes(&mut self) {

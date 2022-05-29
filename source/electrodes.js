@@ -1,4 +1,3 @@
-import { electrode_map } from './index.js';
 import glob from './globals.js';
 import { electrode_colors, electrode_colors_100 } from './constants.js';
 
@@ -8,6 +7,7 @@ function draw_electrodes(image) {
     const height = image.height() / scale;
     const size = glob.cellSize * scale;
     const pixels = image.electrode_pixels();
+    let electrode_map = document.getElementById("electrode_map");
     const context = electrode_map.getContext("2d");
     for (let x = 0; x < width; x++) {
         for (let y = 0; y < height; y++) {
@@ -43,6 +43,7 @@ function draw_over_electrodes(image) {
     if (!glob.dragging) {
         const scale = image.scale();
         const size = glob.cellSize * scale;
+        let electrode_map = document.getElementById("electrode_map");
         const rect = electrode_map.getBoundingClientRect();
         let x = glob.mouse_electrode_map_x - rect.left;
         let y = glob.mouse_electrode_map_y - rect.top;
@@ -191,6 +192,7 @@ function applyBrush(event, image) {
         glob.to_apply.push([glob.mouse_electrode_map_x, glob.mouse_electrode_map_y]);
     } else if (event.type == 'click') {
         glob.no_lines = true;
+        let electrode_map = document.getElementById("electrode_map");
         const rect = electrode_map.getBoundingClientRect();
         let x = glob.mouse_electrode_map_x - rect.left;
         let y = glob.mouse_electrode_map_y - rect.top;

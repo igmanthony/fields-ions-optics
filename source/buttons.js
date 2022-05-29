@@ -1,6 +1,6 @@
 import glob from './globals.js';
-import { draw_electrodes, draw_over_electrodes, return_history, save_history } from './electrodes.js';
-import { drawFieldLines, draw_electric_field, fly_ion } from './electric_fields.js';
+import { draw_electrodes, return_history, save_history } from './electrodes.js';
+import { draw_electric_field, fly_ion, setupElectricFieldMap } from './electric_fields.js';
 
 import {
     electrode_colors,
@@ -62,6 +62,7 @@ function setupButtons(image, lens, tof, quadrupole, cyclotron, funnel) {
                 image.update_voltages(glob.electrode_volts);
                 glob.voltages_were_updated = true;
             }
+            glob.efmap_altered = 1;
         }
     };
 
@@ -153,16 +154,14 @@ function setupButtons(image, lens, tof, quadrupole, cyclotron, funnel) {
         );
         console.log("Made timeline");
         image.generate_electric_fields();
-        console.log("Updated electrodes & generated electric fields");
         glob.electric_fields_calculated = true;
+        glob.fake_canvas = null;
         draw_electric_field(image);
     })
 
     document.getElementById("fly'm").addEventListener("click", (_) => {
         glob.current_x_position = parseFloat(document.getElementById("x-position").value);
         glob.current_y_position = glob.map_height - parseFloat(document.getElementById("y-position").value);
-        console.log(glob.current_x_position);
-        console.log(glob.current_y_position);
         fly_ion(image, glob.current_x_position, glob.current_y_position);
     })
 
@@ -180,7 +179,8 @@ function setupButtons(image, lens, tof, quadrupole, cyclotron, funnel) {
     document.getElementById("quadrupole").addEventListener("click", (_) => setElectrodeValues(image, quadrupole, quadrupole_values, default_splats, quadrupole_frequencies, quadrupole_dcs, default_pressure, quadrupole_offsets, default_offs));
     document.getElementById("cyclotron").addEventListener("click", (_) => setElectrodeValues(image, cyclotron, quadrupole_values, default_splats, cyclotron_frequencies, quadrupole_dcs, default_pressure, default_offs, cyclotron_magnets));
     document.getElementById("ion_funnel").addEventListener("click", (_) => setElectrodeValues(image, funnel, funnel_values, default_splats, funnel_frequencies, quadrupole_dcs, funnel_pressure, default_offs, default_offs));
-
+    
+    // advanced
     document.getElementById("SIMION_SAVE").addEventListener("click", (_) => {
         image.generate_electrodes();
         let blob = image.save_simion_pa();
@@ -205,40 +205,63 @@ function setupButtons(image, lens, tof, quadrupole, cyclotron, funnel) {
         }
     });
 
-    // advanced
-    document.getElementById("field_lines").addEventListener("click", (_) => { drawFieldLines(image); }); // can I remove the closure?
+    let view_button = document.getElementById('3d_view');
+    view_button.addEventListener("click", (_) => {
+
+        // const ctx = document.createElement('canvas').getContext('2d');
+        // ctx.canvas.width = glob.map_width;
+        // ctx.canvas.height = glob.map_height;
+        // for (let x = 0; x < glob.map_width; x++) {
+        //     for (let y = 0; y < glob.map_height; y++) {
+        //         let value = pixels[((y * glob.map_width) + x)];
+        //         let newvalue = Math.floor((value - min) / (max - min) * 255);
+        //         ctx.fillStyle = glob.cmap[newvalue];
+        //         ctx.fillRect(x, y, 1, 1);
+        //     }
+        // }
+        // texture = ctx.getImageData(0, 0, glob.map_width, glob.map_height);
+
+        glob.refresh_canvas = 1;
+
+        let electric_field_map = document.getElementById("electric_field_map");
+        let new_efm = electric_field_map.cloneNode(false);
+        electric_field_map.parentNode.replaceChild(new_efm, electric_field_map);
+        if (!glob.three_dimension_view) {
+            view_button.innerHTML = '2D</br>view';
+            glob.gl = electric_field_map.getContext("webgl2");
+            glob.three_dimension_view = 1;
+        } else {
+            view_button.innerHTML =  '3D</br>view';
+            glob.gl = null;
+            glob.three_dimension_view = 0;
+        }
+        setupElectricFieldMap(image);
+        draw_electric_field(image);
+    });
+
     document.getElementById("mz_ratio").addEventListener("input", (_) => { glob.current_mz = parseFloat(document.getElementById("mz_ratio").value); });
     document.getElementById("ion_x_velocity").addEventListener("input", (_) => { glob.current_x_velocity = parseFloat(document.getElementById("ion_x_velocity").value); });
     document.getElementById("ion_y_velocity").addEventListener("input", (_) => { glob.current_y_velocity = parseFloat(document.getElementById("ion_y_velocity").value); });
-    
-    
-    document.getElementById("fdm_threshold").addEventListener("change", (_) => {
-        image.update_fdm_threshold(parseFloat(document.getElementById("fdm_threshold").value));
-    });
-    
-    
+    document.getElementById("randomizer").addEventListener("input", (_) => { glob.random_ke = parseFloat(document.getElementById("randomizer").value); });
+    document.getElementById("fdm_threshold").addEventListener("change", (_) => { image.update_fdm_threshold(parseFloat(document.getElementById("fdm_threshold").value)); });  
+    document.getElementById("pulse_start").addEventListener("input", (_) => { glob.pulse_starts[glob.active_electrode] = parseFloat(document.getElementById("pulse_start").value); });
+    document.getElementById("pulse_end").addEventListener("input", (_) => { glob.pulse_ends[glob.active_electrode] = parseFloat(document.getElementById("pulse_end").value); });
+
     document.getElementById("pressure").addEventListener("input", (_) => {
         glob.pressure = parseFloat(document.getElementById("pressure").value);
         image.update_pressure(glob.pressure);
     });
     document.getElementById("bg_gas").addEventListener("change", (_) => {
         glob.background_gas_mass = parseFloat(document.getElementById("bg_gas").value);
-        console.log(glob.background_gas_mass);
         image.update_gas_mass(glob.background_gas_mass);
     });
-    document.getElementById("sin_frequency").addEventListener("input", (a) => {
-        glob.electrode_frequencies[glob.active_electrode] = parseFloat(document.getElementById("sin_frequency").value);
-    });
+    document.getElementById("sin_frequency").addEventListener("input", (a) => { glob.electrode_frequencies[glob.active_electrode] = parseFloat(document.getElementById("sin_frequency").value); });
     document.getElementById("offset").addEventListener("input", (a) => {
         glob.electrode_offsets[glob.active_electrode] = parseFloat(document.getElementById("offset").value);
         image.update_offsets(glob.electrode_offsets);
     });
-    document.getElementById("pulse_start").addEventListener("input", (_) => {
-        glob.pulse_starts[glob.active_electrode] = parseFloat(document.getElementById("pulse_start").value);
-    });
-    document.getElementById("pulse_end").addEventListener("input", (_) => {
-        glob.pulse_ends[glob.active_electrode] = parseFloat(document.getElementById("pulse_end").value);
-    });
+
+
     
 }
 
