@@ -198,6 +198,7 @@ document.write(`
                 <button class="specialbutton" id="fly'm" style="padding:10px;margin-right:10px;width:4rem">Fly'm</button>
                 <button id="SIMION_SAVE" class="advancebutton">Save to</br>SIMION</button>
                 <button id="3d_view" class="advancebutton">3D</br>view</button>
+                <button id="stability_analysis" class="advancebutton">Quad</br>stability</button>
                 <div style='flex-grow:1;'></div>
             </div>
             
@@ -242,7 +243,17 @@ document.write(`
                             <option value='1'>High</option>
                             <option value='100'>Low</option>
                         </select>
-                    </div>                  
+                    </div>   
+                    <div>
+                        <output style="margin-right:2px">q.ramp</output>
+                        <input type="number" id="quad_freq" value=0 size="4" min="0" , max="10000" style="width:26px">
+                        <output style="margin-right:2px">freq</output>
+                        <input type="number" id="quad_rf" value=0 size="4" min="0" , max="10000" style="width:26px">
+                        <output style="margin-right:2px">vpp</output>
+                        <input type="number" id="quad_dc" value=0 size="4" min="0" , max="10000" style="width:26px">
+                        <output style="margin-right:2px">dc</output>
+                    </div>
+                    
                 </div>
                 <div style='flex-grow:1;'></div>
                 <div>
