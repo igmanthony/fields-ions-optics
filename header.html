@@ -197,7 +197,7 @@ document.write(`
             <div class="flex-moved" style="margin-top:1px;margin-bottom:-40px;">
                 <button class="specialbutton" id="fly'm" style="padding:10px;margin-right:10px;width:4rem">Fly'm</button>
                 <button id="SIMION_SAVE" class="advancebutton">Save to</br>SIMION</button>
-                <button id="field_lines" class="advancebutton">Draw</br>field</button>
+                <button id="3d_view" class="advancebutton">3D</br>view</button>
                 <div style='flex-grow:1;'></div>
             </div>
             
@@ -242,7 +242,7 @@ document.write(`
                             <option value='1'>High</option>
                             <option value='100'>Low</option>
                         </select>
-                    </div>                   
+                    </div>                  
                 </div>
                 <div style='flex-grow:1;'></div>
                 <div>
@@ -263,6 +263,10 @@ document.write(`
                         <input type="number" id="ion_y_velocity" value=0 min="-10000" max="10000" style="width:40px">
                         <output>y vel m/ms</output>
                     </div>
+                    <div>
+                        <input type="number" id="randomizer" value=0 min="0" , max="10000" style="width:60px">
+                        <output>random KE μeV</output>
+                    </div>
                 </div>
                 <div style='flex-grow:1;'></div>
                 <div>
@@ -272,6 +276,7 @@ document.write(`
                     future settings
                     Kinetic energy,
                     ion flight accuracy (add Runge Kutta),
+                    randomizer for flight,
                     another button to view the fields like SIMION (3D)
                     Expand flight time from 400,000 ns
                 -->
