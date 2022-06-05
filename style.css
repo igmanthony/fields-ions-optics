@@ -185,12 +185,33 @@ ul {
   margin-top: -5px;
   margin-bottom: 5px;
 }
+
 .advancebutton {
   margin-right: 2px;
   margin-left: 2px;
   font-size:13px;
   align-items: center;
   display: block;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  text-align:center;
+  vertical-align:middle; 
+  padding: 12px 8px;
+  border-radius: 2px;
+  font-weight: 500;
+  background-color: #FFE082;
+  margin:2px;
+  border: 0px;
+  /* cursor: pointer; */
+}
+
+.custom-file-upload:hover {
+  background-color: #CFD8DC;
 }
 
 .specialbutton {
@@ -203,6 +224,30 @@ ul {
 
 .specialbutton:hover {
   background-color: #90A4AE;
+}
+
+.helpbutton {
+  background-color: #B0BEC5;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+.helpbutton:hover {
+  /* background-color:#ECEFF1; */
+  background-color: #B0BEC5;
+  text-decoration-color: #FFFFFF;
+  color: #37474F;
+}
+
+
+.textbutton {
+  background-color:#FFE082;
+  padding:5px;
+}
+
+.loadbutton {
+  background-color:#FFE082;
+  padding:5px;
 }
 
 input[type=range]::-moz-range-track {
@@ -292,6 +337,17 @@ select {
   font-size: 10px;
   color: #FFE082;
 }
+
+.sub-header a:link {
+  color: #FFE082;
+  text-decoration-color: #FFE082;
+
+}
+
+.sub-header a:hover {
+  color: rgb(0, 0, 0);
+}
+
 
 .linky {
   margin: 0px;

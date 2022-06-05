@@ -31,45 +31,45 @@ document.write(`
             </span>
         </div>
         <div class="header  no-print">
-                <div class='sub-header'>Introduction</div>
-                <div class='sub-header'>Implementation</br> </div>
-                <div class='sub-header'>Building blocks</br></div>
-                <div class='sub-header'>Fun with simulations</br></div>
-                <div class='sub-header'>Advanced topics</br></div>
+                <div class='sub-header asubheader'><a href="introduction.html">Introduction</a></div>
+                <div class='sub-header asubheader'><a href="implementation.html">Implementation</a></br> </div>
+                <div class='sub-header asubheader'><a href="building_blocks.html">Building blocks</a></br></div>
+                <div class='sub-header asubheader'><a href="fun_with_simulations.html">Fun with simulations</a></br></div>
+                <div class='sub-header asubheader'><a href="advanced_topics.html">Advanced topics</a></br></div>
 
                 <div class='spacer linky'><a href="index.html">Forward</a></div>
                 <div class='spacer linky'><a href="laplace_equation.html">Laplace’s equation</a></div>
-                <div class='spacer linky'><a href="focusing.html">Focusing</a></div>
+                <div class='spacer linky'><a href="simple_electrodes.html">Simple electrodes</a></div><!-- field free regions, thin wire electrodes -->
                 <div class='spacer linky'><a href="filters.html">Filters*</a></div> <!-- sector and quads-->
                 <div class='spacer linky'><a href="accuracy.html">Accuracy*</a></div> <!-- proper simulation setup, design, randomization-->
                 
-                <div class='spacer linky'><a href="simulation_playground.html">The Playground</a></div>
+                <div class='spacer linky'><a href="simulations.html">Simulations</a></div>
                 <div class='spacer linky'><a href="electrodynamics.html">Electrodynamics</a></div>
-                <div class='spacer linky'><a href="beams.html">Beams*</a></div>
+                <div class='spacer linky'><a href="focusing.html">Focusing</a></div>
                 <div class='spacer linky'><a href="tof.html">Time-of-flight*</a></div> <!-- TOF -->
                 <div class='spacer linky'><a href="data_collection.html">Data collection*</a></div>
                 
-                <div class='spacer linky'><a href="simulations.html">Simulations</a></div>
+                <div class='spacer linky'><a href="electric_fields.html">Electric fields</a></div>
                 <div class='spacer linky'><a href="magnetism.html">Magnetism*</a></div>
-                <div class='spacer linky'><a href="guides.html">Guides*</a></div>
+                <div class='spacer linky'><a href="beams.html">Beams*</a></div>
                 <div class='spacer linky'><a href="energy_correction.html">Energy correction*</a></div> <!-- reflectrons and electrostatic correction-->
                 <div class='spacer linky'><a href="reactions.html">Reactions*</a></div>
                 
-                <div class='spacer linky'><a href="electric_fields.html">Electric fields</a></div>
-                <div class='spacer linky'><a href="pressure.html">Pressure regimes*</a></div>
-                <div class='spacer linky'><a href="traps.html">Traps*</a></div>
-                <div class='spacer linky'><a href="resonance.html">Resonance*</a></div> <!-- ICR and orbitraps -->
-                <div class='spacer linky'><a href="3d_simulations.html">3D Simulations*</a></div>
-                
                 <div class='spacer linky'><a href="charged_particles.html">Charged particles</a></div>
-                <div class='spacer linky'><a href="particle_flight.html">Particle flight*</a></div>
-                <div class='spacer linky'><a href="cooling.html">Cooling*</a></div>
+                <div class='spacer linky'><a href="pressure.html">Pressure regimes*</a></div>
+                <div class='spacer linky'><a href="guides.html">Guides*</a></div>
+                <div class='spacer linky'><a href="resonance.html">Resonance*</a></div> <!-- ICR and orbitraps -->
+                <div class='spacer linky'><a href="unknown.html">UNUSED*</a></div>
+                
+                <div class='spacer linky'><a href="visualization.html">Visualization</a></div>
+                <div class='spacer linky'><a href="particle_flight.html">Particle flight</a></div>
+                <div class='spacer linky'><a href="traps.html">Traps*</a></div>
                 <div class='spacer linky'><a href="funnels.html">Funnels*</a></div> 
                 <div class='spacer linky'><a href="simion_tips.html">SIMION Tips*</a></div>
                 
-                <div class='spacer linky'><a href="visualization.html">Visualization</a></div>
+                <div class='spacer linky'><a href="dimensions.html">Dimensions</a></div>
                 <div class='spacer linky'><a href="bonus_details.html">Bonus details*</a></div>
-                <div class='spacer linky'><a href="field_correction.html">Field correction*</a></div><!-- field free regions, thin wire electrodes -->
+                <div class='spacer linky'><a href="cooling.html">Cooling*</a></div>
                 <div class='spacer linky'><a href="ion_mobility.html">Ion mobility*</a></div>
                 <div class='spacer linky'><a href="code.html">About & code</a></div> <!-- Webassembly, the python script, lua -->
 
@@ -93,10 +93,11 @@ document.write(`
         <div class="flex-moved">
             <button class='tabbutton' id="clear">Blank</button>
             <button class='tabbutton' id="einzel_lens">Lens</button>
-            <button class='tabbutton' id="tof">Time-of-Flight</button>
+            <button class='tabbutton' id="tof">Time-of-flight</button>
             <button class='tabbutton' id="quadrupole">Quadrupole</button>
             <button class='tabbutton' id="cyclotron">Cyclotron</button>
             <button class='tabbutton' id="ion_funnel">Funnel</button>
+            <button class='helpbutton' onclick="parent.location='simulation_playground.html'" id="help_page">Help</button>
             <div style='flex-grow:1;'></div>
             <div id="status" class="status">0 μs</div>
         </div>
@@ -197,8 +198,9 @@ document.write(`
             <div class="flex-moved" style="margin-top:1px;margin-bottom:-40px;">
                 <button class="specialbutton" id="fly'm" style="padding:10px;margin-right:10px;width:4rem">Fly'm</button>
                 <button id="SIMION_SAVE" class="advancebutton">Save to</br>SIMION</button>
+                <button id="JSON_SAVE" class="advancebutton">Save</button>
+                <label class="custom-file-upload"><input id="JSON_LOAD" onclick="this.value=null;" type="file"/>Load</label>
                 <button id="3d_view" class="advancebutton">3D</br>view</button>
-                <button id="stability_analysis" class="advancebutton">Quad</br>stability</button>
                 <div style='flex-grow:1;'></div>
             </div>
             

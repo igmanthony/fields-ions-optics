@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="header.html"></script>
+</head>
+
+<body>
+    <div class="actual_body">
+      <h1>Simulations in five dimensions</h1>
+      <h2>Somebody get me a map</h2>
+      <p>
+        As could be observed in the previous section on <a href="visualization.html">visualization</a>, the 2-dimensions of the electric fields can be viewed with a third dimension, voltage or potential either as a heatmap or as a heightmap (or both, in the case of the 3D view of the Simulation Playground). In reality, the simulation has a fourth dimension — time. As covered in the page on <a href="charged_particles.html">charged particles</a>, at each timestep, we find the ion’s location, use it to get the electric vector, use that to get the forces on the ion and from those forces we get a cascade of acceleration, velocity, and finally position.
+      </p>
+      <p>
+        The code for this update runs in a “loop” — literally a “for” loop — until the ion has hit an electrode or the edge of the simulation, which ends the simulation and is called a “splat”. In the Simulation Playground, the simulation can also end after, a predetermined number of steps has passed, by default 400,000 steps, with each step being equivalent to a nanosecond.  
+      </p>
+      <div style="margin-bottom:20px;border-width:1px;border-style:solid;padding-left:10px;padding-top:5px;padding-bottom:5px;background-color: #282a36;font-size:15px;">
+        <code style="color:#f8f8f2;">
+          dt = <mark class=l>1E-9</mark> <mark class='c'># Conversion from seconds to nanoseconds</mark></br> 
+          position_log <mark class='p'>=</mark> []</br>
+          position <mark class='p'>=</mark> [initial_x_position, initial_y_position]</br>
+          <mark class='p'>for</mark> time in <mark class='y'>range</mark>(<mark class='l'>1</mark>, <mark class='l'>400_001</mark>): <mark class='c'># Keep going for 400,000 steps</mark></br>
+          &nbsp;&nbsp;&nbsp;&nbsp;electric_vector <mark class='p'>=</mark> <mark class='g'>get_electric_vector</mark>(electric_field_map, position)</br>
+          &nbsp;&nbsp;&nbsp;&nbsp;force <mark class='p'>=</mark> charge <mark class='p'>*</mark> electric_vector</br>
+          &nbsp;&nbsp;&nbsp;&nbsp;acceleration <mark class='p'>=</mark> force <mark class='p'>/</mark> mass <mark class='c'># Roll the golfball down the hill</mark></br>
+          &nbsp;&nbsp;&nbsp;&nbsp;velocity <mark class='p'>+=</mark> acceleration <mark class='p'>*</mark> dt </br>
+          &nbsp;&nbsp;&nbsp;&nbsp;position <mark class='p'>+=</mark> velocity <mark class='p'>*</mark> dt</br>
+          &nbsp;&nbsp;&nbsp;&nbsp;position_log.<mark class='g'>append</mark>([position, time]) <mark class='c'># Log position at each time</mark></br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<mark class='p'>if</mark> <mark class='g'>ion_has_splatted</mark>(position, electrode_map, boundaries):</br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mark class='y'>print</mark>(<mark class='w'>'SPLAT!'</mark>)</br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mark class='p'>break</mark> <mark class='c'># We've hit something, stop the simulation</mark>
+        </code>
+      </div>
+      <p>
+        In the code above, the initial x and y coordinates are put into the “position” variable, which is then used, updated, logged, and then a conditional check (the function “ion_has_splatted”) checks if the position is outside the boundaries or within an electrode.
+      </p>
+      <p>
+        Hopefully you can see from the example code above that extending a simulation to another dimension — the z-axis — would only take a very minor update to the ion flight trajectory calculations. We would only need to add an “inital_z_position” variable and make sure that the “get_electric_vector” and “ion_has_splatted” functions worked in three dimensions! Similarly, we could extend it to a fourth (or fifth, or sixth, etc.) spatial dimension, just add a fourth “initial_w_position” variable and do the same checks. 
+      </p>
+      <h1>Pixels versus voxels</h1>
+      <h2>Two out of three ain’t bad</h2>
+      <div class="flex-child" style="text-align:center;width: 100%;"><div><img src="images/voxel_simulation.webp" alt="Voxel simulation" width="800" style="outline-style: solid;outline-width:1px"></img></div></div>
+      Voxel-based render of an einzel lens, made with <a href="https://ephtracy.github.io/">MagicaVoxel</a>
+      <p>
+        Although adding another spatial dimension has some major advantages — not least of which is that we live in 3-spatial-dimensions, it comes with two major disadvantages. First, those “grids” of 100&nbsp;×&nbsp;100 cells that <a href="simulations.html#grids_of_numbers">I mentioned</a> would then become cubes of 100&nbsp;×&nbsp;100&nbsp;×&nbsp;100 cells, from ten thousand to a million cells. One million is not a lot, in bytes it’s one megabyte, but the cube grows… well cubed. So if we wanted to simulate a 1 meter cube at a 250 micrometer resolution — which is still pretty coarse for “real life”, then at 1 byte per voxel we’d end up with a 64 gigabyte cube of voxels whereas an equivalent 2-dimensional grid of pixels would take 16 megabytes. In reality both numbers are bigger than this, but the <a href="https://en.wikipedia.org/wiki/Square%E2%80%93cube_law">square-cube</a> relationship holds.  
+      </p>
+      <p>
+        The second major disadvantage, and the one that led to the Simulation Playground staying in 2-dimensions, is that both creation and visualization of objects in three spatial dimensions is difficult to do and runs into some problems using current <a href="https://en.wikipedia.org/wiki/Gimbal_lock#In_applied_mathematics">mouse-and-monitor-based computers</a>. 
+      </p>
+      <p>
+        The question then becomes, “how needed are three dimensions?” The answer is, at least in the case of professional instrument design that the costs are obviously well worth the advantages. However, for simulation education and even early professional work, more can be done with two dimensions than you might expect. After all, SIMION started off as a 2-dimensional simulation program.<cite><a href="#simion_reflection2">1</a></cite>
+      </p>
+      <p>
+        The reason that two dimensions often suffices is that most events in the ion-optical world take place primarily in a single plane, or if not then there is enough radial symmetry that it might as well take place in a single plane. Ions with stable trajectories in the plane of interest are likely to have stable trajectories in all planes of a 3-dimensional view. This is, of course, not always the case — there just is not a satisfactory way of fully simulating or depicting an <a href="http://www.massspecpro.com/mass-analyzers/orbitrap">Orbitrap</a> in two dimensions.
+      </p>
+      <div class=bibliography>
+        <div class=ref id="simion_reflection2">
+          [1] Dahl, D. “SIMION for the personal computer in reflection”, <i>International Journal of Mass Spectrometry.</i> 200 (1-3) <b>2000</b>. 3–25.
+        </div>
+      </div>
+    </div>
+    </br>
+    <script src="index.js"></script>
+</body>
+
+</html>
