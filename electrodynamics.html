@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="header.html"></script>
+  <title>Electrodynamics</title>
+</head>
+
+<body>
+    <div class="actual_body">
+      <h1>Fast adjust electrodes</h1>
+      <h2>That one weird trick to speed up dynamic simulations</h2>
+      <div class="flex-child" style="text-align:center;width: 100%;"><div><img src="images/dithered_electrode_800.png" alt="Electrode with electric discharge" width="800" style="outline-style: solid;outline-width:1px"></img></div></div>
+      Tesla coil with electrical discharge <a href="https://www.pexels.com/photo/blue-metal-tool-2635595/">photo by Killian Eon from Pexels</a>
+      <p>
+        So far, we have only discussed <i>electrostatic</i> fields. However, most instruments that make use of ion optics will also make use of <i>electrodynamic</i> fields. One advantage of electrodynamic fields is that Earnshaw’s theorem doesn’t apply — so stably trapping ions is achievable with electrodes that change voltages, but not with those that remain static.
+      </p>
+      <p>
+        It is possible to simulate electrodynamic fields just like we have with electrostatic fields. If we know each electrode’s potential at each time point, we can use the finite difference method (FDM) to obtain an overall solution to Laplace’s equation. However, doing this at each time point of a simulation requires an extremely large number of calculations — as solving Laplace’s equation is usually one of the most computationally-intensive steps.
+      </p>
+      <p>
+        Fortunately there is a better way, with what the SIMION documentation calls  “<a href="https://simion.com/info/potential_array_types.html#fast-adjust-potential-arrays">fast adjust</a>” electrodes. The “fast adjust” method makes use of the fact that Laplace’s equation is linear, meaning that the linear combination (i.e., the sum) of sets of solutions for individual electrodes are the solution to the overall field. Stated with less jargon: if we solve an electric field for each individual electrode, we can just add all the individual fields together. To do this, we set all electrodes to 0 V except for the one we are calculating. We then solve for that electrode’s field using the FDM. After we find this solution, we perform the same procedure for all the other electrodes. If we apply this method to the 5×5 array that we previously used, we find the same solution that we previously calculated: 
+      </p>
+      <div style="align-items:center;margin-bottom:1em;width:50%" class="flex-container">
+        <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px;margin-left:auto;">
+          <code style="color:#f8f8f2ab;">
+            <table>
+              <tr><td>-61</td> <td style="color: #bb91e2">-70</td> <td>-53</td> <td>-43</td> <td>-39</td></tr>
+              <tr><td>-51</td> <td>-51</td> <td>-44</td> <td>-38</td> <td>-35</td></tr>
+              <tr><td>-42</td> <td>-40</td> <td>-35</td> <td>-30</td> <td>-28</td></tr>
+              <tr><td>-35</td> <td>-32</td> <td>-26</td> <td>-19</td> <td>-19</td></tr>
+              <tr><td>-31</td> <td>-27</td> <td>-18</td> <td style="color:greenyellow">0</td> <td>-9</td></tr>
+            </table>
+          </code>
+        </div>
+        <div style="font-size:70px;margin-top:-40px;margin-bottom:-40px;padding:10px">+</div>
+        <div style="
+        text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px;">
+          <code style="color:#f8f8f2ab;">
+            <table>
+              <tr><td>13</td> <td style="color: #bb91e2">0</td> <td>25</td> <td>38</td> <td>44</td></tr>
+              <tr><td>26</td> <td>26</td> <td>37</td> <td>45</td> <td>50</td></tr>
+              <tr><td>40</td> <td>43</td> <td>50</td> <td>57</td> <td>60</td></tr>
+              <tr><td>50</td> <td>54</td> <td>63</td> <td>74</td> <td>74</td></tr>
+              <tr><td>56</td> <td>61</td> <td>75</td> <td style="color:greenyellow">100</td> <td>87</td></tr>
+            </table>
+          </code>
+        </div>
+        <div style="font-size:70px;margin-top:-40px;margin-bottom:-40px;padding:10px">=</div>
+        <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px">
+          <code style="color:#f8f8f2ab;">
+            <table>
+              <tr><td>-48</td> <td style="color: #bb91e2">-70</td> <td>-28</td> <td>-5</td> <td>5</td></tr>
+              <tr><td>-25</td> <td>-25</td> <td>-8</td> <td>8</td> <td>15</td></tr>
+              <tr><td>-3</td> <td>3</td> <td>15</td> <td>28</td> <td>33</td></tr>
+              <tr><td>15</td> <td>23</td> <td>38</td> <td>55</td> <td>55</td></tr>
+              <tr><td>25</td> <td>35</td> <td>58</td> <td style="color:greenyellow">100</td> <td>78</td></tr>
+            </table>
+          </code>
+        </div>
+      </div>
+      <p>
+        First we set the 100 V electrode to 0 V and solve for the −70 V electrode. Then we set the −70 V electrode to 0 V and solve for the 100 V electrode. When we simply add each grid-unit for these two solutions, we find the same solution that we found previously for this same setup. Furthermore, the linearity of Laplace’s equation means that we can adjust electrode and electric fields by simply multiplying the whole field by a scalar value. So for example, if instead of 100 V on the lower-right electrode in the previous example, we had 50 V, then we could just divide the whole electric field by two (or multiply by 0.5). For example:
+      </p>
+      <div style="align-items:center;margin-bottom:1em;width:50%" class="flex-container">
+        <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px;margin-left:auto;">
+          <code style="color:#f8f8f2ab;">
+            <table>
+              <tr><td>13</td> <td style="color: #bb91e2">0</td> <td>25</td> <td>38</td> <td>44</td></tr>
+              <tr><td>26</td> <td>26</td> <td>37</td> <td>45</td> <td>50</td></tr>
+              <tr><td>40</td> <td>43</td> <td>50</td> <td>57</td> <td>60</td></tr>
+              <tr><td>50</td> <td>54</td> <td>63</td> <td>74</td> <td>74</td></tr>
+              <tr><td>56</td> <td>61</td> <td>75</td> <td style="color:greenyellow">100</td> <td>87</td></tr>
+            </table>
+          </code>
+        </div>
+        <div style="font-size:70px;margin-top:-40px;margin-bottom:-40px;padding:10px">÷</div>
+        <div style="font-size:45px;font-weight:500"> 2 </div>
+        <div style="font-size:70px;margin-top:-40px;margin-bottom:-40px;padding:10px">=</div>
+        <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px">
+          <code style="color:#f8f8f2ab;">
+            <table>
+              <tr><td>7</td> <td style="color: #bb91e2">0</td> <td>13</td> <td>19</td> <td>22</td></tr>
+              <tr><td>13</td> <td>13</td> <td>18</td> <td>23</td> <td>25</td></tr>
+              <tr><td>20</td> <td>21</td> <td>25</td> <td>29</td> <td>30</td></tr>
+              <tr><td>25</td> <td>27</td> <td>32</td> <td>37</td> <td>37</td></tr>
+              <tr><td>28</td> <td>31</td> <td>38</td> <td style="color:greenyellow">50</td> <td>43</td></tr>
+            </table>
+          </code>
+        </div>
+      </div>
+      <p>
+        We could then add the electric field produced from the 50 V electrode to the one produced from the −70 V electrode to find the overall electric field. Simply multiplying or dividing by a scalar and then adding up all the numbers in these two grids is far fewer calculations than repeated application of the FDM.
+      </p>
+      <h1>Waveforms for electrodes</h1>
+      <h2>Like my coffee — arbitrary and complex</h2>
+      <p>
+        Because of this fast adjust electrode method, we can solve Laplace’s equation for each electrode before we know or have decided what the voltage of the electrode will be. For instance, we can solve for each electrode using 1 V as a placeholder. If we determine that the electrode is at 100 V, we can just multiply all the points of the electric field by 100. If the electrode changes to 1000 V, then we can either return to the 1 V solution and multiply it by 1000, or multiply the 100 V solution by 10.
+      </p>
+      <p>
+        This means if we have a “waveform” (i.e., a function or known set of points) that describes the potential of each electrode for the time points of the simulation, we can quickly scale and sum the electrodes. The two most common waveforms that are used, and thus simulated, are simple oscillations (sine waves) and immediate transitions (pulse waves or square waves). Both of these waveforms can be produced in the “Advanced” tab of the Simulation Playground.
+      </p>
+      <p>
+        Sine waves are often used in charged particle guides or traps. Pulse waves are often used to “pulse” and initiate or temporarily alter charged particle movement. Less commonly, triangular and sawtooth waves may be used for specific applications. For example, sawtooth waves can be used to systematically move and then reset a beam of charged particles — which was useful for older <a href="https://en.wikipedia.org/wiki/Cathode-ray_tube">cathode-ray tube</a> devices and is still used for instruments such as <a href="https://en.wikipedia.org/wiki/Scanning_electron_microscope#Scanning_process_and_image_formation">scanning electron microscopes</a>.
+      </p>
+      <div class="flex-child" style="text-align:center;width: 100%;">
+        <img src="images/waveforms.svg" alt="Hot metal rod" width="480"></img>
+      </div>
+      <p>
+        More rarely, ion optics will require complex waveforms. These waveforms can be non-repeating, such as a “chirp” waveforms, or can be repeating, such as a waveform that is the summation of one or more simple waveforms. With “real-world” instruments complex waveforms are usually produced with arbitrary waveform generators. In SIMION, the method of producing such complex waveforms is through the builtin Lua scripting language. The Simulation Playground does not include capabilities for simulating complex waveforms. 
+      </p>
+      <p>
+        Often waveforms will be combined with an “offset”. This simply means that the waveform is applied with a constant voltage added or subtracted. For instance, a sine wave that oscillates from −1 to 1 V may be “offset” by 10 V to instead oscillate from 9 to 11.
+      </p>
+      <aside>
+        Remember that voltage is relative. An <a href="focusing.html">einzel lens</a> has two outer electrodes that are usually kept at zero volts and then a central electrode that is usually biased tens or hundreds of volts. However, if the electrodes before and after the einzel lens are biased to 1,000 V, then the einzel lens would need to be biased accordingly. If it was kept at zero volts, or even a few-hundred volts, it would appear very negative to any passing charged particles and would not function appropriately.
+      </aside>
+
+<!--
+[[ 6.61764706  0.         12.5        19.11764706 22.05882353]
+ [13.23529412 13.23529412 18.38235294 22.79411765 25.        ]
+ [19.85294118 21.32352941 25.         28.67647059 30.14705882]
+ [25.         27.20588235 31.61764706 36.76470588 36.76470588]
+ [27.94117647 30.88235294 37.5        50.         43.38235294]]
+
+[[-60.73529412 -70.         -52.5        -43.23529412 -39.11764706]
+ [-51.47058824 -51.47058824 -44.26470588 -38.08823529 -35.        ]
+ [-42.20588235 -40.14705882 -35.         -29.85294118 -27.79411765]
+ [-35.         -31.91176471 -25.73529412 -18.52941176 -18.52941176]
+ [-30.88235294 -26.76470588 -17.5          0.          -9.26470588]]
+
+[[ 13.23529412   0.          25.          38.23529412  44.11764706]
+ [ 26.47058824  26.47058824  36.76470588  45.58823529  50.        ]
+ [ 39.70588235  42.64705882  50.          57.35294118  60.29411765]
+ [ 50.          54.41176471  63.23529412  73.52941176  73.52941176]
+ [ 55.88235294  61.76470588  75.         100.          86.76470588]]
+-->
+
+
+    </div>
+    </br>
+    <script src="index.js"></script>
+</body>
+
+</html>

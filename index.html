@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="header.html"></script>
+  <title>Forward</title>
+</head>
+
+<body>
+  <div class="actual_body">
+    <h1>Simulating Fields, Ions, and Optics</h1>
+    <h2>A guide for learning about ion simulations and optics</h2>
+    <p>
+      This is an introduction to the concepts that you will encounter with more professional charged particle simulation programs – specifically <a href="https://simion.com/">SIMION</a>, a program to perform complex ion and electron simulations. As SIMION is mostly intended to simulate <a href="https://en.wikipedia.org/wiki/Mass_spectrometry">mass spectrometry</a> (MS)-related components, this text is biased towards concepts and examples relevant for MS. Although intended as an introduction, the text assumes familiarity with terms such as: <a href="https://en.wikipedia.org/wiki/Ion">ion</a>, <a href="https://en.wikipedia.org/wiki/Electron">electron</a>, <a href="https://en.wikipedia.org/wiki/Electrode">electrode</a>, <a href="https://en.wikipedia.org/wiki/Electric_field">electric field</a>, <a href="https://en.wikipedia.org/wiki/Voltage">voltage</a>, and <a href="https://en.wikipedia.org/wiki/Mass">mass</a>.
+    </p>
+    <p>
+      The simulations discussed are for <em>gas phase</em> ions and electrons in <em>low pressure</em> environments, such as those that might be found in outer space. Liquid-phase ions, such as those in a battery, are not discussed or simulated. Simulations are of the motion of charged particles, not their internal energy states or chemistry, so inter and intra-molecular forces and interactions are mostly ignored, except for the page on <a href="reactions.html">Reactions</a>.
+    </p>
+    <p>
+      Almost all pages are accessible directly from the top menu, although some pages include links to pages with bonus snippets such as example code. Each section is a short chapter and contains six pages, grouped by topic. Although you do not need to read the pages in order, in general the concepts build on one another. The interactive <em>Simulation Playground</em> is the crux of this site and the text serves to provide context and meaning behind it. Although it compliments playing with the Simulation Playground, the text is intended to stand on its own and be able to be read without the playground. A PDF of the text is provided for download and offline viewing in the <a href="code.html">About & code</a> page. An explanation of all the components of the Simulation Playground can be found by clicking the <a href="simulation_playground.html">Help</a> button in the Simulation Playground top bar. The section headers (<a href="introduction.html">Introduction</a>, <a href="fun_with_simulations.html">Fun with simulations</a>, etc.) each have some problems or questions that can be useful to test your knowledge.
+    </p>
+    <h1>Forward</h1>
+    <h2>Motivation, history, & influences</h2>
+    <p>
+      When I first started studying MS instrumentation I was exposed to SIMION. Entire literature articles, or even PhD dissertations, could be written with little or no experimental data – with only the data collected from rigorous simulations performed with SIMION. We had a copy of SIMION in the research lab where I worked. Loading SIMION for the first time, I was greeted by its rather unfriendly user interface. After clicking around a bit and becoming frustrated with not understanding what I was doing, or how to do what I’d have liked, I closed the program and didn’t reopen it for years. In fact, when I did reopen it, it was because I was attempting to develop course material that related to ion simulations. (Those who can, do; those who cannot…)
+    </p>
+    <p>
+      My fresh attempts to learn SIMION to make some course materials were also a bit of a non-starter. I persisted through flying ions in the SIMION time-of-flight tutorial the second time, but felt my motivation waning as my understanding did not improve. Luckily, there was an ex-colleague of mine that I remembered had developed a MATLAB script for performing rudimentary, 2D-based ion simulations. I contacted him and he happily provided me the script. It loaded a little 200×200 bitmap – that could be made and edited with Microsoft Paint – and flew a single ion. I read through the code, translated the it into Python, and suddenly I was able to understand those high-level papers on SIMION-based ion simulations that had eluded me for so long.
+    </p>
+    <p>
+      Excited by my newfound learning crutch, I proceeded to simplify the <a href="code.html#python_script">Python script</a>, heavily comment it, and write a thorough <a href="python_simulation_readme.html">tutorial</a> on how to use it. I presented it to the students I was teaching, hoping that they would find it useful. Even if they didn’t know Python, the comments should allow them to get it working…
+    </p>
+    <p>
+      And it turns out not understanding Python isn’t the biggest hurdle to running and tweaking a Python script. There are a lot of little stumbling blocks – installing the Python toolchain, downloading libraries, working with the command line, and small differences between operating systems lead to a lot of cognitive overhead, like the overhead I’d experienced with SIMION originally. Those that understood Python already, or who were more persistent at learning than I, learned a lot. The rest, well they found some point where they became frustrated and, understandably, gave up.
+    </p>
+    <p>
+      That brings us back to this site and specifically the <em>Simulation Playground</em>. The Simulation Playground is yet another translation and expansion of the code that was so helpful to me. 
+    </p>
+    <h1>References</h1>
+    <h2>Praise and stealing</h2>
+    <p>
+      Most, and possibly all, of the information in this site can be found in the SIMION User Manual or associated documentation.<cite><a href="#simion_manual">1</a></cite> Although my own failures to initially learn SIMION might seem to indicate that it doesn’t have enough learning materials, nothing could be further from the truth. The SIMION User Manual and SIMION itself are full of tutorials, helpful explanations, and information about where to find out more. These just didn’t click with me until I’d already learned a bit about ion simulations. These tutorials are immensely helpful and go into much more depth than this site.
+    </p>
+    <p>
+      Similarly, most of the Implementation section is information regurgitated from David A. Dahl’s <a href="https://doi.org/10.1016/S1387-3806(00)00305-5">paper discussing the development of SIMION</a>.<cite><a href="#simion_reflection">2</a></cite> Much of the implementation of the Simulation Playground relies on information discussed in this paper, as well as through observations of the SIMION program and the added functionality it gains from its many Lua scripts.
+    </p>
+    <p>
+      The layout and idea behind this site is stolen from Jack Schaelder’s <a href="https://jackschaedler.github.io/circles-sines-signals/index.html">SEEING&nbsp;CIRCLES,&nbsp;SINES,&nbsp;AND&nbsp;SIGNALS</a>. Everything from the title of this site to the header for this section has been shamelessly pilfered. Jack Schaedler’s site helped me tremendously as a graduate student and I continually refer people and students interested in signal processing there. I think the world could use a few more visual “compact primers” on different topics.
+    </p>
+    <p>
+      Although the layout and visual design of the website is stolen, the underlying code is almost entirely bespoke and mostly hand-rolled without the use of more than a few mathematical and 3D-rendering libraries. The simulation code for the playground is almost entirely written in <a href="https://www.rust-lang.org">Rust</a> and then compiled to <a href="https://webassembly.org/">WebAssembly</a>. If SEEING&nbsp;CIRCLES,&nbsp;SINES,&nbsp;AND&nbsp;SIGNALS is an exploration of the <a href="https://d3js.org/">D3.js</a> library, this site is an exploration of WebAssembly. More information about the creation of this site can be found in the <a href="code.html">Code</a> page.
+    </p>
+    <div class=bibliography>
+      <div class=ref id="simion_manual">
+        [1] Dahl, D.; Manura, D. “SIMION (R) Version 8.0/8.1 User Manual”, <i>Scientific Instrument Services.</i>, Ringoes, NJ. <b>2011</b>.
+      </div>
+      <div class=ref id="simion_reflection">
+        [2] Dahl, D. “SIMION for the personal computer in reflection”, <i>International Journal of Mass Spectrometry.</i> 200 (1-3) <b>2000</b>. 3–25.
+      </div>
+    </div>
+  </div>
+  <script src="index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="header.html"></script>
+  <title>Laplace’s equation</title>
+</head>
+
+<body>
+    <div class="actual_body">
+      <h1>Heat equations</h1>
+      <h2>Finding the temperature of a rod</h2>
+      <div class="flex-child" style="text-align:center;width: 100%;"><div><img src="images/dithered_hot_metal_800.png" alt="Hot metal rod" width="800" style="outline-style: solid;outline-width:1px"></img></div></div>
+      Hot metal forging photo by <a href="https://www.pexels.com/photo/light-people-art-dark-5845947/">Tima Miroshnichenko from Pexels</a>
+      <p>
+        In order to calculate the electric fields from our electrodes, we need to solve <a href="https://en.wikipedia.org/wiki/Laplace%27s_equation">Laplace’s differential equation</a>. <a href="https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw">3Blue1Brown’s</a> Grant Sanderson excellently describes <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDNPOjrT6KVlfJuKtYTftqH6">differential equations</a> and how much of the history of differential equations is wrapped up in calculating heat. For instance, <a href="https://en.wikipedia.org/wiki/Joseph_Fourier">Joseph Fourier</a> famously described how heat flows along a rod and the Fourier series is integral to describing the temperature flow that occurs when a <a href="https://youtu.be/r6sGWTCMz2k?t=275">hot and cold rod meet</a>.
+      </p>
+      <p>
+        Instead of two rods, we could imagine a flat sheet of metal that is heated (or cooled) continually at a point. We can think of this point like the contact of a water-heated metal pipe bent at 180°. As long as the hot water keeps flowing, the outside of this pipe will always be at a constant temperature. If we touch the bend of the pipe heated in this way to the metal plate, the plate will begin to heat at the contact point. The heat will be conducted away from the contact point and eventually the whole sheet of metal will be the same temperature as the heated pipe.</p>
+      <p>
+        If we added a second bent pipe with cold water flowing through it, then after some time the sheet of metal would reach an equilibrium — with heat flowing from the hotter pipe, travelling through the metal sheet, and entering the cooler pipe. As long as the water in both pipes kept flowing at the same rate and at the same temperature, the temperature at any given point on the metal sheet wouldn’t change over time. If we visualized the temperature of the sheet using a heatmap, the result might look something like this:
+      </p>
+      <div style="align-items:center;text-align:center;margin-bottom:1em;" class="flex-container">
+        <img src="images/electrode_painting.png" alt="Electrode Painting" width="300" style="image-rendering: pixelated;outline-style: solid;outline-width:1px;transform: scaleX(-1)scaleY(-1);"></img>
+        <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px">&#129042;</div>
+        <img src="images/electric_fields.png" alt="Electric fields" width="300" style="image-rendering: pixelated;outline-style: solid;outline-width:1px;transform: scaleX(-1)scaleY(-1);"></img>
+      </div>
+      <p>
+        Where the left image shows the contact points of the hotter (red) and colder (blue) pipes and the right image shows the temperature at various points.
+      </p>
+      <p>
+        The plots above should be immediately familiar because they could just as easily represent electrodes with higher and lower voltages in a 2D plane. Laplace’s equation describes both static systems of heat as well as electric fields. Understanding that Laplace’s equation applies to heated systems as well as electric fields can help make one way of solving it, the <a href="https://en.wikipedia.org/wiki/Finite_difference_method">finite difference method</a>, a bit more intuitive.
+      </p>
+      <h1>Solving Laplace’s Equation</h1>
+      <h2>With The finite difference method</h2>
+      <p>
+        The finite difference method (FDM) solves Laplace’s equation numerically by iteratively “diffusing” the “heat” a little bit at a time. For each point of a 2D surface, the point is replaced by an average of the points above, below, left, and right — a configuration known as the <a href="https://en.wikipedia.org/wiki/Five-point_stencil">five-point stencil</a>. This can be observed numerically — I’ll round numbers to the nearest integer to keep everything tidy. We will start with a 5×5 grid of numbers and set the middle number to 100. This starting point with the 100 is special, as it is the “contact” point (for heat) or the “electrode” (for electric fields), so it won’t change after each cycle. 
+      </p>
+      <aside style="width:100%">
+        This special point is known as a <a href="https://en.wikipedia.org/wiki/Dirichlet_boundary_condition">Dirichlet boundary condition</a>.
+      </aside>
+    </br></br>
+      <div style="align-items:center;text-align:center;margin-bottom:1em;" class="flex-container">
+        <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px;margin-left:auto;">
+          <code style="color:#f8f8f2ab;">
+            <table>
+              <tr><td>&nbsp;0&nbsp;</td> <td>&nbsp;0&nbsp;</td> <td>0</td> <td>&nbsp;0&nbsp;</td> <td>&nbsp;0&nbsp;</td></tr>
+              <tr><td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td></tr>
+              <tr><td>0</td> <td>0</td> <td style="color:greenyellow">100</td> <td>0</td> <td>0</td></tr>
+              <tr><td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td></tr>
+              <tr><td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td></tr>
+            </table>
+          </code>
+        </div>   
+        <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px;">&#129042;</div>
+        <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px;margin-right:auto;">
+          <code style="color:#f8f8f2ab;">
+            <table>
+              <tr><td>&nbsp;0&nbsp;</td> <td>&nbsp;0&nbsp;</td> <td>0</td> <td>&nbsp;0&nbsp;</td> <td>&nbsp;0&nbsp;</td></tr>
+              <tr><td>0</td> <td>0</td> <td>25</td> <td>0</td> <td>0</td></tr>
+              <tr><td>0</td> <td>25</td> <td style="color:greenyellow">100</td> <td>25</td> <td>0</td></tr>
+              <tr><td>0</td> <td>0</td> <td>25</td> <td>0</td> <td>0</td></tr>
+              <tr><td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td></tr>
+            </table>
+          </code>
+        </div>     
+      </div>
+      <p>
+        As <a href="electric_fields.html">previously discussed</a> the choice of boundary conditions matters here. Upon finding a boundary, we will calculate the values of the boundary points as the average of the adjacent points — so for the middle point on the top boundary, this is the points below, left, and right of it.
+      </p>
+      <div style="align-items:center;text-align:center;margin-bottom:1em;" class="flex-container">
+          <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px;margin-left:auto;">
+            <code style="color:#f8f8f2ab;">
+              <table>
+                <tr><td>&nbsp;0&nbsp;</td> <td>&nbsp;0&nbsp;</td> <td>0</td> <td>&nbsp;0&nbsp;</td> <td>&nbsp;0&nbsp;</td></tr>
+                <tr><td>0</td> <td>0</td> <td>25</td> <td>0</td> <td>0</td></tr>
+                <tr><td>0</td> <td>25</td> <td style="color:greenyellow">100</td> <td>25</td> <td>0</td></tr>
+                <tr><td>0</td> <td>0</td> <td>25</td> <td>0</td> <td>0</td></tr>
+                <tr><td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td></tr>
+              </table>
+            </code>
+          </div>
+          <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px;">&#129042;</div>
+          <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px">
+            <code style="color:#f8f8f2ab;">
+              <table>
+                <tr><td>&nbsp;0&nbsp;</td> <td>&nbsp;0&nbsp;</td> <td>8</td> <td>&nbsp;0&nbsp;</td> <td>&nbsp;0&nbsp;</td></tr>
+                <tr><td>0</td> <td>13</td> <td>25</td> <td>13</td> <td>0</td></tr>
+                <tr><td>8</td> <td>25</td> <td style="color:greenyellow">100</td> <td>25</td> <td>8</td></tr>
+                <tr><td>0</td> <td>13</td> <td>25</td> <td>13</td> <td>0</td></tr>
+                <tr><td>0</td> <td>0</td> <td>8</td> <td>0</td> <td>0</td></tr>
+              </table>
+            </code>
+          </div>
+          <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px;">&#129042;</div>
+          <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px;margin-right:auto;">
+            <code style="color:#f8f8f2ab;">
+              <table>
+                <tr><td>&nbsp;0&nbsp;</td> <td>&nbsp;5&nbsp;</td> <td>8</td> <td>&nbsp;5&nbsp;</td> <td>&nbsp;0&nbsp;</td></tr>
+                <tr><td>5</td> <td>13</td> <td>33</td> <td>13</td> <td>5</td></tr>
+                <tr><td>8</td> <td>33</td> <td style="color:greenyellow">100</td> <td>33</td> <td>8</td></tr>
+                <tr><td>5</td> <td>13</td> <td>33</td> <td>13</td> <td>5</td></tr>
+                <tr><td>0</td> <td>5</td> <td>8</td> <td>5</td> <td>0</td></tr>
+              </table>
+            </code>
+          </div>
+      </div>
+      <p>
+        We could keep going forever, with each iteration getting closer to making all the numbers in the 5×5 closer to the original 100. Generally, we stop after hitting some metric that we decide is “good enough”. This might be a set number of iterations (say, 1 million iterations), a threshold for change between iterations (maybe 0.01 is a small enough change), or maybe we know the answer at a particular point and we stop when we get close enough.
+      </p>
+      <p>
+        Things might get a bit more interesting if we put two Dirichlet boundary condition values — say 100 and -70 — at opposite sides of the 5×5 grid. I’ll use a quick <a href="python_example_1.html">Python script</a> to find the result after ten thousand iterations and then plot that as a heatmap:
+      </p>
+      <div style="align-items:center;text-align:center;margin-bottom:1em;" class="flex-container">
+        <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px;margin-left:auto;">
+          <code style="color:#f8f8f2ab;">
+            <table>
+              <tr><td>&nbsp;0&nbsp;</td> <td style="color: #bb91e2">-70</td> <td>&nbsp;0&nbsp;</td> <td>&nbsp;0&nbsp;</td> <td>&nbsp;0&nbsp;</td></tr>
+              <tr><td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td></tr>
+              <tr><td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td></tr>
+              <tr><td>0</td> <td>0</td> <td>0</td> <td>0</td> <td>0</td></tr>
+              <tr><td>0</td> <td>0</td> <td>0</td> <td style="color:greenyellow">100</td> <td>0</td></tr>
+            </table>
+          </code>
+        </div>
+        <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px;">&#129042;</div>
+        <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px">
+          <code style="color:#f8f8f2ab;">
+            <table>
+              <tr><td>-48</td> <td style="color: #bb91e2">-70</td> <td>-28</td> <td>-5</td> <td>5</td></tr>
+              <tr><td>-25</td> <td>-25</td> <td>-8</td> <td>8</td> <td>15</td></tr>
+              <tr><td>-3</td> <td>3</td> <td>15</td> <td>28</td> <td>33</td></tr>
+              <tr><td>15</td> <td>23</td> <td>38</td> <td>55</td> <td>55</td></tr>
+              <tr><td>25</td> <td>35</td> <td>58</td> <td style="color:greenyellow">100</td> <td>78</td></tr>
+            </table>
+          </code>
+        </div>
+        <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px;">&#129042;</div>
+        <img src="images/5x5array.png" alt="5x5array" width="115"
+        style="image-rendering: pixelated;outline-style: solid;outline-width:1px;margin-right:auto;"></img>
+    </div>
+    <p>
+      And that’s it — we’ve solved Laplace’s equation for the 5×5 array with the boundary conditions. For all of the cells, taking the average of the above, below, left, and right cells (where possible) yields the current value of the cell (within 0.5 units as I rounded). This indicates that we have converged on a solution. 
+    </p>
+    <aside>
+      Note that the heatmap looks a lot like a pixelated version of the larger heatmap in the section on heat equations. These two heatmaps are unrelated, but the smaller, “pixelated” one took far fewer computations to achieve convergence. This observation will be exploited in the section on <a href="bonus_detail.html">Bonus detail</a> to improve the speed of generating electric fields.
+    </aside>
+
+    <h1>Earnshaw’s Theorem</h1>
+    <h2>How SIMION and the Playground get it wrong</h2>
+    <p>
+      One problem with this method of finding the electric field is that it is an approximation — one that we can make as good as we’d like by trading more precision for longer refinement times. As the goals of SIMION are for accurate simulations, SIMION is generally accurate to at least to the millivolt. The Simulation Playground, that strives for speed and interactivity is not nearly as precise and may be wrong up to a few volts, especially when electrodes are set to many kilovolts. In most cases, these inaccuracies can be ignored. However, understanding how the electric fields are generated is useful to recognize the few cases where the inaccuracies <em>do</em> matter. One of the easiest inaccuracies to observe and test is that <a href="https://simion.com/info/earnshaws_theorem.html">Earnshaw’s theorem</a> is easily violated with both SIMION and the Simulation Playground.
+    </p>
+    <aside>
+      <a href="https://en.wikipedia.org/wiki/Earnshaw%27s_theorem">Earnshaw’s theorem</a> states that charged particles cannot be stably trapped by only electrostatic forces.
+    </aside>
+    <p>
+      Although there are many cases where we can see Earnshaw’s theorm hold true in SIMION and the Simulation Playground, it is very easy to construct a scenario with an electrostatic trap that causes ions to be stably trapped. One such example is shown below, where an electrode ring of 20 kV is refined and then two ions with a masses of 1 Da and x-velocties of 100&nbsp;m/ms are flown. Both yield stable orbits that would be impossible with a completely accurate simulation.
+    </p>
+      <div class="flex-child" style="width: 100%;"><div><img src="images/earnshaw_incorrect.png" alt="Earnshaw’s theorem incorrectly simulated" width="500" style="outline-style: solid;outline-width:1px"></img></div></div>
+      Small inaccuracies in the simulated fields can cause incorrect results.
+    <p>
+      The reason why this simulation yields stable trajectories for many ions (i.e., violates Earnshaw’s theorem) is because of the way that the electric field was calculated. In actuality, the field within the ring would be exactly and homogenously 20 kV, so the ions would simply continue travelling in a straight line and impact the electrode. However, the simulation is not accurate — as we can easily observe the blue, lower-voltage center of the electric field. At its blue-colored center, the electric field was calculated to be 19,998 kV — two volts less than the outside ring. This simulated inaccuracy is only two volts, but creates enough of a “bowl” shape that the ions cannot escape and are stably trapped. A similar inaccuracy (although much less pronounced) may be observed with SIMION. Similarly, a 3D simulation runs into the same problem. For instance, instead of a circle, we could construct a hollow sphere in SIMION that would have the same low-voltage center, effectively trapping ions in similar violation of Earnshaw’s theorem.
+    </p>
+    <aside>
+      Breaking programs and violating theorems can be fun! I encourage you to try it out in SIMION. Construct a hollow sphere in SIMION and fly some low-energy ions that you spawn near the center of the sphere. See how long you can trap them. Does making the sphere a very high voltage make the physically-impossible trap more effective in trapping ions at higher kinetic energies? Are there any other traps that you can make that violate Earnshaw’s theorem? Although none of these traps could be made to work in reality, it is useful to understand how simulations differ from reality and can be “broken” so that you don’t accidentally make a simulation that works but that is impossible in reality.
+    </aside>
+    </div>
+    </br>
+    <script src="index.js"></script>
+</body>
+
+</html>

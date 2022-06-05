@@ -1,0 +1,43 @@
+# You must change these to your own details.
+[package]
+name = "fields-ions-and-optics"
+description = "A site and set of functions for simulating ions"
+version = "0.4.0"
+authors = ["Ian Anthony <igmanthony@gmail.com>"]
+categories = ["wasm"]
+readme = "README.md"
+edition = "2018"
+repository = "https://github.com/igmanthony/fields-ions-optics"
+license = "Unlicense"
+
+[lib]
+crate-type = ["cdylib"]
+
+[profile.release]
+# This makes the compiled code faster and smaller, but it makes compiling slower,
+# so it's only enabled in release mode.
+lto = true
+
+[features]
+# If you uncomment this line, it will enable `wee_alloc`:
+default = ["wee_alloc"]
+
+[dependencies]
+wasm-bindgen = "0.2.45"
+wee_alloc = { version = "0.4.2", optional = true }
+ndarray = "0.15.0"
+
+[dependencies.web-sys]
+version = "0.3.22"
+features = ["console"]
+
+
+# [target."cfg(debug_assertions)".dependencies]
+# console_error_panic_hook = "0.1.5"
+
+# These crates are used for running unit tests.
+# [dev-dependencies]
+# wasm-bindgen-test = "0.2.45"
+# futures = "0.1.27"
+# js-sys = "0.3.22"
+# wasm-bindgen-futures = "0.3.22"

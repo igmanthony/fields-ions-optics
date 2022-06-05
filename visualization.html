@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+  <script src="header.html"></script>
+  <title>Visualization</title>
+</head>
+
+<body>
+    <div class="actual_body">
+
+      <h1>Looking at surfaces</h1>
+      <h2>Golfballs rolling on digital smoke</h2>
+      <p>
+        The fourth step mentioned in the <a href="simulations.html">Steps of a Simulation</a> section was to process the ion flight information. Unlike with SIMION where <a href="data_collection.html">data collection</a> can yield useful information, the Simulation Playground has relatively little information to process aside from some numbers provided in the <a href="simulation_playground.html#extra_info">ion flight log</a>. Most of the information you get from a simulation is simply the trace of the ion’s path.
+      </p>
+      <p>
+        In order to interpret a visualization, let’s make a simulation of an electrical “valley” using what we’ve covered. We know from the section on <a href="electric_fields.html">Electric fields</a> that we can’t just put two “rails” down, as they will appear the same voltage as the area between them — and the ions will likely collide with one of the rails, instead of being repelled. Instead, what we can do is put low voltage “blockers” nearer the ion’s path and high voltage rails outside these blockers. We’ll also put a slightly higher voltage electrode at the “start” of the ion’s path. This will provide some kinetic energy as the ion is repelled from this point.
+      </p>
+      <aside>
+        What we’re doing in simulating this “valley” is creating an ion transmission system, effectively like an ion pipe. Our first design isn’t going to be very good, as it is going to be a static system (no changing electric fields). It might not even work if generalized to a third dimension. However, the goal of <a href="guides.html">guiding ions</a> from one location to another is very common and can be found in most mass spectrometers.
+      </aside>
+      </br></br>
+      <div class="flex-child" style="text-align:center;width: 100%;">
+        <div>
+          <img src="images/electrodes_ions_rolling.png" alt="Electrodes ions rolling" width="150"
+          style="image-rendering: pixelated;margin-left:auto;padding-right:4em;"></img>
+          <img src="images/electric_fields_ions_rolling.png" alt="Electric fields ions rolling" width="150"
+          style="image-rendering: pixelated"></img>
+        </div>
+      </div>
+      <p>
+        Above, we can see that this produced the correct motion of ions oscillating back and forth as they move from the “top” of the simulation to the bottom. Depending on subtle changes in the initial ion’s position, we can observe a large difference in its path and final location. In my opinion, the ions’ paths all appear reasonable. For instance, I can imaging a ball oscillating back and forth like the ion paths — although a ball’s oscillations would dampen as it rolled along the valley due to friction that doesn’t exist in our simulation.
+      </p>
+      <p>
+        In addition to the ion paths, we can observe the electrodes and electric fields in the images above. The Simulation Playground displays all electric fields as a heatmap from dark red to dark blue — respectively, the highest and lowest voltages in the given simulation. In order to better visualize the fields, I added an even lower voltage electrode outside of the observable simulation above. This “trick” is a method of adjusting the heatmap to shift the colors and it highlights one of the shortcomings of using a heatmap for visualization. An alternate method of visualizing electric fields is to extend them into the third dimension and look at them as if they were actual topology. We can do so by clicking <button class="textbutton">3D</br>View</button>:
+      </p>
+      <div class="flex-child" style="text-align:center;width: 100%;">
+        <div>
+          <img style="image-rendering:optimizeQuality" src="images/3d_view.webp" alt="Ions rolling" width="600"></img>
+        </div>
+      </div>
+      Screenshot from a 3D potential energy view in the Simulation Playground
+      <p>
+        This is the strategy that SIMION takes and it often allows for a more intuitive understanding of why ions move like they do. If we want to, we can even <a href="simulation_playground.html#load_and_refine">load and refine</a> our electrodes in SIMION from the Simulation Playground by clicking: <button class="textbutton">Save to</br>SIMION</button>
+      </p>
+      <div class="flex-child" style="text-align:center;width: 100%;">
+        <div>
+          <img src="images/simion_ion_rolling.png" alt="SIMION Ions rolling" width="600"
+          style="outline-style: solid;outline-width:1px"></img>
+        </div>
+      </div>
+      Screenshot from a 3D potential energy view in SIMION
+      <p>
+        The potential energy images above make the view of the “valley” a bit clearer. Remember that the electrodes themselves are 2D. The electrodes are not physically higher or lower than one another — their voltages (potentials) are, and that is what we are visualizing. 
+      </p>
+      <p>
+        We can also observe that the simulated ion in SIMION takes a different trajectory than the ions in the Simulation Playground — the trajectory is much straighter and has fewer oscillations. I do not know whether this is mostly due to differences in the ion spawn parameters or differences in accuracy of the simulations (SIMION is much more accurate, but should give similar results for trivial examples). Likely it is a bit of both.  
+      </p>
+    </div>
+    </br>
+    <script src="index.js"></script>
+</body>
+
+</html>

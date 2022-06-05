@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="header.html"></script>
+  <title>Python README</title>
+</head>
+
+<body>
+    <div class="actual_body">
+      <p>
+        This is an HTML version of the readme that is found alongside the Python script that I mentioned in the <a href="index.html">forward</a> that was intended to help students learn about simulating ions by looking at source code. To download a .zip file containing a PDF version of this readme as well as the “ion_simulation_script.py” and the “electrodes.png” files, click the button below:
+      </p>
+      <div style="text-align:center;font-size:25px;"><a href="ion_simulation_script.zip"><button style="padding:15px;font-size:16px;font-weight:600;box-shadow: 0 2px 3px 0 #00000033, 0 2px 5px 0 #00000030;">Download .zip file</button></a></div></br>
+      <aside>
+        An unzipped version of these three documents can also be found on the <a href="https://github.com/igmanthony/fields-ions-optics">GitHub</a> repository for this site under the folder “unzipped python script”.
+      </aside>
+      <h1>
+        Installing Python
+      </h1>
+      <h2>
+        The joy of toolchains
+      </h2>
+      <p>
+        The Ion Simulator Script is written in a programming language called Python. Python is a free, general purpose programming language and is used to work with web servers, make games, automate tasks, control robots, and is used by many scientists, including mass spectrometrists, to analyze their data. Python does not come with many programming libraries by default. Programming libraries are collections of code imported into a programming project that add additional functionality to the program. For instance, the “NumPy” library (also referred to as the “numpy” or “np” library) is a Python library that works with numbers (Numerical Python) and adds matrix math and linear algebra algorithms to Python. A “distribution” of Python called Anaconda comes with a lot of libraries for scientists, including NumPy. I recommend installing the Anaconda distribution of Python from:
+      </p>
+      <div style="text-align:center;font-size:18px;"><a href="https://www.anaconda.com/products/individual">https://www.anaconda.com/products/individual</a></div>
+      <p>
+        On the Anaconda download webpage, click “Download.” The browser should automatically scroll to the bottom of the page and present options for downloading Anaconda for Win-dows, MacOS, and Linux in both 64-bit and 32-bit versions. Unless you are working on a very old computer (>10 years old), you likely have a 64-bit operating system and should use the 64-bit option for the installer. Choose whichever operating system you are using (Windows, MacOS or Linux). Note: Continuum (the company that makes Anaconda) sells distributions of Anaconda to companies. As you are not a company, you are free to install Anaconda without paying. Everything needed for running the Ion Simulator Script is free.
+      </p>
+      <p>
+        Wait until the Anaconda installer has downloaded and click the installer to install it. Go through the install guide and use the default settings. Anaconda should begin installing. This might take a few minutes.
+      </p>
+      <p>
+        When Anaconda has finished installing, you should be able to open the “Anaconda Navigator”. Windows users can open the Anaconda Navigator by clicking on the “start” icon and typing “Anaconda” which should show the Navigator. Open the Anaconda Navigator which should look like:
+      </p>
+      <div class="flex-child" style="text-align:center;"><img src="images/readme_01-min.png" alt="readme_01" width=600 style="outline-style: solid;outline-width:1px"></img></div>
+      <p>
+        Although Anaconda comes with many libraries, including NumPy and Matplotlib (a library we will be using for generating plots), it does not come with the “OpenCV” library that provides some very useful image processing functions. In order to install the “OpenCV”, please launch either the “CMD.exe” prompt or the “Powershell” prompt from the Anaconda Navigator. If you are using Linux or MacOS, there might be a different set of launchers, one of which should be something like “Terminal” or “Command Line”. The window you should see should look something like (although the background color might be different): 
+      </p>
+      <div class="flex-child" style="text-align:center;"><img src="images/readme_02-min.png" alt="readme_02" width=600 style="outline-style: solid;outline-width:1px"></img></div>
+      <p>
+        To test if things are working correctly, consider typing:
+      </p>
+      <div style="text-align:center;font-size:18px;">
+        <code>python --version</code>
+      </div>
+      <p>
+        into the prompt. You should see a read back that is something like “Python 3.8.5” or Python followed by a slightly different number. This shows that Python is understood as a command. To install OpenCV, type:
+      </p>
+      <div style="text-align:center;font-size:18px;">
+        <code>pip install opencv-python</code>
+      </div>
+      <p>
+        This should install the OpenCV library.
+      </p>
+      <h1>
+        Spyder
+      </h1>
+      <h2>
+        MATLAB lite
+      </h2>
+      <p>
+        Now that the OpenCV library is installed, close the terminal window and go to the Anaconda Navigator. One of the launchers should be for “Spyder”, which is an integrated development environment for Python. Launch Spyder.
+      </p>
+      <p>
+        You should see a window with a few sub-sections open. Close any popups that open until you see a screen that looks like:
+      </p>
+      <div class="flex-child" style="text-align:center;"><img src="images/readme_03-min.png" alt="readme_03" width=600 style="outline-style: solid;outline-width:1px"></img></div>
+      <p>
+        The colors might be “light” themed instead of “dark” themed as they are in this image.
+      </p>
+      <p>
+        The left side of Spyder lets you look at a Python file (like the “ion_simulator_script.py” file). Open that file in Spyder by clicking on “File” in the top-left corner, and then clicking on “Open” in the File submenu. Navigate to wherever you extracted the zip folder that this readme is in and select the “ion_simulator_script.py” file. The file should load and you should see a new tab on the left with lots of colored text.
+      </p>
+      <h1>
+        Running the Ion Simulation Script
+      </h1>
+      <h2>
+        Simulating ions: the good parts
+      </h2>
+      <p>
+        Now that Spyder should be properly configured, you should be able to run the Ion Simulation Script by either clicking the green “run” triangle in the top-left side of the menu bar, or by pressing “F5” on your keyboard. In either case, you should see an output in the “console” (bottom-right) pane of the Spyder program and your window state should look something like:
+      </p>
+      <div class="flex-child" style="text-align:center;"><img src="images/readme_04-min.png" alt="readme_04" width=600 style="outline-style: solid;outline-width:1px"></img></div>
+      <p>
+        You may or may not see a plot appear. If you look at the output of the console in the bottom-right pane, you should see “Simulation completed successfully!”. If you do, then everything worked! However, Spyder uses “Interactive” Python, or IPython, consoles. Although they can be very nice, these consoles prevent popout plots. To enable popout plotting (to better see the results of our simulations), consider clicking on the “Console” part of the Spyder program (the bottom-right pane) and typing in the prompt:
+      </p>
+      <div style="text-align:center;font-size:18px;">
+        <code>%matplotlib auto</code>
+      </div>
+      <p>
+        You should see some response such as “Using matplotlib backend: Qt5Agg”. If you re-run the script, there should be a popup window that appears. The popup window might be hidden behind other windows, so check the taskbar to see if there is a new icon that might be the popup window. In the popup window you should see two plots (you should be able to resize the popup window for better viewing):
+      </p>
+      <div class="flex-child" style="text-align:center;"><img src="images/readme_05-min.png" alt="readme_05" width=600 style="outline-style: solid;outline-width:1px"></img></div>
+      <p>
+        The left plot shows the image “electrodes.png” the right plot shows the electrical fields generated by the electrodes and the “ion_simulation_script.py”. The positive electric fields on the right are red or reddish in color. The negative electric fields on the right are blue or blueish in color.
+      </p>
+      <p>
+        There are some lines that start in the lower-center of both plots. These lines continue to the top of the image. These lines are the paths of ions of different mass-to-charge (m/z) values. Each line is a different ion that flew from the bottom-center. The ions stop flying if they reach a boundary of the simulation, such as an edge or one of the electrodes.
+      </p>
+      <p>
+        The icons for the popout window allow for some interactions with the plots. You can zoom in on the plots by clicking on the magnifying glass icon and then dragging a box you might like to zoom into somewhere on the plot. You can also edit some of the image parameters by clicking on the icon that shows an upwards-trending line. For instance, you can change the color of the lines that are plotted or even change the colormap for the electric fields:
+      </p>
+      <div class="flex-child" style="text-align:center;"><img src="images/readme_06-min.png" alt="readme_06" width=600 style="outline-style: solid;outline-width:1px"></img></div>
+      <p>
+        Here, I have zoomed in on the central electrode in the left plot and changed the colormap of the electric field map.
+      </p>
+      <h1>
+        Editing the Electrodes
+      </h1>
+      <h2>
+        Playing with MS paint
+      </h2>
+      <p>
+        Now that we’ve run our first simulation, we can edit the electrodes to see how it affects the simulation! First, we could try adding a green electrode at the top of the screen to see what might happen. The electrodes are just colors in the “electrodes.png” file. Open this image up in your favorite image editor (I will use Microsoft Paint) and add a horizontal green bar at the top (make sure it is pure green, just like the strip at the bottom of the “electrodes.png” file!):
+      </p>
+      <aside>
+        Note: be careful to use a “pencil” tool or one that draws all pixels in exactly the same color that you are using. A “Marker” or “sprayer” tool might draw the borders of the pixels in a slightly lighter color, to make the lines look less jagged. These lighter-colored pixels won’t register as the correct color!
+      </aside></br></br><!-- I don't know why these breaks are needed... -->
+      <div class="flex-child" style="text-align:center;"><img src="images/readme_07-min.png" alt="readme_07" width=400 style="outline-style: solid;outline-width:1px"></img></div>
+      <p>
+        Now that the green electrode has been added, save the edited “electrodes.png” file (I generally use the shortcut “ctrl-s” or “cmd-s” as it makes editing faster). Make sure to save it in the same location and with the same name. Now running the ion simulation code we see:
+      </p>
+      <div class="flex-child" style="text-align:center;"><img src="images/readme_08-min.png" alt="readme_08" width=600 style="outline-style: solid;outline-width:1px"></img></div>
+      <p>
+        The green electrode repelled the ions away and they scattered in different directions!
+      </p>
+      <p>
+        Since we are simulating positive ions, we could increase the voltage on the red electrode and try to repel them earlier. To do that, we can go to the “ion_simulation_script.py” source code on the “Modify Me!” section between lines 64 and 100.
+      </p>
+      <p>
+        The red electrode is defined to be RGB(255, 0, 0). The voltage value for is electrode is 80 volts. What happens if we change it to 150 volts? Let’s try it and find out!
+      </p>
+      <div class="flex-child" style="text-align:center;"><img src="images/readme_09-min.png" alt="readme_09" width=600 style="outline-style: solid;outline-width:1px"></img></div>
+      <p>
+        Most of the ions didn’t make it through and were repelled!
+      </p>
+      <p>
+        Now that we know how to edit electrodes and how to remove them, let’s try to add a completely new electrode! First we need to pick a color: I’ll pick black color by going to Microsoft Paint’s “Edit Colors” menu and choosing a value of RGB(0, 0, 0):
+      </p>
+      <div class="flex-child" style="text-align:center;"><img src="images/readme_10-min.png" alt="readme_10" width=400 style="outline-style: solid;outline-width:1px"></img></div>
+      <p>
+        Then I’ll draw something in black. Here is my electrode:
+      </p>
+      <div class="flex-child" style="text-align:center;"><img src="images/readme_11-min.png" alt="readme_11" width=400 style="outline-style: solid;outline-width:1px"></img></div>
+      <p>
+        It’s in the center of the red electrodes. I’ll make it negative and try to attract the ions into it, so they won’t be deflected away anymore. I’ll try making it -300 volts! So I’ll go to the ion_simulator_script and define a black color, using my RGB values and add the “black_electrode” to the dictionary:
+      </p>
+      <div class="flex-child" style="text-align:center;"><img src="images/readme_12-min.png" alt="readme_12" width=600 style="outline-style: solid;outline-width:1px"></img></div>
+      <p>
+        Now let’s fly the ions and see if they’re attracted:
+      </p>
+      <div class="flex-child" style="text-align:center;"><img src="images/readme_13-min.png" alt="readme_13" width=600 style="outline-style: solid;outline-width:1px"></img></div>
+      <p>
+        It looks like it worked!
+      </p>
+      <p>
+        We can, of course, delete all these electrodes and try something completely different. Try it out!
+      </p>
+      <h1>
+        Reading the Ion Simulation Script
+      </h1>
+      <h2>
+        Or: A crash-course in Python
+      </h2>
+      <p>
+        Now that we know how to alter the script a little bit to change electrodes and how to change electrodes in Paint, we might want to dive a bit deeper into reading the script and figuring out how it works. The script should (hopefully) be self-explanatory, however, knowing some things up front might help. 
+      </p>
+      <p>
+        Three single quotes at the top begin a documentation string or docstring. Docstrings are usually present at the start of files or the beginnings of functions to document what the file or function does. In this case, the docstring just provides a notice about the Ion Simulation Script’s authors and attributions. The docstring closes like it opens, with three single quotes (double quotes can also be used, but then the docstring must start and end with three double quotes). Docstrings are not code, but documentation. Python has another type of documentation, or “comments”. The next type is on line 5. This is a line comment and begins with a pound-sign or hashmark. This type of comment is generally about the code that follows it. Multiple lines of a single comment all need to start with a “#”. A “#” tells the Python interpreter (a program that reads the script file one line at a time, much like a person does, but then goes and runs the program, one line at a time) to ignore whatever comes after on that line. 
+      </p>
+      <p>
+        Although learning Python is not needed for understanding the script, understanding a few key words and concepts might be helpful:
+      </p>
+      <p>
+        <ul>
+          <li>Python has several key words that do special things:</li>
+          <ul>
+            <li>“Import” imports a library, allowing the script to access the libraries code.</li>
+            <li>“as” creates an alias for something, often an imported library, so that you can refer to the alias, rather than the (usually longer) name of the library</li>
+            <li>“def” begins a function definition</li>
+            <li>“for” and “while” begin for and while loops, respectively</li>
+            <li>“in” checks a collection for something</li>
+            <li>“return” exits a function and causes the function to output whatever comes after “return” on the same line</li>
+            <li>“if” does something if a condition is correct (e.g., if a number is 1, then add 10 to it)</li>
+            <li>“else” does something if the “if” condition is incorrect (e.g., if a number is 1, then add 10 to it, else subtract 5 from it)</li>
+            <li>“break” breaks out of a loop</li>
+            <li>“continue” skips to the next cycle or iteration of a loop</li>
+          </ul>
+          <li>Numbers in Python can be integers (no decimal places) or floats (with decimal places). Math between these two types of numbers is easy and usually ends up with a float (1 + 1.5 = 2.5) because decimal points are conserved.</li>
+          <ul>
+            <li>Numbers can optionally have underscores to visually separate thousands-places</li>
+            <li>Numbers can be expressed in scientific notation (1e5 is 10,000)</li>
+          </ul>
+          <li>Addition (+), subtraction (-), multiplication (*) and division (/) are intuitive and Python can even be used as a simple calculator.</li>
+          <li>Strings are “strings” of letters like 'Hello' they can start and end with either double or single quotes (but the start and ending quotes must match).</li>
+          <li>Lists are a collection type that can hold multiple strings or numbers (or both) (or even other lists). Lists are denoted with square brackets:</li>
+          <ul>
+            <li>[5, 'Hello', 3.5]</li>
+          </ul>
+          <li>Dictionaries hold collections of pairs of things and can be used to “look up” a “value” by its “key”. Keys are usually strings, values can be strings, numbers, lists, or even dictionaries! Dictionaries are denoted with curly braces:</li>
+          <ul>
+            <li>{ 'Hello': 2, 'Goodbye':10 }</li>
+          </ul>
+          <li>Variables (collections of letters) are declared with a single equals sign and usually represent an number, a string, or a collection of numbers and strings:</li>
+          <ul>
+            <li>A = 5</li>
+            <li>B = “Hello”</li>
+            <li>C = [5, “Hello”, 3.5]</li>
+            <li>electrodes = { '100,100,150': 5_000, '0,0,0': -1_500 }</li>
+          </ul>
+          <li>Variables can be used instead of the actual numbers or strings:</li>
+          <ul>
+            <li>A = 5</li>
+            <li>B = 10</li>
+            <li>C = A + B  #(C would be 15)</li>
+          </ul>
+          <li>Functions are subroutines that usually take inputs and give outputs (through the return keyword). The inputs are given in parentheses () and then a colon starts the function. The “body” of a function is indented one level:</li>
+          <ul>
+            <li>def make_cake(eggs, butter, flour, milk, sugar):</li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;… (do stuff)</li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;return cake</li>
+          </ul>
+          <li>Functions are called in a similar way to how they are defined. A variable often is assigned to the result of the function:</li>
+          <ul>
+            <li>Eggs = 10</li>
+            <li>Butter = 'cold'</li>
+            <li>good_cake = make_cake(eggs, butter, flour, milk, sugar)</li>
+          </ul>
+          <li>Some functions are built in (like the print function or the round function) most functions are defined in the script itself. Some functions come from the libraries. Functions that come from libraries always start with the library name and a period. So “np.max” is the maximum function from the numpy library (that has been imported “as” “np”)</li>
+          <li>A double-equals sign (==) checks to see if something is equal to something else:</li>
+          <ul>
+            <li>If x == 2:</li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;dish = make_cake(eggs, butter, flour, milk, sugar)</li>
+            <li>else:</li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;dish = make_pie(eggs, butter flour, milk, sugar, fruit)</li>
+          </ul>
+          <li>Greater-than (>) and lesser-than (<)are similar to the double-equals sign (but for greater-than and lesser-than) </li>
+          <li>The “print” function is built-in and prints out messages to the console:</li>
+          <ul>
+            <li>print('Hello world!') #Would print out “Hello world!”</li>
+          </ul>
+          <li>A “for” loop loops through a collection:</li>
+          <ul>
+            <li>colors = ['red', 'green', 'blue', 'black']</li>
+            <li>for color in colors:</li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;print(color)</li>
+            <li>(this would print out “red”, then “green”, then “blue”, then “black”)</li>
+          </ul>
+        </ul>
+      </p>
+      <p>
+        Although this list is not comprehensive of Python, (or even comprehensive for the Ion Simulator Script), understanding how the concepts work should make reading the code easier and improve understanding.
+      </p>
+      <h1>
+        Additional Ideas and Conceptual Questions
+      </h1>
+      <h2>
+        Stuff that’s likely to be on the test
+      </h2>
+      <p>
+        After reading the Ion Simulation Script source code, you should be ready to answer some questions or think about things such as:
+        <ul>
+          <li>How could we extend this script to do 3D simulations? What would need to change? Would it be more difficult to generate the electric fields or to fly the ions in 3D? Could we still use MS Paint to make the electrodes?</li>
+          <li>Although this script is simulating an einzel lense, could it be used to simulate other kinds of lenses or even full mass spectrometers? If so, which kinds? Would you need to do any source-code modification, or could you simulate another kind of mass spectrometer through only modifying electrodes?</li>
+          <li>How would you go about turning the output x-coordinates, y-coordinates, and times into a mass spectrum? Does this simulation have a “resolving power” or is it infinite? How could we simulate the resolving power of a TOF mass spectrometer? What could we do to try to “improve” that TOF’s resolving power?</li>
+          <li>We fly ions one at a time in the loop. What assumptions does this make? When might simulating multiple ions simultaneously give more accurate results than simulating single ion flights? What problems might single ion simulations cause when adapting our simulations to the real-world?</li>
+        </ul>
+      </p>
+    </div>
+    </br>
+    <script src="index.js"></script>
+</body>
+
+</html>
