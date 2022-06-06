@@ -12,7 +12,7 @@
       <div class="flex-child" style="text-align:center;width: 100%;"><div><img src="images/dithered_electrode_800.png" alt="Electrode with electric discharge" width="800" style="outline-style: solid;outline-width:1px"></img></div></div>
       Tesla coil with electrical discharge <a href="https://www.pexels.com/photo/blue-metal-tool-2635595/">photo by Killian Eon from Pexels</a>
       <p>
-        So far, we have only discussed <i>electrostatic</i> fields. However, most instruments that make use of ion optics will also make use of <i>electrodynamic</i> fields. One advantage of electrodynamic fields is that Earnshaw’s theorem doesn’t apply — so stably trapping ions is achievable with electrodes that change voltages, but not with those that remain static.
+        So far, we have only discussed <i>electrostatic</i> fields. However, most instruments that make use of ion optics will also make use of <i>electrodynamic</i> fields. One advantage of electrodynamic fields is that Earnshaw’s theorem doesn’t apply — so stably and statically trapping ions is achievable with electrodes that change voltages, but not with those that remain static.
       </p>
       <p>
         It is possible to simulate electrodynamic fields just like we have with electrostatic fields. If we know each electrode’s potential at each time point, we can use the finite difference method (FDM) to obtain an overall solution to Laplace’s equation. However, doing this at each time point of a simulation requires an extremely large number of calculations — as solving Laplace’s equation is usually one of the most computationally-intensive steps.

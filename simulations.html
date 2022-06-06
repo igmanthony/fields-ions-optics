@@ -25,13 +25,13 @@
     <h2>A brief overview</h2>
     <p>The four major steps of simulating ions are:</p>
     <div style="align-items:center;text-align:center;" class="flex-container">
-      <button style="margin:auto;width:120px;height:36px;background-color:#00897B;">Define</br>electrodes</button><div style="font-size:40px;">&#129042;</div>
-      <button style="margin:auto;width:120px;height:36px;background-color:#26A69A;">Refine</br>electric fields</button><div style="font-size:40px;">&#129042;</div>
-      <button style="margin:auto;width:120px;height:36px;background-color:#80CBC4;">Fly ions</button><div style="font-size:40px;">&#129042;</div>
+      <button style="margin:auto;width:120px;height:36px;background-color:#00897B;">Define</br>electrodes</button><img src="images/arrow.svg">
+      <button style="margin:auto;width:120px;height:36px;background-color:#26A69A;">Refine</br>electric fields</button><img src="images/arrow.svg">
+      <button style="margin:auto;width:120px;height:36px;background-color:#80CBC4;">Fly ions</button><img src="images/arrow.svg">
       <button style="margin:auto;width:120px;height:36px;background-color:#E0F2F1;">Process flight</br>information</button>
     </div>
     <p>
-      Both SIMION as well as the Simulation Playground follow these steps, although the specifics might be a bit different. For instance, there are only two ways of defining electrodes in the Playground: using a built-in simulation like the <button class="textbutton">Lens</button> simulation or by painting your own. SIMION has a few ways of defining electrodes, including importing them from another program, programmatic generation, GEM file creation, or using the builtin editor.
+      Both SIMION as well as the Simulation Playground follow these steps, although the specifics might be a bit different. For instance, there are only two ways of defining electrodes in the Playground: using a built-in simulation like the <button class="loadbutton" id="lens_map">Lens</button> simulation or by painting your own. SIMION has a few ways of defining electrodes, including importing them from another program, programmatic generation, GEM file creation, or using the builtin editor.
     </p>
     <h1>Pixels, Voxels, and Electrodes</h1>
     <h2>1’s and 0’s pretending to be charged metal</h2>
@@ -43,12 +43,13 @@
       Instead of perfect mathematical solutions, the way electric fields are generated in SIMION and the Simulation Playground is by approximation. Shapes are approximated as collections of pixels (in 2D) or voxels (in 3D). By approximating shapes as collections of rectangles or their 3D equivalents (called rectangular cuboids), electric fields can be estimated by repeated refinement steps that get closer to the solution with each step. This way of solving equations is known as <a href="https://en.wikipedia.org/wiki/Numerical_analysis">numerical analysis</a>. <a href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton’s method</a> is one particularly well-known method of finding solutions of roots numerically.
     </p>
       <p>
-        In the Simulation Playground, all pixels that you draw to the screen are exactly square and represent fixed 2×2 mm blocks. The downside of this is that it limits the precision of an electrode. For instance, the <button class="textbutton">Quadrupole</button> simulation approximates 16 mm circles four circles by pixelating them:
+        In the Simulation Playground, all pixels that you draw to the screen are exactly square and represent fixed 2×2 mm blocks. The downside of this is that it limits the precision of an electrode. For instance, the <button class="loadbutton" id="quadrupole_map">Quadrupole</button> simulation approximates 16 mm circles by pixelating them:
       </p>
       <div style="align-items:center;text-align:center;margin-bottom:1em;" class="flex-container">
         <img src="images/blue_quadrupole_circle.svg" alt="SVG Blue quadrupole circle" width=60
         style="margin-right:2em;margin-left:auto;">
-        <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px;">&#129042;</div>
+        <!-- <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px;">&#129042;</div> -->
+        <img src="images/arrow.svg">
         <img src="images/blue_quadrupole_circle.png" alt="PNG Blue quadrupole circle" width=60 
         style = "image-rendering: pixelated;margin-right:auto;margin-left:2em;">
       </div>
@@ -76,7 +77,7 @@
         In this case, the “0” pixels belong to the white background and the blue “3” pixels indicate that this is the third, blue, electrode. If they were a “1” then they would be the first (red) electrode. 
       </p>
       <aside id="grids_of_numbers">
-        I mean this representation literally — they way I generated all the predefined electrode geometries (what you load when you click <button class="textbutton">Lens</button>, <button class="textbutton">Funnel</button>, etc.) was by opening up Microsoft Excel, selecting a region of 100×100 cells, and then putting 0’s, 1’s, 2’s, 3’s, and 4’s where they should go to represent the different electrodes. I then saved this Excel File as a text file and pasted it into the <a href="https://github.com/igmanthony/fields-ions-optics/blob/main/source/e_maps.rs">source code</a>.
+        I mean this representation literally — they way I generated all the predefined electrode geometries (what you load when you click <button class="loadbutton" id="cyclotron_map">Cyclotron</button>, <button class="loadbutton" id="funnel_map">Funnel</button>, etc.) was by opening up Microsoft Excel, selecting a region of 100×100 cells, and then putting 0’s, 1’s, 2’s, 3’s, and 4’s where they should go to represent the different electrodes. I then saved this Excel File as a text file and pasted it into the <a href="https://github.com/igmanthony/fields-ions-optics/blob/main/source/e_maps.rs">source code</a>.
       </aside>
 
     </div>

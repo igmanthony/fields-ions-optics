@@ -21,7 +21,7 @@
       </p>
       <div style="align-items:center;text-align:center;margin-bottom:1em;" class="flex-container">
         <img src="images/electrode_painting.png" alt="Electrode Painting" width="300" style="image-rendering: pixelated;outline-style: solid;outline-width:1px;transform: scaleX(-1)scaleY(-1);"></img>
-        <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px">&#129042;</div>
+        <img src="images/arrow.svg" style="margin:20px;">
         <img src="images/electric_fields.png" alt="Electric fields" width="300" style="image-rendering: pixelated;outline-style: solid;outline-width:1px;transform: scaleX(-1)scaleY(-1);"></img>
       </div>
       <p>
@@ -33,7 +33,7 @@
       <h1>Solving Laplace’s Equation</h1>
       <h2>With The finite difference method</h2>
       <p>
-        The finite difference method (FDM) solves Laplace’s equation numerically by iteratively “diffusing” the “heat” a little bit at a time. For each point of a 2D surface, the point is replaced by an average of the points above, below, left, and right — a configuration known as the <a href="https://en.wikipedia.org/wiki/Five-point_stencil">five-point stencil</a>. This can be observed numerically — I’ll round numbers to the nearest integer to keep everything tidy. We will start with a 5×5 grid of numbers and set the middle number to 100. This starting point with the 100 is special, as it is the “contact” point (for heat) or the “electrode” (for electric fields), so it won’t change after each cycle. 
+        The finite difference method (FDM) solves Laplace’s equation numerically by iteratively “diffusing” the “heat” a little bit at a time. For each point of a 2D surface, the point is replaced by an average of the points above, below, left, and right — a configuration known as the <a href="https://en.wikipedia.org/wiki/Five-point_stencil">five-point stencil</a>. This can be observed numerically — I’ll round numbers to the nearest integer to keep everything tidy. We will start with a 5×5 grid of numbers and set the middle number to 100. This starting point with the 100 is special, as it is the “contact” point (for heat) or the “electrode” (for electric fields), so it will not change after each cycle. 
       </p>
       <aside style="width:100%">
         This special point is known as a <a href="https://en.wikipedia.org/wiki/Dirichlet_boundary_condition">Dirichlet boundary condition</a>.
@@ -51,7 +51,7 @@
             </table>
           </code>
         </div>   
-        <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px;">&#129042;</div>
+        <img src="images/arrow.svg" style="margin:16px">
         <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px;margin-right:auto;">
           <code style="color:#f8f8f2ab;">
             <table>
@@ -79,7 +79,7 @@
               </table>
             </code>
           </div>
-          <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px;">&#129042;</div>
+          <img src="images/arrow.svg" style="margin:16px">
           <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px">
             <code style="color:#f8f8f2ab;">
               <table>
@@ -91,7 +91,7 @@
               </table>
             </code>
           </div>
-          <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px;">&#129042;</div>
+          <img src="images/arrow.svg" style="margin:16px">
           <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px;margin-right:auto;">
             <code style="color:#f8f8f2ab;">
               <table>
@@ -108,7 +108,7 @@
         We could keep going forever, with each iteration getting closer to making all the numbers in the 5×5 closer to the original 100. Generally, we stop after hitting some metric that we decide is “good enough”. This might be a set number of iterations (say, 1 million iterations), a threshold for change between iterations (maybe 0.01 is a small enough change), or maybe we know the answer at a particular point and we stop when we get close enough.
       </p>
       <p>
-        Things might get a bit more interesting if we put two Dirichlet boundary condition values — say 100 and -70 — at opposite sides of the 5×5 grid. I’ll use a quick <a href="python_example_1.html">Python script</a> to find the result after ten thousand iterations and then plot that as a heatmap:
+        Things might get a bit more interesting if we put two Dirichlet boundary condition values — say 100 and -70 — at opposite sides of the 5×5 grid. I will use a quick <a href="python_example_1.html">Python script</a> to find the result after ten thousand iterations and then plot that as a heatmap:
       </p>
       <div style="align-items:center;text-align:center;margin-bottom:1em;" class="flex-container">
         <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px;margin-left:auto;">
@@ -122,7 +122,7 @@
             </table>
           </code>
         </div>
-        <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px;">&#129042;</div>
+        <img src="images/arrow.svg" style="margin:16px">
         <div style="text-align:center;border-width:1px;border-style:solid;padding:5px;background-color: #282a36;font-size:15px;line-height:17px">
           <code style="color:#f8f8f2ab;">
             <table>
@@ -134,12 +134,12 @@
             </table>
           </code>
         </div>
-        <div style="font-size:100px;margin-top:-40px;margin-bottom:-40px;">&#129042;</div>
+        <img src="images/arrow.svg" style="margin:16px">
         <img src="images/5x5array.png" alt="5x5array" width="115"
         style="image-rendering: pixelated;outline-style: solid;outline-width:1px;margin-right:auto;"></img>
     </div>
     <p>
-      And that’s it — we’ve solved Laplace’s equation for the 5×5 array with the boundary conditions. For all of the cells, taking the average of the above, below, left, and right cells (where possible) yields the current value of the cell (within 0.5 units as I rounded). This indicates that we have converged on a solution. 
+      And that’s it — we have solved Laplace’s equation for the 5×5 array with the boundary conditions. For all of the cells, taking the average of the above, below, left, and right cells (where possible) yields the current value of the cell (within 0.5 units as I rounded). This indicates that we have converged on a solution. 
     </p>
     <aside>
       Note that the heatmap looks a lot like a pixelated version of the larger heatmap in the section on heat equations. These two heatmaps are unrelated, but the smaller, “pixelated” one took far fewer computations to achieve convergence. This observation will be exploited in the section on <a href="bonus_detail.html">Bonus detail</a> to improve the speed of generating electric fields.
@@ -148,23 +148,56 @@
     <h1>Earnshaw’s Theorem</h1>
     <h2>How SIMION and the Playground get it wrong</h2>
     <p>
-      One problem with this method of finding the electric field is that it is an approximation — one that we can make as good as we’d like by trading more precision for longer refinement times. As the goals of SIMION are for accurate simulations, SIMION is generally accurate to at least to the millivolt. The Simulation Playground, that strives for speed and interactivity is not nearly as precise and may be wrong up to a few volts, especially when electrodes are set to many kilovolts. In most cases, these inaccuracies can be ignored. However, understanding how the electric fields are generated is useful to recognize the few cases where the inaccuracies <em>do</em> matter. One of the easiest inaccuracies to observe and test is that <a href="https://simion.com/info/earnshaws_theorem.html">Earnshaw’s theorem</a> is easily violated with both SIMION and the Simulation Playground.
+      One problem with this method of finding the electric field is that it is an approximation — one that we can make as accurate as we would like by trading more precision for longer refinement times. As the goals of SIMION are for accurate simulations, SIMION is generally accurate to at least to the millivolt. The Simulation Playground, that strives for speed and interactivity is not nearly as precise and may be wrong up to a few volts, especially when electrodes are set to many kilovolts. In most cases, these inaccuracies can be ignored. However, understanding how the electric fields are generated is useful to recognize the few cases where the inaccuracies <em>do</em> matter. One of the easiest inaccuracies to observe and test is that <a href="https://simion.com/info/earnshaws_theorem.html">Earnshaw’s theorem</a> is easily violated with both SIMION and the Simulation Playground.
     </p>
     <aside>
-      <a href="https://en.wikipedia.org/wiki/Earnshaw%27s_theorem">Earnshaw’s theorem</a> states that charged particles cannot be stably trapped by only electrostatic forces.
+      <a href="https://en.wikipedia.org/wiki/Earnshaw%27s_theorem">Earnshaw’s theorem</a> states that charged particles cannot be stably and statically trapped by only electrostatic forces.
     </aside>
     <p>
-      Although there are many cases where we can see Earnshaw’s theorm hold true in SIMION and the Simulation Playground, it is very easy to construct a scenario with an electrostatic trap that causes ions to be stably trapped. One such example is shown below, where an electrode ring of 20 kV is refined and then two ions with a masses of 1 Da and x-velocties of 100&nbsp;m/ms are flown. Both yield stable orbits that would be impossible with a completely accurate simulation.
+      Although there are many cases where we can see Earnshaw’s theorm hold true in SIMION and the Simulation Playground, it is very easy to construct a scenario with an electrostatic trap that causes ions to be statically trapped. One such <button class="loadbutton" id="earnshaw_map">example</button> of Earnshaw’s therom falure is shown below, where an electrode ring of 20 kV is refined and then three ions are flown with a bit of random kinetic energy to demonstrate the “trap”. They yield stable orbits that would be impossible with a completely accurate simulation. The example shows their dynamic orbits intentionally, as observing statically-trapped ions would be relatively boring — they would just be a single, unmoving dot. 
     </p>
-      <div class="flex-child" style="width: 100%;"><div><img src="images/earnshaw_incorrect.png" alt="Earnshaw’s theorem incorrectly simulated" width="500" style="outline-style: solid;outline-width:1px"></img></div></div>
-      Small inaccuracies in the simulated fields can cause incorrect results.
+    <div class="flex-child" style="text-align:center;width: 100%;">
+      <div>
+        <img style="image-rendering:optimizeQuality;outline-style: solid;outline-width:1px" src="images/earnshaw_incorrect.png" alt="Earnshaw’s theorem incorrectly simulated" width="400"></img>
+      </div>
+    </div>
+    Small inaccuracies in the simulated fields can cause incorrect results.
     <p>
-      The reason why this simulation yields stable trajectories for many ions (i.e., violates Earnshaw’s theorem) is because of the way that the electric field was calculated. In actuality, the field within the ring would be exactly and homogenously 20 kV, so the ions would simply continue travelling in a straight line and impact the electrode. However, the simulation is not accurate — as we can easily observe the blue, lower-voltage center of the electric field. At its blue-colored center, the electric field was calculated to be 19,998 kV — two volts less than the outside ring. This simulated inaccuracy is only two volts, but creates enough of a “bowl” shape that the ions cannot escape and are stably trapped. A similar inaccuracy (although much less pronounced) may be observed with SIMION. Similarly, a 3D simulation runs into the same problem. For instance, instead of a circle, we could construct a hollow sphere in SIMION that would have the same low-voltage center, effectively trapping ions in similar violation of Earnshaw’s theorem.
+      The reason why this simulation yields stable, static trajectories for many ions (i.e., violates Earnshaw’s theorem) is because of the way that the electric field was calculated. In actuality, the field within the ring would be exactly and homogenously 20 kV, so the ions would simply continue travelling in a straight line and impact the electrode. However, the simulation is not accurate — as we can easily observe the blue, lower-voltage center of the electric field. At its blue-colored center, the electric field was calculated to be 19,992 kV — eight volts less than the outside ring. This simulated inaccuracy is only 0.04%, but creates enough of a “bowl” shape that the ions cannot escape and are stably trapped.
+    </p>
+    <p>
+      Increasing the “field accuracy” parameter from “medium” to “highest” in the Simulation Playground’s Advanced tab can reduce this eight volt error down to 0.07 V (0.00035%), but refining takes quite a bit more computer power. To visualize this “bowl” shape, it may help to use the 3D viewer under the advanced tab. A similar inaccuracy, although much less pronounced, may be observed with SIMION in both 2D and 3D. For instance, instead of a circle, we could construct a large, hollow sphere in SIMION that would have the same low-voltage center, effectively trapping ions in similar violation of Earnshaw’s theorem.
     </p>
     <aside>
       Breaking programs and violating theorems can be fun! I encourage you to try it out in SIMION. Construct a hollow sphere in SIMION and fly some low-energy ions that you spawn near the center of the sphere. See how long you can trap them. Does making the sphere a very high voltage make the physically-impossible trap more effective in trapping ions at higher kinetic energies? Are there any other traps that you can make that violate Earnshaw’s theorem? Although none of these traps could be made to work in reality, it is useful to understand how simulations differ from reality and can be “broken” so that you don’t accidentally make a simulation that works but that is impossible in reality.
     </aside>
+    <p>
+       Another inaccuracy in the electric fields is somewhat obvious and displeasing — the bowl is not even shaped nicely! The blue “dip” is off-center. This is due to the method of <a href="https://simion.com/info/calculation_time.html">skipped point refining</a> that is discussed in more detail in the page on <a href="bonus_details.html">Bonus details</a>. 
+    </p>
+    <p>
+      An electrostatic trap that <em>can</em> trap charged particles, in apparent violation of Earnshaw’s theorm, is the <a href="https://en.wikipedia.org/wiki/Ion_trap#Kingdon_trap_and_orbitrap">Kingdon trap</a>. The Kingdon trap, and the more recent Orbitrap, trap ions <em>dynamically</em>. An <button class="loadbutton" id="kingdon_trap_map">example</button> shows how this can be done:
+    </p>
+    <div class="flex-child" style="text-align:center;width: 100%;">
+      <div>
+        <img style="image-rendering:optimizeQuality;outline-style: solid;outline-width:1px" src="images/kingdon_trap.png" alt="Kingdon trap example" width="400"></img>
+      </div>
     </div>
+    Ions retain angular momentum in the Kingdon trap and are <em>dynamically</em> trapped
+    <p>
+      Ions in a Kingdon trap orbit an oppositely-charged central wire. The electrostatic potential shape is a bit like a hyperbolic cone or funnel, much like the spiral wishing wells, where a wisher would drop a coin down an inclined ramp, imparting an amount of angular momentum to their coin that would then race around in <a href="https://en.wikipedia.org/wiki/Spirograph#Operation">Spirograph-like</a> patterns. Eventually friction would cause the orbit of the coin to decay, causing it to roll faster and faster around the center before dropping out of sight.
+    </p>
+    <div class="flex-child" style="text-align:center;width: 100%;">
+      <div>
+        <img style="image-rendering:optimizeQuality;outline-style: solid;outline-width:1px" src="images/coin_funnel.webp" alt="Spiral coin funnel" width="500"></img>
+      </div>
+    </div>
+    Coins roll around a funnel-shaped “spiral wishing well” by <a href="https://www.pikist.com/free-photo-xzkjr">Unknown from Pikist</a>
+    <p>
+      Ions, especially simulated ones, do not experience air or rolling friction and so do not decay as rapidly, however they will eventually lose energy — their angular momentum — due to <a href="https://simion.com/info/image_charge_detection.html">image current</a> effects and impact the central wire or spindle. 
+    </p>
+    <aside>
+      The Kingdon trap example uses a fixed y-velocity to induce the angular momentum. I’ll admit that I spent quite a bit of time to create a satisfactory “ramp” into the Kingdon trap, so that an ion would “roll” into it, much like the coins roll into the spiral wishing wells. I have some suspicions that it’s probably not possible, as the ions come in too “hot”, but I still thought I’d try. If you can get it working, feel free to <button onclick="document.getElementById('JSON_SAVE').click()">Save</button> your work and <a href="code.html">send it to me</a>. 
+    </aside>
     </br>
     <script src="index.js"></script>
 </body>

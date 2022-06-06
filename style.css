@@ -171,10 +171,8 @@ button:focus {
 .iconbutton {
   width: 26px;
   height: 26px;
-  /* margin-bottom: -100px; */
   margin-right:-2px;
   margin-left:2px;
-  /* margin-top:px; */
 }
 
 ul, li {
@@ -208,7 +206,6 @@ input[type="file"] {
   background-color: #FFE082;
   margin:2px;
   border: 0px;
-  /* cursor: pointer; */
 }
 
 .custom-file-upload:hover {
@@ -234,7 +231,6 @@ input[type="file"] {
 }
 
 .helpbutton:hover {
-  /* background-color:#ECEFF1; */
   background-color: #B0BEC5;
   text-decoration-color: #FFFFFF;
   color: #37474F;
@@ -601,7 +597,6 @@ mark.l {
 .voltinput {
   font-weight:500;
   padding: 5px;
-  /* padding-right:0px; */
   border-radius: 15px;
   border-width:0px;
   width: 78px;
@@ -634,7 +629,6 @@ mark.l {
   display: table-cell;
   position: relative;
   margin: 0px;
-  /* height: 40px; */
   width:20px;
 }
 
@@ -772,8 +766,6 @@ mark.l {
 }
 
 #toggle-2 .knobs:before {
-  /* content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='5' r='6' stroke='black' stroke-width='2' fill='none'/%3E%3C/svg%3E ");
-  content-visibility:visible; */
   content: '⬤';
   font-size: 14px;
 }
