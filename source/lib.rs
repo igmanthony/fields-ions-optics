@@ -1,5 +1,3 @@
-mod e_maps;
-
 use ndarray::{prelude::s, Array, Array2, Array3, Axis, Zip};
 use wasm_bindgen::prelude::*;
 
@@ -9,9 +7,9 @@ use wasm_bindgen::prelude::*;
 //     }
 // }
 
-#[cfg(feature = "wee_alloc")]
-#[global_allocator]
-static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+// #[cfg(feature = "wee_alloc")]
+// #[global_allocator]
+// static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 const T: f64 = 298.15; // temperature in Kelvin
 const K: f64 = 1.3806505E-23; // Boltzmann's constant in J/K
@@ -57,7 +55,7 @@ impl Environment {
         let mut efmap = Array3::zeros((width, height, vlen));
         for i in 0..(width) {
             for j in 0..height {
-                efmap[[j, i, 1]] = (i * j) as f64;
+                efmap[[j, i, 1]] = (i + j) as f64;
             }
         }
         Environment {
@@ -172,26 +170,6 @@ impl Environment {
         if index < self.pixels.len() {
             self.pixels[index] = color;
         }
-    }
-
-    pub fn load_lens(&mut self) {
-        self.pixels = e_maps::lens();
-    }
-
-    pub fn load_quad(&mut self) {
-        self.pixels = e_maps::quad();
-    }
-
-    pub fn load_tof(&mut self) {
-        self.pixels = e_maps::tof();
-    }
-
-    pub fn load_cyclotron(&mut self) {
-        self.pixels = e_maps::cyclotron();
-    }
-
-    pub fn load_funnel(&mut self) {
-        self.pixels = e_maps::funnel();
     }
 
     pub fn generate_electrodes(&mut self) {

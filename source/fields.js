@@ -1,15 +1,12 @@
-import glob from './globals.js';
-import {draw3d} from './render.js';
-
+import { glob, state, turbo } from './globals.js';
+import { draw3d } from './render.js';
 
 function draw_electric_field(image) {
     const pixels = image.efpix();
     glob.efmap_pixels = pixels;
     let electric_field_map = document.getElementById("electric_field_map");
     if (glob.three_dimension_view) {
-        if (glob.gl === null) {
-            glob.gl = electric_field_map.getContext("webgl2")
-        }
+        glob.gl = (glob.gl === null) ? electric_field_map.getContext("webgl2"): glob.gl;
         draw3d(image);
     } else {
         const context = electric_field_map.getContext("2d");
@@ -18,8 +15,7 @@ function draw_electric_field(image) {
         for (let x = 0; x < glob.map_width; x++) {
             for (let y = 0; y < glob.map_height; y++) {
                 let value = pixels[((y * glob.map_width) + x)];
-                let newvalue = Math.floor((value - min) / (max - min) * 255.0);
-                context.fillStyle = glob.cmap[newvalue];
+                context.fillStyle = turbo[Math.floor((value - min) / (max - min) * 255.0)];
                 context.fillRect(x * glob.cellSize, y * glob.cellSize, glob.cellSize, glob.cellSize);
             }
         }
@@ -31,13 +27,7 @@ function setupElectricFieldMap(image) {
     let electric_field_map = document.getElementById("electric_field_map");
     glob.three_d_zoom_level = 0;
     if (glob.three_dimension_view) {
-        electric_field_map.addEventListener('click', (event) => {
-            const rect = electric_field_map.getBoundingClientRect();
-            glob.current_x_position = (event.clientX - rect.left) / glob.cellSize;
-            glob.current_y_position = (event.clientY - rect.top) / glob.cellSize;
-            document.getElementById("x-position").value = glob.current_x_position;
-            document.getElementById("y-position").value = glob.map_height - glob.current_y_position;
-        });
+        electric_field_map.addEventListener('click', (event) => { efmap_click(event, electric_field_map); });
         electric_field_map.addEventListener('mousemove', (event) => {
             if (glob.dragging) {
                 let initial_y = glob.mouse_ef_map_y;
@@ -48,33 +38,25 @@ function setupElectricFieldMap(image) {
                 glob.delta_ef_map_y += initial_y - glob.mouse_ef_map_y;
             }
         })
-
         electric_field_map.addEventListener("mousedown", event => {
             glob.dragging = true;
             glob.mouse_ef_map_y = event.clientX; // opposites?
             glob.mouse_ef_map_x = event.clientY; // opposites?
         });
-        electric_field_map.addEventListener("mouseup", event => { glob.dragging = false; });
+        electric_field_map.addEventListener("mouseup", _ => { glob.dragging = false; });
         electric_field_map.addEventListener('wheel', event => {
             event.preventDefault();
             glob.three_d_zoom_level += event.deltaY / 2.0;
         });
     } else {
-        let electric_field_map = document.getElementById("electric_field_map");
         electric_field_map.addEventListener('click', (event) => {
-            const rect = electric_field_map.getBoundingClientRect();
-            glob.current_x_position = (event.clientX - rect.left) / glob.cellSize;
-            glob.current_y_position = (event.clientY - rect.top) / glob.cellSize;
-            document.getElementById("x-position").value = glob.current_x_position;
-            document.getElementById("y-position").value = glob.map_height - glob.current_y_position;
-            fly_ion(image, glob.current_x_position, glob.current_y_position);
+            efmap_click(event, electric_field_map);
+            fly_ion(image, state.current_x_position, state.current_y_position);
         });
         electric_field_map.addEventListener('mousemove', (event) => {
             const rect = electric_field_map.getBoundingClientRect();
-            let x = event.clientX - rect.left;
-            let y = event.clientY - rect.top;
-            x = Math.floor(x / (glob.cellSize));
-            y = Math.floor(y / (glob.cellSize));
+            let x = Math.floor((event.clientX - rect.left) / (glob.cellSize));
+            let y = Math.floor((event.clientY - rect.top) / (glob.cellSize));
             if (x >= 0 && y >= 0) {
                 let ef = image.getef(x, y);
                 x = `${x}`.padStart(3, " ");
@@ -86,21 +68,29 @@ function setupElectricFieldMap(image) {
     }
 }
 
+function efmap_click(event, efmap) {
+    const rect = efmap.getBoundingClientRect();
+    state.current_x_position = (event.clientX - rect.left) / glob.cellSize;
+    state.current_y_position = (event.clientY - rect.top) / glob.cellSize;
+    document.getElementById("x-position").value = state.current_x_position;
+    document.getElementById("y-position").value = glob.map_height - state.current_y_position;
+}
+
 
 function fly_ion(image, x, y) {
     if (glob.electric_fields_calculated) {
-        image.update_voltages(glob.electrode_volts);
-        image.update_offsets(glob.electrode_offsets);
+        image.update_voltages(state.electrode_volts);
+        image.update_offsets(state.electrode_offsets);
         glob.no_lines = false;
         let ix = x + 0.001;
         let iy = y + 0.001;
-        let ivx = glob.current_x_velocity + 0.001;
-        let ivy = -(glob.current_y_velocity + 0.001);
-        let mz = glob.current_mz;
+        let ivx = state.current_x_velocity + 0.001;
+        let ivy = -(state.current_y_velocity + 0.001);
+        let mz = state.current_mz;
         let seed = Math.random();
-        if (glob.random_ke != 0) {
+        if (state.random_ke != 0) {
             let angle = seed * 2 * Math.PI;
-            let ke = glob.random_ke * 1.60218E-19; // convert from μeV to joules
+            let ke = state.random_ke * 1.60218E-19; // convert from μeV to joules
             let v = Math.sqrt((2 * ke) / (mz * 1.660538921E-27)) / 1000.0; // in m/ms
             ivx = ivx + (v * Math.cos(angle));
             ivy = ivy + (v * Math.sin(angle));
@@ -122,18 +112,17 @@ function fly_ion(image, x, y) {
             plotLatestIonPath(ctx, glob.cellSize);
         }
         let electrode_map = document.getElementById("electrode_map");
-        const emc = electrode_map.getContext("2d");
-        plotLatestIonPath(emc, glob.cellSize);
+        plotLatestIonPath(electrode_map.getContext("2d"), glob.cellSize);
         let fx = glob.latest_ion_path[l - 2].toFixed(0);
         let fy = image.height() - glob.latest_ion_path[l - 1].toFixed(0) - 1;
-        let head = ((l / 3) >= glob.max_time) ? "Time!!": "Splat!";
+        let head = ((l / 3) >= state.max_time) ? "Time!!": "Splat!";
         let position = `(${ix.toFixed(0)},${iy.toFixed(0)})->(${fx},${fy})`
         let collisions = ion_path[ion_path.length - 1];
         let splat = `${head} ${l / 3}ns ${mz}mz ${position} ${collisions} collisions`;
         glob.splatlog.push(splat);
         document.getElementById("splatlog").innerHTML = glob.splatlog.join('\n');
     } else {
-        image.update_voltages(glob.electrode_volts);
+        image.update_voltages(state.electrode_volts);
         image.generate_electric_fields();
         glob.electric_fields_calculated = true;
         draw_electric_field(image);

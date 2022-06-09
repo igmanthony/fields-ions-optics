@@ -1,12 +1,11 @@
-import glob from './globals.js';
-import m4 from './m4.js';
+import {glob, turbo} from './globals.js';
+import m4 from './libraries/m4.js';
 import {
     createProgramInfo,
     createBufferInfoFromArrays,
     setUniforms,
     setBuffersAndAttributes,
-} from './twgl.js';
-
+} from './libraries/twgl.js';
 
 const VERTEX_SHADER = `attribute vec4 position;
 attribute vec3 normal;
@@ -37,16 +36,6 @@ void main() {
 
 
 function degToRad(d) { return d * Math.PI / 180; }
-
-
-function resizeCanvasToDisplaySize(canvas) {
-    const width  = canvas.clientWidth  | 0;
-    const height = canvas.clientHeight | 0;
-    if (canvas.width !== width ||  canvas.height !== height) {
-        canvas.width  = width;
-        canvas.height = height;
-    }
-}
 
 function generateFaceNormals(indices, positions) {
     const faceNormals = [];
@@ -96,7 +85,6 @@ function generateNormals(arrays) {
     const faceNormals = generateFaceNormals(indices, positions);
     const vertIndices = generateVertIndices(positions);
     const vertFaces = generateVertFaces(vertIndices, indices);
-
     const newPositions = [];
     const newTexcoords = [];
     const newNormals = [];
@@ -136,7 +124,6 @@ function generateNormals(arrays) {
         }
         newVertIndices.push( tempVerts[vertId] );
     }
-    const newNewVertIndices = Uint32Array.from(newVertIndices);
     return {
         position: newPositions,
         texcoord: newTexcoords,
@@ -220,8 +207,6 @@ function draw3d(image) {
     }
     const max = Math.max(...pixels);
     const min = Math.min(...pixels);
-
-
     if (!glob.fake_canvas) {
         glob.fake_canvas = document.createElement('canvas').getContext('2d');
         glob.fake_canvas.canvas.width = glob.canvas_width;
@@ -230,17 +215,15 @@ function draw3d(image) {
             for (let y = 0; y < glob.map_height; y++) {
                 let value = pixels[((y * glob.map_width) + x)];
                 let newvalue = Math.floor((value - min) / (max - min) * 255);
-                glob.fake_canvas.fillStyle = glob.cmap[newvalue];
+                glob.fake_canvas.fillStyle = turbo[newvalue];
                 glob.fake_canvas.fillRect(x, y, glob.cellSize, glob.cellSize);
             }
         }
         glob.refresh_canvas = 0;
     }
-    let texture = glob.fake_canvas.getImageData(0, 0, glob.map_width, glob.map_height);
-
-    let coords = generateArrays(pixels, max, min, glob.map_width, glob.map_height);
-    const arrays = generateNormals(coords);
-    
+    const texture = glob.fake_canvas.getImageData(0, 0, glob.map_width, glob.map_height);
+    const arrays = generateArrays(pixels, max, min, glob.map_width, glob.map_height);
+    const arrays_with_normals = generateNormals(arrays);
     const gl = glob.gl;
     gl.clearColor(1, 1, 1, 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
@@ -251,7 +234,7 @@ function draw3d(image) {
     glob.delta_ef_map_x = 0;
     glob.three_d_zoom_level = 0;
     glob.programInfo = createProgramInfo(gl, [VERTEX_SHADER, FRAGMENT_SHADER]);
-    glob.bufferInfo = createBufferInfoFromArrays(gl, arrays)
+    glob.bufferInfo = createBufferInfoFromArrays(gl, arrays_with_normals)
     requestAnimationFrame(render);
 }
 
@@ -261,9 +244,10 @@ function render() {
         const gl = glob.gl;
         glob.delta_ef_map_x = Math.min(89, glob.delta_ef_map_x);
         glob.delta_ef_map_x = Math.max(0, glob.delta_ef_map_x)
-        let modelYRotationRadians = degToRad(-glob.delta_ef_map_y);
-        let modelXRotationRadians = degToRad(-glob.delta_ef_map_x);
-        resizeCanvasToDisplaySize(glob.gl.canvas);
+        glob.gl.canvas.width  = glob.gl.canvas.clientWidth  | 0;
+        glob.gl.canvas.height = glob.gl.canvas.clientHeight | 0;
+        const modelYRotationRadians = degToRad(-glob.delta_ef_map_y);
+        const modelXRotationRadians = degToRad(-glob.delta_ef_map_x);
         const fieldOfViewRadians = degToRad(11.5);
         const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
         const near = 10;
@@ -277,22 +261,22 @@ function render() {
         modelView = m4.xRotate(modelView, modelXRotationRadians);
         modelView = m4.yRotate(modelView, modelYRotationRadians);
         modelView = m4.translate(modelView, -glob.map_width/2, 0, -glob.map_height/2);
+        let mv = modelView;
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
         gl.enable(gl.DEPTH_TEST);
         gl.enable(gl.CULL_FACE);
         gl.useProgram(glob.programInfo.program);
         setBuffersAndAttributes(gl, glob.programInfo, glob.bufferInfo);
-        setUniforms(glob.programInfo, { projection, modelView });
+        setUniforms(glob.programInfo, { projection, modelView: mv });
         const OFFSET = 0;
         gl.drawElements(gl.TRIANGLES, glob.bufferInfo.numElements, gl.UNSIGNED_INT, OFFSET);
         requestAnimationFrame(render);
     } catch (error) {
         if (glob.three_dimension_view) {
             glob.three_dimension_view = 0;
-
         }
     }
 }
 
-
 export { draw3d };
+

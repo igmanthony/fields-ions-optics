@@ -20,11 +20,11 @@ lto = true
 
 [features]
 # If you uncomment this line, it will enable `wee_alloc`:
-default = ["wee_alloc"]
+# default = ["wee_alloc"]
 
 [dependencies]
 wasm-bindgen = "0.2.45"
-wee_alloc = { version = "0.4.2", optional = true }
+# wee_alloc = { version = "0.4.2", optional = true }
 ndarray = "0.15.0"
 
 [dependencies.web-sys]
@@ -32,12 +32,12 @@ version = "0.3.22"
 features = ["console"]
 
 
-# [target."cfg(debug_assertions)".dependencies]
-# console_error_panic_hook = "0.1.5"
+[target."cfg(debug_assertions)".dependencies]
+console_error_panic_hook = "0.1.5"
 
 # These crates are used for running unit tests.
-# [dev-dependencies]
-# wasm-bindgen-test = "0.2.45"
-# futures = "0.1.27"
-# js-sys = "0.3.22"
-# wasm-bindgen-futures = "0.3.22"
+[dev-dependencies]
+wasm-bindgen-test = "0.2.45"
+futures = "0.1.27"
+js-sys = "0.3.22"
+wasm-bindgen-futures = "0.3.22"

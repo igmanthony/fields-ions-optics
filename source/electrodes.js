@@ -1,8 +1,7 @@
-import glob from './globals.js';
-import { electrode_colors, electrode_colors_100 } from './constants.js';
+import { glob, state, electrode_colors, electrode_colors_100 } from './globals.js';
 
 function draw_electrodes(image) {
-    const scale = image.scale();
+    const scale = glob.scale;
     const width = image.width() / scale;
     const height = image.height() / scale;
     const size = glob.cellSize * scale;
@@ -12,12 +11,12 @@ function draw_electrodes(image) {
     for (let x = 0; x < width; x++) {
         for (let y = 0; y < height; y++) {
             const pix = pixels[((y * width) + x)];
-            if (glob.magnet_mode[pix] == 1 && pix > 0) {
+            if (state.magnet_mode[pix] == 1 && pix > 0) {
                 context.fillStyle = electrode_colors_100[pix];
                 context.fillRect(x * size, y * size, size, size);
                 if (x % 3 == 0 && y % 3 == 0) {
                     context.fillStyle = electrode_colors[pix];
-                    if (glob.electrode_volts[pix] > 0) {
+                    if (state.electrode_volts[pix] > 0) {
                         for (let i = 0; i < size; i++) {
                             context.fillRect(x * size + i, y * size + i, 1, 1);
                             context.fillRect(x * size - i + (size-1), y * size + i, 1, 1);
@@ -26,7 +25,7 @@ function draw_electrodes(image) {
                         context.fillRect(x * size + 2, y * size + 2, 2, 2);
                     }
                 }
-            } else if (glob.splattable[pix] == 1 && pix > 0) {
+            } else if (state.splattable[pix] == 1 && pix > 0) {
                 context.fillStyle = electrode_colors[0];
                 context.fillRect(x * size, y * size, size, size);
                 context.fillStyle = electrode_colors_100[pix];
@@ -41,7 +40,7 @@ function draw_electrodes(image) {
 
 function draw_over_electrodes(image) {
     if (!glob.dragging) {
-        const scale = image.scale();
+        const scale = glob.scale;
         const size = glob.cellSize * scale;
         let electrode_map = document.getElementById("electrode_map");
         const rect = electrode_map.getBoundingClientRect();
@@ -169,23 +168,6 @@ function save_history(image) {
     glob.history3 = image.electrode_pixels();
 } 
 
-function return_history(image) {
-    if (glob.history1 == 0 && glob.history2 == 0) {
-        return
-    }
-    glob.history3 = glob.history2;
-    glob.history2 = glob.history1;
-    glob.history1 = 0;
-    let width = glob.map_width / 2;
-    let height = glob.map_height / 2;
-    for (let x=0; x < width; x++)  {
-        for (let y=0; y < height; y++) {
-            let color = glob.history3[(x + width * y)];
-            image.brush(x, y, color);
-        }
-    }
-    glob.emap_altered = true;
-}
 
 function applyBrush(event, image) {
     if (glob.dragging) {
@@ -230,7 +212,7 @@ function applyBrush(event, image) {
                 image.brush(point[0], point[1], glob.active_electrode);
             }
         } else if (glob.brush == 5 && !glob.dragging) {
-            const scale = image.scale();
+            const scale = glob.scale;
             const width = image.width() / scale;
             const height = image.height() / scale;
             let points = image.electrode_pixels();
@@ -325,7 +307,6 @@ export {
     draw_electrodes,
     draw_over_electrodes,
     setupElectrodeMap,
-    return_history,
     save_history,
 };
 
