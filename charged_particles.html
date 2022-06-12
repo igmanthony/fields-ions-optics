@@ -65,6 +65,9 @@
     <p>
       The only real differences between the code and the math are the “get_electric_vector” function and the “+=” operator. In the Simulation Playground the get_electric_vector function performs a lookup of the electric values immediately around the position of the particle (thus, it needs to be passed the particle’s position and the electric_field_map; which is the table to do the lookup). In SIMION, there is an equivalent function to “get_electric_vector” that is a bit more accurate. The “+=” operator adds the left-hand-side to the right-hand-side and updates the left-hand-side with the resulting value (so a short-hand notation for the <i>s<sub>old</sub></i> and <i>v<sub>old</sub></i> addition).
     </p>
+    <aside>
+      This code demonstrates the <a href="https://en.wikipedia.org/wiki/Euler_method">Euler method</a>. More <a href="https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods">accurate methods</a> will be <a href="particle_flight.html">discussed later</a>.
+    </aside>
     <p>
       Obviously the analogy of charged particles as golf balls has a few inaccuracies:
     </p>
