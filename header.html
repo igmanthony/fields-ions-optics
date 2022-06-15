@@ -50,7 +50,7 @@ document.write(`
                 <div class='spacer linky'><a href="data_collection.html">Data collection*</a></div>
                 
                 <div class='spacer linky'><a href="electric_fields.html">Electric fields</a></div>
-                <div class='spacer linky'><a href="magnetism.html">Magnetism*</a></div>
+                <div class='spacer linky'><a href="magnetism.html">Magnetism</a></div>
                 <div class='spacer linky'><a href="beams.html">Beams*</a></div>
                 <div class='spacer linky'><a href="energy_correction.html">Energy correction*</a></div> <!-- reflectrons and electrostatic correction-->
                 <div class='spacer linky'><a href="reactions.html">Reactions*</a></div>
@@ -217,7 +217,7 @@ document.write(`
                     <div><input type="number" id="pulse_start" value=0 size="4" min="0" max="1000000"></div>
                     <div><output>ns</output></div>
                     <div><output>pulse end</output></div>
-                    <div><input type="number" id="pulse_end" value=400000 size="4" min="0" max="1000000"></div>
+                    <div><input type="number" id="pulse_end" value=1000000 size="4" min="0" max="10000000"></div>
                     <div><output>ns</output></div>
                 </div>
                 <div style='flex-grow:1;'></div>
@@ -285,14 +285,6 @@ document.write(`
                 <div>
                     <pre style="margin-bottom:0px"><code id="splatlog"></code></pre>
                 </div>
-                <!--
-                    future settings
-                    Kinetic energy,
-                    ion flight accuracy (add Runge Kutta),
-                    randomizer for flight,
-                    another button to view the fields like SIMION (3D)
-                    Expand flight time from 400,000 ns
-                -->
             </div>
         </div>
     </div>

@@ -14,7 +14,7 @@
       Aerial golf course photo by <a href="https://www.pexels.com/photo/green-grass-field-near-body-of-water-1608383/">Tom Piotrowski from Pexels</a>
     <p>
       A helpful, but sometimes misleading, mental model of the movement of charged particles is to think of them as golf balls rolling down hills. 
-      Despite the differences between charged particles and golf balls, the kinematics equations governing them are largely the same – in the absence of relativistic effects. The force on the charged particle depends on the surrounding electric gradient in much the same way that the force on the golf ball depends on the slope of the hill. That is to say, that at any instantaneous change between two moments for, for instance, an ion:
+      Despite the differences between charged particles and golf balls, the kinematics equations governing them are largely the same — in the absence of relativistic effects. The force on the charged particle depends on the surrounding electric gradient in much the same way that the force on the golf ball depends on the slope of the hill. That is to say, that at any instantaneous change between two moments for, for instance, an ion:
     </p>
     <p style="margin-left:25px;">
       force on the ion = electric field at the ions’ location × opposite charge of the ion;</br>
@@ -26,7 +26,7 @@
       or:
     </p>
     <p style="margin-left:25px;">
-       <i>F</i> = <i>-E</i> · <i>q</i></br>
+       <i>F</i> = <i>−E</i> · <i>q</i></br>
        <i>a</i> = <i>F</i> ÷ <i>m</i></br>
        <i>v<sub>new</sub></i> = <i>v<sub>old</sub></i> + <i>a</i> · <i>dt</i></br>
        <i>s<sub>new</sub></i> = <i>s<sub>old</sub></i> + <i>v<sub>new</sub></i> · <i>dt</i></br>
@@ -48,7 +48,7 @@
       <i>s<sub>new</sub></i> = <i>s<sub>old</sub></i> + <i>v<sub>new</sub></i> · <i>dt</i></br>
     </p>
     <p>
-      As <i>g</i>, <i>q</i>, and <i>m</i> are constant – or at least assumed constant, acceleration depends on the electric field, <i>E</i>, for an ion much as acceleration depends on the slope, sin<i>θ</i>, for a golf ball. These equations mean that if we know a charged particles’ (or a golf balls’) position and the electric field (or slope) at that position, then we can find its new position a short time (<i>dt</i>) later. For me, sometimes looking at math in code helps make it more concrete. Here is a snippet of Python code that performs this update function:
+      As <i>g</i>, <i>q</i>, and <i>m</i> are constant — or at least assumed constant, acceleration depends on the electric field, <i>E</i>, for an ion much as acceleration depends on the slope, sin<i>θ</i>, for a golf ball. These equations mean that if we know a charged particles’ (or a golf balls’) position and the electric field (or slope) at that position, then we can find its new position a short time (<i>dt</i>) later. For me, sometimes looking at math in code helps make it more concrete. Here is a snippet of Python code that performs this update function:
     </p>
     <div style="margin-bottom:20px;border-width:1px;border-style:solid;padding-left:10px;padding-top:5px;padding-bottom:5px;background-color: #282a36;font-size:15px;">
       <code style="color:#f8f8f2;">
@@ -60,33 +60,31 @@
       </code>
     </div>
     <p>
-      Where  “charge”, “mass”, and “dt” are single numbers; “electric_vector”, “force”, “acceleration”, “velocity”, and “position” are each two, paired numbers (corresponding to the x and y components – these are internally NumPy ndarrays); and “electric_field_map” which is an array of the electric fields that is the output of the process of refining and scaling the electrical fields (i.e., it’s the numbers represented by the rainbow-colored electric field canvas).
+      Where  “charge”, “mass”, and “dt” are single numbers; “electric_vector”, “force”, “acceleration”, “velocity”, and “position” are each two, paired numbers (corresponding to the x and y components — these are internally NumPy ndarrays); and “electric_field_map” which is an array of the electric fields that is the output of the process of refining and scaling the electrical fields (i.e., it’s the numbers represented by the rainbow-colored electric field canvas).
     </p>
     <p>
       The only real differences between the code and the math are the “get_electric_vector” function and the “+=” operator. In the Simulation Playground the get_electric_vector function performs a lookup of the electric values immediately around the position of the particle (thus, it needs to be passed the particle’s position and the electric_field_map; which is the table to do the lookup). In SIMION, there is an equivalent function to “get_electric_vector” that is a bit more accurate. The “+=” operator adds the left-hand-side to the right-hand-side and updates the left-hand-side with the resulting value (so a short-hand notation for the <i>s<sub>old</sub></i> and <i>v<sub>old</sub></i> addition).
     </p>
     <aside>
-      This code demonstrates the <a href="https://en.wikipedia.org/wiki/Euler_method">Euler method</a>. More <a href="https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods">accurate methods</a> will be <a href="particle_flight.html">discussed later</a>.
+      This code demonstrates a version of the <a href="https://en.wikipedia.org/wiki/Euler_method">Euler method</a>. More <a href="https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods">accurate methods</a> will be <a href="particle_flight.html">discussed later</a>.
     </aside>
     <p>
       Obviously the analogy of charged particles as golf balls has a few inaccuracies:
     </p>
     <ul>
-      <li>golf balls experience a rather large amount of friction – ions experience little</li>
-      <li>golf balls all have very similar masses – charged particles can have masses ranging from electrons, with around 0.0005 Da, to intact viruses with many million Da</li>
-      <li>golf balls rarely travel faster than 300 kph – electrons frequently travel near the speed of light</li>
+      <li>golf balls experience a rather large amount of friction — ions experience little</li>
+      <li>golf balls all have very similar masses — charged particles can have masses ranging from electrons, with around 0.0005 Da, to intact viruses with many million Da</li>
+      <li>golf balls rarely travel faster than 300 kph — electrons frequently travel near the speed of light</li>
       <li>black golf balls don’t roll up hills spontaneously but negative ions are attracted to positive electrodes (that repel positive ions)</li>
       <li>hills don’t usually become valleys on the timescales of golf ball flight, but electrodes can invert on the timescales of ion flight</li>
-      <li>golf courses can have steep slopes and even cliffs – electric fields are “smooth” or contiguous.</li>
-      <li>this mental model applies to 2D simulations of ions – such as those presented in the Simulation Playground. However, ions often move in three dimensions in response to 3D electric fields. There is no correspondingly-higher dimensional analog for hill topologies.</li>
+      <li>golf courses can have steep slopes and even cliffs — electric fields are “smooth” or contiguous.</li>
+      <li>this mental model applies to 2D simulations of ions — such as those presented in the Simulation Playground. However, ions often move in three dimensions in response to 3D electric fields. There is no correspondingly-higher dimensional analog for hill topologies.</li>
     </ul>
     <p>
         <aside>
             One of the many differences between the Simulation Playground and SIMION is that the Simulation Playground does not do any compensation for relativistic effects. SIMION does. However, for most ions at somewhat low velocities (on the order of mm per μs) relativistic effects will not cause substantial deviations to the ion trajectories. 
         </aside>
     </p>
-
-
 
   </div>
 
