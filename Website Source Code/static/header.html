@@ -1,0 +1,293 @@
+document.write(`
+<meta charset="UTF-8">
+<meta name="viewport", content="width=800, initial-scale=0.5">
+<meta name="author", content="Ian Anthony">
+<meta name="keywords", content="ion,simulation,mass,spectrometry,fields,ions,optics">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,500;1,500&family=Inconsolata&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.ico" type="image/ico">
+<link rel="preload" href="style.css" as="style">
+<link rel="stylesheet" href="style.css">
+<!--
+    The "playground" and "header" files are Javascript files that write HTML into all documents.
+    Forgive me for this abomination of a hack. I can't include HTML but I don't want
+    to copy-paste the full playground in to each file. I considered loading all HTML and
+    serving it via a single script, rather than the other way around. I think this is less sinful.
+-->
+<div class="topnav no-print" id="topnav">
+    <div class='flex-child no-print'>
+        <div class='title no-print'>SIMULATING FIELDS, IONS, and OPTICS</div>
+        <div class='subtitle no-print'>A COMPACT PRIMER ON ION SIMULATION&nbsp;
+            <span class="iconlink" style="cursor: pointer;" onclick=window.open('https://igmanthony.com/')>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="0.75rem">
+                    <circle cx="223" cy="128" r="128"/>
+                    <path d="m122 305c-74.3-0.157-122 67.1-122 122v42.6c0 22.8 18.5 41.3 41.3 41.3h364c22.8 0 41.3-18.5 41.3-41.3v-42.6c0.0113-54.7-47.6-122-122-122z"/>
+                </svg>
+            </span>
+            <span class="iconlink" style="cursor: pointer;" onclick=window.open("https://github.com/igmanthony/fields-ions-optics")>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 500" width="0.90rem">
+                    <path d="m248 0c-137 0-248 104-248 241 0 110 66.9 203 166 236 12.5 2.27 17.1-5.53 17.1-12v-48.8s-69.4 14.7-83.9-29.6c0 0-11.3-28.7-27.4-36.1 0 0-22.6-15.5 1.58-15.2 0 0 24.6 1.98 38.1 25.5 21.6 38.1 57.6 28.2 71.7 21.6-6e-5 -23.2 7.41-38 16.5-45.8-91.4-14-132-97.6-87.9-167 0 0-11-32.8 2.57-67 20.6-6.52 68.1 26.7 68.1 26.7 44.1-10.5 91.1-10.9 132 0 0 0 47.5-33.2 68.1-26.7 13.5 34.3 2.57 67 2.57 67 44.3 69.7 3.54 153-87.9 167 9.08 7.8 16.5 22.6 16.5 45.8v82.5c0 6.42 4.54 14.2 17.1 12 98.7-32.8 166-126 166-236 0-137-111-241-248-241z"/>
+                </svg>
+            </span>
+        </div>
+        <div class="header  no-print">
+                <div class='sub-header asubheader'><a href="introduction.html">Introduction</a></div>
+                <div class='sub-header asubheader'><a href="implementation.html">Implementation*</a></br> </div>
+                <div class='sub-header asubheader'><a href="building_blocks.html">Building blocks*</a></br></div>
+                <div class='sub-header asubheader'><a href="fun_with_simulations.html">Fun with simulations*</a></br></div>
+                <div class='sub-header asubheader'><a href="advanced_topics.html">Advanced topics*</a></br></div>
+
+                <div class='spacer linky'><a href="index.html">Forward</a></div>
+                <div class='spacer linky'><a href="laplace_equation.html">Laplace’s equation</a></div>
+                <div class='spacer linky'><a href="simple_electrodes.html">Simple electrodes</a></div><!-- field free regions, thin wire electrodes -->
+                <div class='spacer linky'><a href="filters.html">Filters*</a></div> <!-- sector and quads-->
+                <div class='spacer linky'><a href="accuracy.html">Accuracy*</a></div> <!-- proper simulation setup, design, randomization-->
+                
+                <div class='spacer linky'><a href="simulations.html">Simulations</a></div>
+                <div class='spacer linky'><a href="electrodynamics.html">Electrodynamics</a></div>
+                <div class='spacer linky'><a href="focusing.html">Focusing</a></div>
+                <div class='spacer linky'><a href="tof.html">Time-of-flight*</a></div> <!-- TOF -->
+                <div class='spacer linky'><a href="data_collection.html">Data collection*</a></div>
+                
+                <div class='spacer linky'><a href="electric_fields.html">Electric fields</a></div>
+                <div class='spacer linky'><a href="magnetism.html">Magnetism</a></div>
+                <div class='spacer linky'><a href="beams.html">Beams*</a></div>
+                <div class='spacer linky'><a href="energy_correction.html">Energy correction*</a></div> <!-- reflectrons and electrostatic correction-->
+                <div class='spacer linky'><a href="reactions.html">Reactions*</a></div>
+                
+                <div class='spacer linky'><a href="charged_particles.html">Charged particles</a></div>
+                <div class='spacer linky'><a href="pressure.html">Pressure regimes*</a></div>
+                <div class='spacer linky'><a href="guides.html">Guides*</a></div>
+                <div class='spacer linky'><a href="resonance.html">Resonance*</a></div> <!-- ICR and orbitraps -->
+                <div class='spacer linky'><a href="unknown.html">Unknown*</a></div>
+                
+                <div class='spacer linky'><a href="visualization.html">Visualization</a></div>
+                <div class='spacer linky'><a href="particle_flight.html">Particle flight</a></div>
+                <div class='spacer linky'><a href="traps.html">Traps*</a></div>
+                <div class='spacer linky'><a href="funnels.html">Funnels*</a></div> 
+                <div class='spacer linky'><a href="simion_tips.html">SIMION Tips*</a></div>
+                
+                <div class='spacer linky'><a href="dimensions.html">Dimensions</a></div>
+                <div class='spacer linky'><a href="bonus_details.html">Bonus details*</a></div>
+                <div class='spacer linky'><a href="cooling.html">Cooling*</a></div>
+                <div class='spacer linky'><a href="ion_mobility.html">Ion mobility*</a></div>
+                <div class='spacer linky'><a href="code.html">About & code</a></div> <!-- Webassembly, the python script, lua -->
+
+                <!-- <div class='spacer linky'><a href="mass_filters.html">Mass filters</a></div> -->
+                <!-- Ion-neutral, rrkm, metastable decay, ergodic -->
+                <!-- Webassembly, the python script, lua -->
+                <!-- <div class='spacer linky'><a href="conclusion.html">Conclusion*</a></div> -->
+        </div>
+    </div>
+</div>
+
+<div id="dummyplayground" class="no-print" style="padding:5px">
+    <button type="button" class="fakelapsible no-print" id="empty_none">Simulation Playground</button>
+</div>
+
+<!-- PLAYGROUND -->
+<div id="playgrounddiv" class="playgrounddiv  no-print">
+    <button type="button" class="collapsible" id="playground" >Simulation Playground</button>
+    <div class="tab">
+        <!-- BAR -->
+        <div class="flex-moved">
+            <button class='loadbutton' id="clear">Blank</button>
+            <button class='loadbutton' id="lens">Lens</button>
+            <button class='loadbutton' id="tof">Time-of-flight</button>
+            <button class='loadbutton' id="quadrupole">Quadrupole</button>
+            <button class='loadbutton' id="cyclotron">Cyclotron</button>
+            <button class='loadbutton' id="funnel">Funnel</button>
+            <button class='helpbutton' onclick="parent.location='simulation_playground.html'" id="help_page">Help</button>
+            <div style='flex-grow:1;'></div>
+            <div id="status" class="status">0 μs</div>
+        </div>
+        <!-- ELECTRODES AND CANVASES -->
+        <div class="flex-container">
+            <div class="flex-child">
+                <div>
+                    <div class='voltage' id="set_voltage">Set voltage</div>
+                    <input class='voltinput' type="number" id="voltage_input" value=500 size="4" min="-20000" max="20000">
+                </div>
+                <div><button class="sidebutton side1" id="electrode1">V</button></div>
+                <div><button class="sidebutton side2" id="electrode2">V</button></div>
+                <div><button class="sidebutton side3" id="electrode3">V</button></div>
+                <div><button class="sidebutton side4" id="electrode4">V</button></div>
+                <div><button class="sidebutton side0" id="electrode0">Erase</button></div>
+                <div>
+                    <button id="brush1" class="iconbutton">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="8px" height="20px">
+                            <rect x="0" y="8" width="8" height="8" fill="black"/>
+                        </svg>
+                    </button>
+                    <button id="brush2" class="iconbutton">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px">
+                            <path d="m1 6 13 13" fill="none" stroke="#000" stroke-linecap="round" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    <button id="brush3" class="iconbutton">
+                        <svg class='svgicon' xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"style="top:2px;left:-3px;">
+                            <circle cx="10" cy="10" r="8" fill="none" stroke="#000" stroke-width="1.8"/>
+                        </svg>
+                    </button>
+                </div>
+                <div>
+                    <button id="brush4" class="iconbutton">
+                        <svg class='svgicon' xmlns="http://www.w3.org/2000/svg" width="20px" height="20px">
+                            <rect x="3" y="1" width="15" height="15" ry="0.05" fill="none" stroke="#000" stroke-width="1.6"/>
+                        </svg>
+                    </button>
+                    <button id="brush5" class="iconbutton">
+                        <svg class='svgicon' xmlns="http://www.w3.org/2000/svg" width="20" height="20px">
+                            <path d="m12.7 0-10.8 6.24 7.28 12.6 10.8-6.24zm-8.51 4.4s-2.07 0.267-2.64 0.476c0 0-1.57 0.432-1.57 1.22v5.56c0 0.416 0.334 0.748 0.748 0.748 0.416 0 0.78-0.334 0.78-0.748l-0.0295-5.6z"/>
+                        </svg>
+                    </button>
+                    <button id="brush6" class="iconbutton">
+                        <svg class='svgicon' xmlns="http://www.w3.org/2000/svg" width="20" height="20px">
+                            <defs>
+                                <marker id="arrhead" overflow="visible" orient="auto">
+                                    <path transform="scale(-.28)" d="m5.77 0-8.65 5v-10l8.65 5z" fill-rule="evenodd"/>
+                                </marker>
+                            </defs>
+                            <path d="m5.04 4.22a7.59 7.59 0 0 1 9.16-1.21 7.59 7.59 0 0 1 3.54 8.54 7.59 7.59 0 0 1-7.33 5.62" fill="none" marker-start="url(#arrhead)" stroke="#000" stroke-width="3"/>
+                        </svg>
+                    </button>
+                </div>
+                <div style="margin-top:7px"></div>
+                <!-- TOGGLES -->
+                <div class="toggle-cover-holder">
+                    <div class="toggle-cover">
+                        <div class="toggle r" id="toggle-2">
+                            <input type="checkbox" class="toggle-checkbox" id="splattable">
+                            <div class="knobs"></div>
+                            <div class="layer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div></div>
+                <div class="toggle-cover-holder">
+                    <div class="toggle-cover">
+                        <div class="toggle r" id="toggle-1">
+                            <input type="checkbox" class="toggle-checkbox" id="dc_mode">
+                            <div class="knobs"></div>
+                            <div class="layer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div></div>
+                <div class="toggle-cover-holder">
+                    <div class="toggle-cover">
+                        <div class="toggle r" id="toggle-3">
+                            <input type="checkbox" class="toggle-checkbox" id="magnet_mode">
+                            <div class="knobs"></div>
+                            <div class="layer"></div>
+                        </div>
+                    </div>
+                </div>
+                <button class="specialbutton" id="update">Update</br>Fields</button>
+            </div>
+            <div class="flex-child">
+                <canvas id="electrode_map" width="600" height="600"></canvas>
+            </div>
+            <div>
+                <canvas id="electric_field_map" width="600" height="600" style="position:sticky"></canvas>
+            </div>
+        </div>
+        <!-- ADVANCED -->
+        <button type="button" class="collapsible" id="advanced">Advanced</button>
+        <div class="tab">
+            <div class="flex-moved" style="margin-top:1px;margin-bottom:-40px;">
+                <button class="specialbutton" id="fly'm" style="padding:10px;margin-right:10px;width:4rem">Fly'm</button>
+                <button id="SIMION_SAVE" class="advancebutton">Save to</br>SIMION</button>
+                <button id="JSON_SAVE" class="advancebutton">Save</button>
+                <label class="custom-file-upload"><input id="JSON_LOAD" onclick="this.value=null;" type="file"/>Load</label>
+                <button id="3d_view" class="advancebutton">3D</br>view</button>
+                <div style='flex-grow:1;'></div>
+            </div>
+            
+            <div style="align-items:center;" class="flex-container">
+                <div style="display:grid;grid-template-columns: auto auto auto;">
+                    <div style="text-align:center;font-family:'Inconsolata',monospace;border-bottom-style: solid;border-width: thin;padding:2px;grid-column: 1 / span 3;">electrode parameters</div>
+                    <div><output style="margin-right:5px">frequency</output></div>
+                    <div><input type="number" id="sin_frequency" value=1600 size="4" min="0" max="10000"></div>
+                    <div><output> khz</output></div>
+                    <div><output >offset</output></div>
+                    <div><input type="number" id="offset" value=0 size="4" min="-10000" max="10000"></div>
+                    <div><output> V</output></div>
+                    <div><output>pulse start</output></div>
+                    <div><input type="number" id="pulse_start" value=0 size="4" min="0" max="1000000"></div>
+                    <div><output>ns</output></div>
+                    <div><output>pulse end</output></div>
+                    <div><input type="number" id="pulse_end" value=1000000 size="4" min="0" max="10000000"></div>
+                    <div><output>ns</output></div>
+                </div>
+                <div style='flex-grow:1;'></div>
+                <div>
+                    <div style="text-align:center;font-family:'Inconsolata',monospace;border-bottom-style: solid;border-width: thin;padding:2px">environment parameters</div>            
+                    <div style="margin-top:3px;">                        
+                        <output style="margin-right:47px;margin-top:6px;height:23px">gas</output>
+                        <select name="bg_gas" id="bg_gas" style="width:65px;height:20px">
+                            <option value="28.0">Air</option>
+                            <option value="4.0">Helium</option>
+                            <option value="40.0">Argon</option>
+                            <option value="132.0">Xenon</option>
+                        </select>
+                    </div>
+                    <div>
+                        <output style="margin-right:12px">pressure</output>
+                        <input type="number" id="pressure" value=0 size="4" min="0" , max="10000" style="width:57px">
+                        <output>Pa</output>
+                    </div>
+                    <div>
+                        <output style="margin-right:5px;height:23px">field accuracy</output>
+                        <select id="fdm_threshold" style="height:20px">
+                            <option value='10'>Medium</option>
+                            <option value='0.1'>Highest</option>
+                            <option value='1'>High</option>
+                            <option value='100'>Low</option>
+                        </select>
+                    </div>   
+                    <div>
+                        <output style="margin-right:2px">q.ramp</output>
+                        <input type="number" id="quad_freq" value=0 size="4" min="0" , max="10000" style="width:26px">
+                        <output style="margin-right:2px">freq</output>
+                        <input type="number" id="quad_rf" value=0 size="4" min="0" , max="10000" style="width:26px">
+                        <output style="margin-right:2px">vpp</output>
+                        <input type="number" id="quad_dc" value=0 size="4" min="0" , max="10000" style="width:26px">
+                        <output style="margin-right:2px">dc</output>
+                    </div>
+                    
+                </div>
+                <div style='flex-grow:1;'></div>
+                <div>
+                    <div style="text-align:center;font-family:'Inconsolata',monospace;border-bottom-style: solid;border-width: thin;padding:2px">ion parameters</div>
+                    <div style="margin-top:3px">
+                        <input type="number" id="mz_ratio" value=100 size="2" min="0.01" max="100000.0">
+                        <output>m/z</output>
+                    </div>
+                    <div>
+                        <input type="number" id="x-position" value=0 min="0" max="200" style="width:40px">
+                        <output>x</output>
+                        <input type="number" id="y-position" value=0 min="0" max="200" style="width:40px">
+                        <output>y pos mm</output>
+                    </div>
+                    <div>
+                        <input type="number" id="ion_x_velocity" value=0 min="-10000" , max="10000" style="width:40px">
+                        <output>x</output>
+                        <input type="number" id="ion_y_velocity" value=0 min="-10000" max="10000" style="width:40px">
+                        <output>y vel m/ms</output>
+                    </div>
+                    <div>
+                        <input type="number" id="randomizer" value=0 min="0" , max="10000" style="width:60px">
+                        <output>random KE μeV</output>
+                    </div>
+                </div>
+                <div style='flex-grow:1;'></div>
+                <div>
+                    <pre style="margin-bottom:0px"><code id="splatlog"></code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+`);

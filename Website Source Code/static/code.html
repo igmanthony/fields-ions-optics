@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>About & code</title>
+  <script src="header.html"></script>
+</head>
+
+<body>
+    <div class="actual_body">
+      <h1>The simulation code</h1>
+      <h2>Learning by inspecting and tweaking</h2>
+      <p>
+        As mentioned in the <a href="index.html">forward</a>, my learning breakthrough was facilitated by observing and modifying the code that actually performed the simulations. The purpose of this site is to help facilitate that learning process — and there really isn’t any substitute for looking at and playing with code that performs the ion simulations. The <a href="https://github.com/igmanthony/fields-ions-optics">code for this site</a> is freely available. The code that powers the Simulation Playground is written in <a href="https://www.rust-lang.org">Rust</a> and contained in a single “<a href="https://github.com/igmanthony/fields-ions-optics/blob/main/source/lib.rs">lib.rs</a>” file that can be found in the “Simulation Code” folder. The Rust code is compiled to <a href="https://webassembly.org/">Webassembly</a>. Hosting is provided by <a href="https://github.com/igmanthony/fields-ions-optics">GitHub</a>. No cookies are used for this site, although Javascript must be enabled to use the Simulation Playground.
+      </p>
+
+      <h1>Python version</h1 id=python_script>
+      <h2>The code that started it all</h2>
+      <p>
+        This site all came about from a small script that I provided to my students. To download a .zip file containing <a href="https://github.com/igmanthony/fields-ions-optics/blob/main/files/unzipped%20python%20script/ion_simulation_script.py">this script</a> as well as a “<a href="https://github.com/igmanthony/fields-ions-optics/blob/main/files/unzipped%20python%20script/readme.pdf">readme.pdf</a>” and an “<a href="https://github.com/igmanthony/fields-ions-optics/blob/main/files/unzipped%20python%20script/electrodes.png">electrodes.png</a>” files that are helpful for using the script, click the button below:
+      </p>
+      <div style="text-align:center;font-size:25px;"><a href="files/ion_simulation_script.zip"><button style="padding:15px;font-size:16px;font-weight:600;box-shadow: 0 2px 3px 0 #00000033, 0 2px 5px 0 #00000030;">Download Python .zip file</button></a></div>
+      <p>
+        I have also provided the <a href="python_simulation_readme.html">readme as a webpage</a>. This readme walks through setting up the Python toolchain, using the script, and a few modifications to a simple einzel lens simulation. It also provides a short introduction to the Python programming language and some conceptual questions.
+      </p>
+
+      <h1>Excel version</h1 id=python_script>
+      <h2>For your inner accountant</h2>
+      <p>
+        I’ve complained that Microsoft Excel is a tool that people use and abuse well beyond the point where they’d benefit from a scripting language. Yet, I often resort to using Excel to explain concepts in programming as the grid-based nature of it allows for easy inspection and intuitive understanding. If you'd like to play around with an even-more-toy simulation program, go ahead and download the file below:
+      </p>
+        <div style="text-align:center;font-size:25px;"><a href="files/simulation_spreadsheet.xlsx"><button style="padding:15px;font-size:16px;font-weight:600;box-shadow: 0 2px 3px 0 #00000033, 0 2px 5px 0 #00000030;">Download Excel .xlsx file</button></a></div>
+      <p>
+        The grid size has been shrunk to 25 × 25 cells, only 100 cycles of the FDM method are applied, and each timestep is a chunky 10 ns, but everything is entierly done in Excel formulas — no Visual Basic, you get near real-time updates, and there's even a 3D viewer!
+      </p>
+
+      <h1>Licenses, citations, and attributions</h1>
+      <h2>If you are interested in using this site or materials from it</h2>
+      <p>
+        All <a href="https://github.com/igmanthony/fields-ions-optics/tree/main/source">Javascript, Python, Rust, and CSS code</a> written for this site is in the <a href="https://unlicense.org/">public domain</a>. Please see the <a href="https://github.com/igmanthony/fields-ions-optics#license--attribution">License & attribution</a> section of the README for the GitHub repository for more information. You are free and welcome to use my code, although I’d love a shoutout if you do. If you live somewhere that does not recognize public domain declarations, please contact me and I can provide you a permissive license.
+      <p>
+        Images are credited below the specific image with links where possible. Images have been sourced from the public domain, sources with <a href="https://creativecommons.org/licenses/">permissive licenses</a>, or places where my reading of <a href="https://copyright.web.cern.ch/"">their licensing</a> allows use by this site. No copyright is claimed for the images in this site, including images created by me for the text. All images either retain their original license or, if created by me, fall under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0 license</a>.
+      </p>
+      <p>
+        The text <i>Simulating Fields, Ions, and Optics</i> is © 2022 by Ian Anthony. All rights reserved. No part of the text of this book or site may be reproduced without written permission from me. Reproductions that qualify as fair use under copyright law do not require permission.
+      </p>
+      <aside>
+        Contact me at <a href="mailto:igmanthony@gmail.com">igmanthony@gmail.com</a>. 
+      </aside>
+      <p>
+        Please use the following information for any citations:
+      </br>
+        Anthony, I. G. M. “Simulating Fields, Ions, and Optics.” <i>igmanthony.com</i>, 2022, igmanthony.com/fields-ions-optics/
+      </p>
+      <h1>Design</h1>
+      <h2>More stealing and praise</h2>
+      <p>
+        Although the overall design for this site was stolen from <a href="https://jackschaedler.github.io/circles-sines-signals/sincos.html">Jack Schaedler</a>, some of the design specifics might be of interest to some.
+      </p>
+      <p>
+        The color scheme is usually <a href="https://material.io/design/color/the-color-system.html#color-usage-and-palettes">Material Design</a> — mostly because I have no eye for color coordination, but also because I’m colorblind and I can tell apart all the colors. The color map used in the Simulation Playground is <a href="https://ai.googleblog.com/2019/08/turbo-improved-rainbow-colormap-for.html">Turbo</a>, which I find to be an improved version of Jet and suitable for visualizing the positive and negative voltages of electrodes.
+      </p> 
+      <p>
+        The fonts for this site are <a href="https://github.com/JulietaUla/Montserrat">Montserrat</a> and <a href="https://github.com/Fonthausen/CrimsonPro">Crimson Pro</a>. I’ve long been a fan of <a href="https://www.aldusleaf.org/">Sebastian Kosch</a>, the designer of <a href="https://github.com/skosch/Crimson">Crimson</a>. I think Crimson Pro works even better than Crimson as a webfont. Montserrat is likely one of the most-used webfonts around — although a bit overexposed, it worked really well for the Simulation Playground so I kept it for the headings. Although it likely isn’t apparent from the text, I owe a great deal of gratitude to Matthew Butterick for his <a href="https://practicaltypography.com/">excellent book on Typography</a>, both in terms of a resource but also as an example of how to do web book typography well. 
+      <p>
+        Images have sometimes been cropped and dithered to reduce their file size and add visual interest. The inspiration for dithering large images was from <a href="https://solar.lowtechmagazine.com/">LOW←TECH&nbsp;MAGAZINE</a>. I used <a href="https://doodad.dev/dither-me-this/">Dither Me This</a> and <a href="https://www.gimp.org/">GIMP</a> for dithering and .png compression, respectively. 
+      </p>
+      <p>
+        The HTML code for this site was all hand-written. The inspiration for that is mostly due to a love of <a href="https://motherfuckingwebsite.com/">@thebarrytone’s infamous site</a> as well as some <a href="https://bestmotherfucking.website/">derivative works</a>. By writing every line by hand, I can reduce the size of each page and shrink the overall footprint of the site. I can also ensure that the formatting looks good and that the site is a bit more accessible.
+      </p>
+    </div>
+    </br>
+    <script src="index.js"></script>
+</body>
+
+</html>

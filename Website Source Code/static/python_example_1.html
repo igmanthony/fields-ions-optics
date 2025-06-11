@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Example code</title>
+    <script src="header.html"></script>
+</head>
+
+<body>
+<div class="actual_body">
+</br>
+
+<!-- GOD HAVE MERCY ON MY SOUL THIS TOOK FOREVER TO WRITE! -->
+
+<pre style="height:800px;width:100%">
+<code class="program" style="height:auto;width:70%;background-color:#282a36;color:#f8f8f2;padding:1em"><mark class="p">import</mark> numpy <mark class="p">as</mark> np
+<mark class="p">import</mark> matplotlib.pyplot <mark class="p">as</mark> plt
+
+start = np.<mark class="g">array</mark>([
+    [  <mark class="l">0</mark>,<mark class="l">-70</mark>,  <mark class="l">0</mark>,  <mark class="l">0</mark>,  <mark class="l">0</mark>],
+    [  <mark class="l">0</mark>,  <mark class="l">0</mark>,  <mark class="l">0</mark>,  <mark class="l">0</mark>,  <mark class="l">0</mark>],
+    [  <mark class="l">0</mark>,  <mark class="l">0</mark>,  <mark class="l">0</mark>,  <mark class="l">0</mark>,  <mark class="l">0</mark>],
+    [  <mark class="l">0</mark>,  <mark class="l">0</mark>,  <mark class="l">0</mark>,  <mark class="l">0</mark>,  <mark class="l">0</mark>],
+    [  <mark class="l">0</mark>,  <mark class="l">0</mark>,  <mark class="l">0</mark>,<mark class="l">100</mark>,  <mark class="l">0</mark>],
+])
+
+<mark class="c"># the value of each cell is its number of neighbors</mark>
+boundary_conditions = np.<mark class="g">array</mark>([
+    [  <mark class="l">2</mark>,  <mark class="l">3</mark>,  <mark class="l">3</mark>,  <mark class="l">3</mark>,  <mark class="l">2</mark>],
+    [  <mark class="l">3</mark>,  <mark class="l">4</mark>,  <mark class="l">4</mark>,  <mark class="l">4</mark>,  <mark class="l">3</mark>],
+    [  <mark class="l">3</mark>,  <mark class="l">4</mark>,  <mark class="l">4</mark>,  <mark class="l">4</mark>,  <mark class="l">3</mark>],
+    [  <mark class="l">3</mark>,  <mark class="l">4</mark>,  <mark class="l">4</mark>,  <mark class="l">4</mark>,  <mark class="l">3</mark>],
+    [  <mark class="l">2</mark>,  <mark class="l">3</mark>,  <mark class="l">3</mark>,  <mark class="l">3</mark>,  <mark class="l">2</mark>],
+])
+
+<mark class="c"># this needs to be 2x2 bigger to allow pasting the start</mark>
+<mark class="c"># four times - left, right, up, and down</mark>
+temporary_canvas = np.<mark class="g">zeros</mark>((<mark class="l">7</mark>, <mark class="l">7</mark>))
+
+<mark class="p">for</mark> i <mark class="p">in</mark> <mark class="y">range</mark>(<mark class="l">10_000</mark>):
+    temporary_canvas[<mark class="p">:-</mark><mark class="l">2</mark>,<mark class="l">1</mark><mark class="p">:-</mark><mark class="l">1</mark>] <mark class="p">+=</mark> start <mark class="c"># paste left</mark>
+    temporary_canvas[<mark class="l">2</mark><mark class="p">:</mark>,<mark class="l">1</mark><mark class="p">:-</mark><mark class="l">1</mark>] <mark class="p">+=</mark> start <mark class="c"># paste right</mark>
+    temporary_canvas[<mark class="l">1</mark><mark class="p">:-</mark><mark class="l">1</mark>,<mark class="p">:-</mark><mark class="l">2</mark>] <mark class="p">+=</mark> start <mark class="c"># paste up</mark>
+    temporary_canvas[<mark class="l">1</mark><mark class="p">:-</mark><mark class="l">1</mark>,<mark class="l">2</mark><mark class="p">:</mark>] <mark class="p">+=</mark> start <mark class="c"># paste down</mark>
+    temporary_canvas[<mark class="l">1</mark><mark class="p">:-</mark><mark class="l">1</mark>,<mark class="l">1</mark><mark class="p">:-</mark><mark class="l">1</mark>] <mark class="p">/=</mark> boundary_conditions
+    start = np.<mark class="g">copy</mark>(temporary_canvas[<mark class="l">1</mark><mark class="p">:-</mark><mark class="l">1</mark>,<mark class="l">1</mark><mark class="p">:-</mark><mark class="l">1</mark>])
+    <mark class="c"># reestablish Dirichlet boundary conditions</mark>
+    start[<mark class="l">0</mark>,<mark class="l">1</mark>] = <mark class="l">-70</mark>
+    start[<mark class="l">4</mark>,<mark class="l">3</mark>] = <mark class="l">100</mark>
+    <mark class="c"># reset the canvas for next loop</mark>
+    temporary_canvas.<mark class="g">fill</mark>(<mark class="l">0</mark>)
+
+<mark class="y">print</mark>(start)
+plt.<mark class="g">imshow</mark>(start, <mark class="o">cmap</mark><mark class="p">=</mark><mark class="w">"turbo"</mark>)
+plt.<mark class="g">show</mark>()
+</code></pre>
+
+
+</div>
+</br>
+<script src="index.js"></script>
+</body>
+</html>
